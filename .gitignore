@@ -1,0 +1,11 @@
+# 忽略IDE配置文件夹
+.idea/
+
+# 忽略虚拟环境文件夹
+.venv/
+
+# 忽略所有目录下的__pycache__
+**/__pycache__
+
+# 忽略数据库迁移文件夹
+migrations/

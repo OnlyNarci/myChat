@@ -1,0 +1,17 @@
+[project]
+dependencies = [
+    "aiomysql==0.2.0",
+    "uvicorn==0.35.0",
+    "fastapi==0.116.1",
+    "requests==2.32.4",
+    "tortoise-orm==0.25.1",
+    "aerich==0.9.1",
+    "passlib",
+    "argon2_cffi",
+    "cryptography==46.0.3",
+]
+
+[tool.aerich]
+tortoise_orm = "app.core.config.TORTOISE_ORM_CONFIG"
+location = "./migrations"
+src_folder = "./."
