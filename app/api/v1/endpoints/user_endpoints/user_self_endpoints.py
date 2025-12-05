@@ -52,11 +52,15 @@ async def get_user_info_endpoint(
     """
     try:
         user_info = await get_user_info_service(user_uid=user_uid)
-        return {
-            'success': True,
-            'message': 'success to get user info',
-            'user_info': user_info,
-        }
+        match user_info:
+            case 'user not found':
+                raise ClientError(error_code=ErrorCodes.NotFound, message='未知玩家')
+            case _:
+                return {
+                    'success': True,
+                    'message': 'success to get user info',
+                    'user_info': user_info,
+                }
     
     except Exception as e:
         err_logger.error(f'failed to get user info: {e} | params: user_uid={user_uid}')
@@ -81,6 +85,11 @@ async def update_self_info_endpoint(
             user_id=user_id,
             user_info=user_info
         )
+        return {
+            'success': True,
+            'message': 'success to update self info',
+        }
     except Exception as e:
         err_logger.error(f'failed to update self info: {e} | params: user_id={user_id}; user_info={user_info}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法修改个人信息')
     

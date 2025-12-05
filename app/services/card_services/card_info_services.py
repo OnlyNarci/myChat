@@ -1,10 +1,10 @@
 from typing import List
 from tortoise.exceptions import DoesNotExist
-from app.schemas.card_schemas import UserCardParams
+from app.schemas.card_schemas import UserCardParams, CardParams
 from app.db.models import Card
 
 
-async def query_card_info_service(card_id: int) -> UserCardParams | str:
+async def query_card_info_service(card_id: int) -> CardParams | str:
     """
     查看指定卡牌的信息（除了合成所需材料）
     
@@ -17,7 +17,7 @@ async def query_card_info_service(card_id: int) -> UserCardParams | str:
     except DoesNotExist:
         return 'card not found'
     
-    return UserCardParams(
+    return CardParams(
         card_id=card.id,
         name=card.name,
         image=card.image,

@@ -1,16 +1,157 @@
+from fastapi import Depends
+
+from app.core.security import get_current_user_id
+from app.core.exceptions import ErrorCodes, ClientError, ServerError
 from app.api.v1.endpoints.group_endpoints import group_router
+from app.services.group_services.owner_group_services import (
+    delete_group_service,
+    appoint_group_admin_service,
+    dismiss_group_admin_service,
+    transfer_group_owner_service
+)
+from log.log_config.service_logger import err_logger
 
 
-@group_router.put('/{group_uid}/admin/{user_uid}')
-async def handle_group_admin_endpoint(group_uid, user_uid):
-    pass
+@group_router.put('/{group_uid}/member/{member_uid}')
+async def appoint_group_admin_endpoint(
+    group_uid,
+    member_uid,
+    user_id: int = Depends(get_current_user_id)
+):
+    """
+    任命群管理员
+    
+    :param group_uid: 群聊uid
+    :param member_uid: 要任命的群成员uid
+    :param user_id: 当前用户id
+    
+    :return:
+    """
+    try:
+        response = await appoint_group_admin_service(
+            user_id=user_id,
+            group_uid=group_uid,
+            member_uid=member_uid
+        )
+        match response:
+            case 'user is not owner':
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能任命管理员。')
+            case 'user not found':
+                raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不是群成员，无法任命为管理员。')
+            case 'appoint group admin success':
+                return {
+                    'success': True,
+                    'message': 'appoint group admin success'
+                }
+        
+    except Exception as e:
+        err_logger.error(f'failed to appoint group admin: {e} | params: user_id={user_id}; group_uid={group_uid}; member_uid={member_uid}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能任命管理员。')
 
 
-@group_router.put('/{group_uid}/owner/{user_uid}')
-async def handle_group_owner_endpoint(group_uid, user_uid):
-    pass
+@group_router.put('/{group_uid}/admin/{admin_uid}')
+async def dismiss_group_admin_endpoint(
+    group_uid,
+    admin_uid,
+    user_id: int = Depends(get_current_user_id)
+):
+    """
+    撤职群管理员
+    
+    :param group_uid: 群聊uid
+    :param admin_uid: 要撤职的群管理uid
+    :param user_id: 当前用户id
+    
+    :return:
+    """
+    try:
+        response = await dismiss_group_admin_service(
+            user_id=user_id,
+            group_uid=group_uid,
+            admin_uid=admin_uid
+        )
+        match response:
+            case 'user is not owner':
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能撤职管理员。')
+            case 'user not found':
+                raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不是群管理，无法撤职。')
+            case 'dismiss group admin success':
+                return {
+                    'success': True,
+                    'message': 'dismiss group admin success'
+                }
+    
+    except Exception as e:
+        err_logger.error(
+            f'failed to dismiss group admin: {e} | params: user_id={user_id}; group_uid={group_uid}; admin_uid={admin_uid}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能撤职管理员。')
+
+
+@group_router.put('/{group_uid}/owner/{member_uid}')
+async def transfer_group_owner_endpoint(
+    group_uid,
+    member_uid,
+    user_id: int = Depends(get_current_user_id)
+):
+    """
+    转让群主
+
+    :param group_uid: 群聊uid
+    :param member_uid: 要任命的群成员uid
+    :param user_id: 当前用户id
+    
+    :return:
+    """
+    try:
+        response = await transfer_group_owner_service(
+            user_id=user_id,
+            group_uid=group_uid,
+            member_uid=member_uid
+        )
+        match response:
+            case 'user is not owner':
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能转让群主。')
+            case 'user not found':
+                raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不是群成员，无法任命为群主。')
+            case 'transfer group owner success':
+                return {
+                    'success': True,
+                    'message': 'transfer group owner success'
+                }
+    
+    except Exception as e:
+        err_logger.error(
+            f'failed to transfer group owner: {e} | params: user_id={user_id}; group_uid={group_uid}; member_uid={member_uid}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能转让群主。')
     
     
 @group_router.delete('/{group_uid}')
-async def dissolve_group_endpoint():
-    pass
+async def dissolve_group_endpoint(
+    group_uid,
+    user_id: int = Depends(get_current_user_id)
+):
+    """
+    解散群聊
+    
+    :param group_uid: 要解散的群聊uid
+    :param user_id: 当前用户id
+    
+    :return:
+    """
+    try:
+        response = await delete_group_service(
+            user_id=user_id,
+            group_uid=group_uid,
+        )
+        match response:
+            case 'user is not owner':
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能解散群聊。')
+            case 'delete group success':
+                return {
+                    'success': True,
+                    'message': 'delete group success'
+                }
+    
+    except Exception as e:
+        err_logger.error(f'failed to dissolve group: {e} | params: user_id={user_id}; group_uid={group_uid}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能解散群聊。')

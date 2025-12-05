@@ -1,9 +1,16 @@
 from typing import List, Dict, TypeAlias
-from app.schemas.card_schemas import UserCardParams
+from app.core.exceptions import ErrorCodes, ClientError, ServerError
+from app.schemas.card_schemas import UserCardParams, CardParams
 from app.api.v1.endpoints.card_endpoints import card_router
+from app.services.card_services.card_info_services import (
+    query_card_info_service,
+    query_card_compose_materials_service,
+    query_card_decompose_materials_service
+)
+from log.log_config.service_logger import err_logger
 
 
-CardType: TypeAlias = Dict[str, bool | str | List[UserCardParams] | UserCardParams]
+CardType: TypeAlias = Dict[str, bool | str | List[UserCardParams] | UserCardParams | CardParams]
 
 
 @card_router.get('/info', response_model=CardType)
@@ -15,7 +22,21 @@ async def query_card_info_endpoint(card_id: int) -> CardType:
 
     :return: 卡牌信息
     """
-    pass
+    try:
+        card_info = await query_card_info_service(card_id)
+        match card_info:
+            case 'card not found':
+                raise ClientError(error_code=ErrorCodes.NotFound, message='未知卡牌。')
+            case _:
+                return {
+                    'success': True,
+                    'message': 'success in query card info',
+                    'card_info': card_info
+                }
+        
+    except ErrorCodes as e:
+        err_logger.error(f'failed to query card info: {e} | params: card_id={card_id}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能查看卡牌详情。')
 
 
 @card_router.get('/materials/compose', response_model=CardType)
@@ -27,7 +48,20 @@ async def query_card_compose_materials_endpoint(card_id: int) -> CardType:
     
     :return: 合成所需材料
     """
-    pass
+    try:
+        compose_materials = await query_card_compose_materials_service(card_id)
+        match compose_materials:
+            case 'card not found':
+                raise ClientError(error_code=ErrorCodes.NotFound, message='未知卡牌。')
+            case _:
+                return {
+                    'success': True,
+                    'message': 'success in query card compose materials',
+                    'compose_materials': compose_materials
+                }
+    except ErrorCodes as e:
+        err_logger.error(f'failed to query card compose materials: {e} | params: card_id={card_id}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能查看卡牌详情。')
 
 
 @card_router.get('/materials/decompose', response_model=CardType)
@@ -39,4 +73,18 @@ async def query_card_decompose_materials_endpoint(card_id: int) -> CardType:
 
     :return: 合成所需材料
     """
-    pass
+    try:
+        decompose_materials = await query_card_decompose_materials_service(card_id)
+        match decompose_materials:
+            case 'card not found':
+                raise ClientError(error_code=ErrorCodes.NotFound, message='未知卡牌。')
+            case _:
+                return {
+                    'success': True,
+                    'message': 'success in query card decompose materials',
+                    'decompose_materials': decompose_materials
+                }
+        
+    except ErrorCodes as e:
+        err_logger.error(f'failed to query card decompose materials: {e} | params: card_id={card_id}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能查看卡牌详情。')
