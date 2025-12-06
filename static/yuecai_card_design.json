@@ -1,0 +1,982 @@
+[
+  {
+    "name": "酱油炒饭",
+    "image": "",
+    "rarity": 2,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "白切鸡",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "盐水鸭",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "文思豆腐",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "蟹粉狮子头",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "拆烩鲢鱼头",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "淮安软兜",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "松鼠鳜鱼",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "干炒牛河",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "豉油鸡",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "煎虾饼",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "咕咾肉",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "腊味煲仔饭",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "海鲜煲仔饭",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "双皮奶",
+    "image": "",
+    "rarity": 2,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "脆皮烧鹅",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "三杯鸡",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "盐焗鲜鲍",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "六头干鲍",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "煎焗鳗鱼",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "佛跳墙",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "脆皮烧鸡",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "无骨鲫鱼",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "潮州蚝烙",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "鸡粥石榴包",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "风生水起",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "叉烧包",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "生腌血蚶",
+    "image": "",
+    "rarity": 2,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "反沙芋头",
+    "image": "",
+    "rarity": 2,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "百花竹笙卷",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "蟹粉苦瓜虾肉墩",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "荷包鳝",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "渔面",
+    "image": "",
+    "rarity": 2,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "绣球东星斑",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "功夫小炒皇",
+    "image": "",
+    "rarity": 4,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "茶香鸡",
+    "image": "",
+    "rarity": 2,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "啤酒鸭",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "小炒仔排",
+    "image": "",
+    "rarity": 3,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "甜豆花",
+    "image": "",
+    "rarity": 2,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  },
+  {
+    "name": "",
+    "image": "",
+    "rarity": 0,
+    "package": "",
+    "unlock_level": "",
+    "description": "",
+    "compose_materials": {},
+    "decompose_materials": {}
+  }
+]
