@@ -1,0 +1,3029 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Index",
+                "description": "\u53d1\u8d77\u6ce8\u518c\u8bf7\u6c42",
+                "operationId": "index__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/card/info": {
+            "get": {
+                "summary": "Query Card Info Endpoint",
+                "description": "\u67e5\u770b\u6307\u5b9a\u5361\u724c\u7684\u67d0\u4e9b\u4fe1\u606f\uff08\u9664\u4e86\u5408\u6210\u6240\u9700\u6750\u6599\uff09\n\n:param card_id: \u8981\u67e5\u770b\u7684\u5361\u724cid\n\n:return: \u5361\u724c\u4fe1\u606f",
+                "operationId": "query_card_info_endpoint_card_info_get",
+                "parameters": [
+                    {
+                        "name": "card_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Card Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/UserCardParams"
+                                                }
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/UserCardParams"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/CardParams"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Card Info Endpoint Card Info Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/card/materials/compose": {
+            "get": {
+                "summary": "Query Card Compose Materials Endpoint",
+                "description": "\u67e5\u770b\u6307\u5b9a\u5361\u724c\u7684\u5408\u6210\u6240\u9700\u6750\u6599\n\n:param card_id:\n\n:return: \u5408\u6210\u6240\u9700\u6750\u6599",
+                "operationId": "query_card_compose_materials_endpoint_card_materials_compose_get",
+                "parameters": [
+                    {
+                        "name": "card_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Card Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/UserCardParams"
+                                                }
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/UserCardParams"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/CardParams"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Card Compose Materials Endpoint Card Materials Compose Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/card/materials/decompose": {
+            "get": {
+                "summary": "Query Card Decompose Materials Endpoint",
+                "description": "\u67e5\u770b\u6307\u5b9a\u5361\u724c\u7684\u5206\u89e3\u6240\u80fd\u83b7\u5f97\u6750\u6599\n\n:param card_id:\n\n:return: \u5408\u6210\u6240\u9700\u6750\u6599",
+                "operationId": "query_card_decompose_materials_endpoint_card_materials_decompose_get",
+                "parameters": [
+                    {
+                        "name": "card_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Card Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/UserCardParams"
+                                                }
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/UserCardParams"
+                                            },
+                                            {
+                                                "$ref": "#/components/schemas/CardParams"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Card Decompose Materials Endpoint Card Materials Decompose Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/store/cards": {
+            "get": {
+                "summary": "Query Card",
+                "description": "\u67e5\u770b\u5728\u552e\u5361\u724c\uff0c\u5305\u540d\u5373\u5546\u5e97\u5206\u533a\uff0c\u53ef\u9009\u540d\u79f0\u6216\u4ef7\u683c\u4f5c\u4e3a\u67e5\u8be2\u53c2\u6570\u3002\n\n:param user_id: \u7528\u6237id\n:param package: \u5361\u724c\u6240\u5c5e\u6269\u62db\u5305\u540d\u79f0\n:param name_in: \u5361\u724c\u540d\u79f0\u4e2d\u5305\u542b\u7684\u5b57\u7b26\u4e32\uff08\u6a21\u7cca\u67e5\u8be2\uff09\n:param price_le: \u4ef7\u683c\u5c0f\u4e8e\u7b49\u4e8e\u6b64\u503c\n:param price_ge: \u4ef7\u683c\u5927\u4e8e\u7b49\u4e8e\u6b64\u503c\n\n:return: \u7b26\u5408\u6761\u4ef6\u7684\u5728\u552e\u5361\u724c",
+                "operationId": "query_card_store_cards_get",
+                "parameters": [
+                    {
+                        "name": "package",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 16
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Package"
+                        }
+                    },
+                    {
+                        "name": "name_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 16
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Name In"
+                        }
+                    },
+                    {
+                        "name": "price_le",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer",
+                                    "minimum": 0
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Price Le"
+                        }
+                    },
+                    {
+                        "name": "price_ge",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer",
+                                    "minimum": 0
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Price Ge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/StoreCardParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Card Store Cards Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "List Card",
+                "description": "\u5728\u5546\u5e97\u4e2d\u4e0a\u67b6\u5361\u724c\n\n:param card_to_list: \u5f85\u8d2d\u4e70\u7684\u5361\u724c\u5bf9\u8c61\n:param user_id: \u5356\u5bb6id\uff0c\u901a\u8fc7\u4f9d\u8d56\u83b7\u53d6",
+                "operationId": "list_card_store_cards_post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCardParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response List Card Store Cards Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Buy Card",
+                "description": "\u8d2d\u4e70\u5546\u5e97\u4e2d\u7684\u5361\u724c\n\n:param card_to_buy: \u5f85\u8d2d\u4e70\u7684\u5361\u724c\u5bf9\u8c61\n:param user_id: \u4e70\u5bb6id\uff0c\u901a\u8fc7\u4f9d\u8d56\u83b7\u53d6\n:param except_slippage: \u7528\u6237\u53ef\u63a5\u53d7\u7684\u6ed1\u70b9\n\n:return: \u8d2d\u4e70\u6210\u529f\u8fd4\u56de\u82b1\u8d39\u7684\u6bd4\u7279",
+                "operationId": "buy_card_store_cards_put",
+                "parameters": [
+                    {
+                        "name": "except_slippage",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Except Slippage"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCardParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "integer"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Buy Card Store Cards Put"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delist Card",
+                "description": "\u4e0b\u67b6\u5546\u5e97\u4e2d\u7684\u5361\u724c\n\n:param card_to_delist: \u5f85\u4e0b\u67b6\u7684\u5361\u724c\u5bf9\u8c61\n:param user_id: \u7528\u6237id\uff0c\u901a\u8fc7\u4f9d\u8d56\u83b7\u53d6\n\n:return: \u6210\u529f\u4e0b\u67b6\u7684\u5361\u724c\u6570\u91cf\uff1b\u4e0b\u67b6\u8bf7\u6c42\u5904\u7406\u8fc7\u7a0b\u4e2d\u5df2\u7ecf\u88ab\u4ed6\u4eba\u8d2d\u4e70\u7684\u5361\u724c\u6570\u91cf",
+                "operationId": "delist_card_store_cards_delete",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCardParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "integer"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Delist Card Store Cards Delete"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/store/{store_user_uid}/cards": {
+            "get": {
+                "summary": "Query Friends Card",
+                "description": "\u67e5\u770b\u6307\u5b9auid\u7684\u73a9\u5bb6\u5546\u5e97\u4e2d\u5728\u552e\u5361\u724c\uff0c\u76ee\u6807\u73a9\u5bb6\u548c\u5f53\u524d\u7528\u6237\u5fc5\u987b\u662f\u597d\u53cb\n\n:param store_user_uid: \u76ee\u6807\u5546\u5e97\u73a9\u5bb6uid\n:param user_id: \u5f53\u524d\u7528\u6237id\n\n:return:",
+                "operationId": "query_friends_card_store__store_user_uid__cards_get",
+                "parameters": [
+                    {
+                        "name": "store_user_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Store User Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/StoreCardParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Friends Card Store  Store User Uid  Cards Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/store/{store_user_id}/cards": {
+            "put": {
+                "summary": "Buy Friends Card",
+                "description": "\u8d2d\u4e70\u6307\u5b9auid\u7684\u73a9\u5bb6\u5546\u5e97\u4e2d\u6307\u5b9a\u5728\u552e\u5361\u724c\uff0c\u76ee\u6807\u73a9\u5bb6\u548c\u5f53\u524d\u7528\u6237\u5fc5\u987b\u662f\u597d\u53cb\n\n:param store_user_uid: \u76ee\u6807\u5546\u5e97\u73a9\u5bb6uid\n:param card_to_buy: \u76ee\u6807\u8d2d\u4e70\u7684\u5361\u724c\n:param user_id: \u5f53\u524d\u7528\u6237id\n\n:return: \u8d2d\u4e70\u6210\u529f\u8fd4\u56de\u82b1\u8d39\u7684\u6bd4\u7279",
+                "operationId": "buy_friends_card_store__store_user_id__cards_put",
+                "parameters": [
+                    {
+                        "name": "store_user_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Store User Uid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreCardParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "integer"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Buy Friends Card Store  Store User Id  Cards Put"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/login": {
+            "get": {
+                "summary": "Login Page",
+                "description": "\u8bbf\u95ee\u767b\u5f55\u9875\u9762",
+                "operationId": "login_page_player_login_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Login",
+                "description": "\u53d1\u8d77\u767b\u5f55\u8bf7\u6c42",
+                "operationId": "login_player_login_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginParams"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/signup": {
+            "get": {
+                "summary": "Signup Page",
+                "description": "\u8bbf\u95ee\u6ce8\u518c\u9875\u9762",
+                "operationId": "signup_page_player_signup_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Signup",
+                "description": "\u53d1\u8d77\u6ce8\u518c\u8bf7\u6c42",
+                "operationId": "signup_player_signup_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignupParams"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/friendship/under_review": {
+            "get": {
+                "summary": "Get Waiting Accept",
+                "operationId": "get_waiting_accept_player_friendship_under_review_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "additionalProperties": {
+                                                    "items": {
+                                                        "additionalProperties": {
+                                                            "anyOf": [
+                                                                {
+                                                                    "type": "string"
+                                                                },
+                                                                {
+                                                                    "$ref": "#/components/schemas/app__schemas__auth_schemas__UserParams"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "type": "object"
+                                            }
+                                        ]
+                                    },
+                                    "type": "object",
+                                    "title": "Response Get Waiting Accept Player Friendship Under Review Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/friendship/{request_user_uid}": {
+            "post": {
+                "summary": "Request Friendship",
+                "description": "\u5411\u6307\u5b9a uid \u73a9\u5bb6\u53d1\u8d77\u597d\u53cb\u8bf7\u6c42\n\n:param request_user_uid: \u76ee\u6807\u73a9\u5bb6 uid\n:param request_message: \u8bf7\u6c42\u65f6\u9644\u5e26\u7684\u6d88\u606f\n:param user_id: \u5f53\u524d\u73a9\u5bb6 id, Depends\u81ea\u52a8\u83b7\u53d6\n\n:return: \u8bf7\u6c42\u54cd\u5e94\u7ed3\u679c",
+                "operationId": "request_friendship_player_friendship__request_user_uid__post",
+                "parameters": [
+                    {
+                        "name": "request_user_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Request User Uid"
+                        }
+                    },
+                    {
+                        "name": "request_message",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Request Message"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Request Friendship Player Friendship  Request User Uid  Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Handle Friend Request",
+                "description": "\u5904\u7406\u4e00\u4e2a\u6536\u5230\u7684\u597d\u53cb\u8bf7\u6c42\n\n:param request_user_uid: \u8bf7\u6c42\u8005 uid\n:param is_accepted: \u662f\u5426\u540c\u610f\n:param user_id: \u5f53\u524d\u73a9\u5bb6 id, \u901a\u8fc7Depends\u81ea\u52a8\u83b7\u53d6\n\n:return: \u8bf7\u6c42\u54cd\u5e94\u7ed3\u679c",
+                "operationId": "handle_friend_request_player_friendship__request_user_uid__put",
+                "parameters": [
+                    {
+                        "name": "request_user_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Request User Uid"
+                        }
+                    },
+                    {
+                        "name": "is_accepted",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean",
+                            "title": "Is Accepted"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Handle Friend Request Player Friendship  Request User Uid  Put"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/friendship/{friend_uid}": {
+            "delete": {
+                "summary": "Delete Friendship",
+                "description": "\u5220\u9664\u597d\u53cb\n\n:param friend_uid: \u76ee\u6807\u5220\u9664\u7684\u597d\u53cb uid\n:param user_id: \u5f53\u524d\u7528\u6237 id\n\n:return:",
+                "operationId": "delete_friendship_player_friendship__friend_uid__delete",
+                "parameters": [
+                    {
+                        "name": "friend_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Friend Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Delete Friendship Player Friendship  Friend Uid  Delete"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/cards": {
+            "get": {
+                "summary": "Query Box",
+                "description": "\u67e5\u770b\u81ea\u5df1\u62e5\u6709\u7684\u5361\u724c\n\n:param name_in: \u5361\u724c\u540d\u79f0\uff08\u6a21\u7cca\u67e5\u8be2\uff09\n:param rarity: \u5361\u724c\u7a00\u6709\u5ea6\n:param package: \u5361\u724c\u5305\n:param user_id: \u7528\u6237id\n\n:return: \u67e5\u8be2\u5230\u7684\u6301\u6709\u5361\u724c",
+                "operationId": "query_box_player_cards_get",
+                "parameters": [
+                    {
+                        "name": "name_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 16
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Name In"
+                        }
+                    },
+                    {
+                        "name": "rarity",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer",
+                                    "maximum": 4,
+                                    "minimum": 1
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Rarity"
+                        }
+                    },
+                    {
+                        "name": "package",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 16
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Package"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/UserCardParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Box Player Cards Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Pull Card",
+                "description": "\u62bd\u5361\u8bf7\u6c42\u63a5\u53e3\n\n:param card_to_pull: \u73a9\u5bb6\u62bd\u5361\u53c2\u6570\n:param user_id: \u7528\u6237id\n\n:return: \u62bd\u5230\u7684\u5361\u724c",
+                "operationId": "pull_card_player_cards_post",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PullCardParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/UserCardParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Pull Card Player Cards Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Compose Card",
+                "description": "\u5408\u5361\u8bf7\u6c42\u63a5\u53e3\n\n:param card_to_compose: \u76ee\u6807\u5408\u6210\u7684\u5361\u724c\n:param user_id: \u73a9\u5bb6id\n\n:return: \u5408\u6210\u7ed3\u679c",
+                "operationId": "compose_card_player_cards_put",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCardParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Compose Card Player Cards Put"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Decompose Card",
+                "description": "\u5206\u5361\u8bf7\u6c42\u63a5\u53e3\n\n:param card_to_decompose: \u76ee\u6807\u5206\u89e3\u7684\u5361\u724c\n:param user_id: \u73a9\u5bb6id\n\n:return: \u5206\u89e3\u7ed3\u679c",
+                "operationId": "decompose_card_player_cards_delete",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCardParams"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/UserCardParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Decompose Card Player Cards Delete"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/orders/waiting": {
+            "get": {
+                "summary": "Get Waiting Orders",
+                "description": "\u83b7\u53d6\u4eca\u65e5\u672a\u5b8c\u6210\u7684\u8ba2\u5355\n\n:param user_id: \u7528\u6237id\n\n:return: \u4eca\u65e5\u672a\u5b8c\u6210\u7684\u8ba2\u5355",
+                "operationId": "get_waiting_orders_player_orders_waiting_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "items": {
+                                                    "$ref": "#/components/schemas/OrderParams"
+                                                },
+                                                "type": "array"
+                                            }
+                                        ]
+                                    },
+                                    "type": "object",
+                                    "title": "Response Get Waiting Orders Player Orders Waiting Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/orders/new": {
+            "get": {
+                "summary": "Get New Orders",
+                "description": "\u83b7\u53d6\u4eca\u65e5\u65b0\u8ba2\u5355\uff08\u53d1\u8d77\u8fd9\u4e2a\u8bf7\u6c42\u65f6\u8ba2\u5355\u624d\u88ab\u521b\u5efa\uff09\n\n:param user_id: \u7528\u6237id\n\n:return: \u65b0\u7684\u8ba2\u5355",
+                "operationId": "get_new_orders_player_orders_new_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "items": {
+                                                    "$ref": "#/components/schemas/OrderParams"
+                                                },
+                                                "type": "array"
+                                            }
+                                        ]
+                                    },
+                                    "type": "object",
+                                    "title": "Response Get New Orders Player Orders New Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/player/orders/{order_id}": {
+            "post": {
+                "summary": "Complete Order",
+                "description": "\u63d0\u4ea4\u7269\u54c1\u5e76\u5b8c\u6210\u6307\u5b9a\u7684\u8ba2\u5355\n\n:param order_id: \u8ba2\u5355 id\n:param user_id: \u7528\u6237 id\n\n:return: \u8ba2\u5355\u6536\u76ca",
+                "operationId": "complete_order_player_orders__order_id__post",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Order Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Complete Order Player Orders  Order Id  Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Order",
+                "description": "\u7528\u6237\u4e3b\u52a8\u5220\u9664\u4e00\u4e2a\u8ba2\u5355\n\n:param order_id: \u8ba2\u5355id\n:param user_id: \u7528\u6237id\n\n:return: \u5220\u9664\u7ed3\u679c",
+                "operationId": "delete_order_player_orders__order_id__delete",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Order Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Delete Order Player Orders  Order Id  Delete"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/others": {
+            "get": {
+                "summary": "Query Groups Not In Endpoint",
+                "description": "\u67e5\u627e\u7b26\u5408\u6761\u4ef6\u7684\u7fa4\u804a\n\n:param group_uid: \u7fa4\u804auid, \u5f53\u6b64\u53c2\u6570\u4e0d\u4e3a\u7a7a\u65f6\uff0c\u67e5\u8be2\u5230\u7684\u6761\u76ee\u5c06\u662f\u552f\u4e00\u7684\n:param name_in: \u7fa4\u804a\u540d\u79f0\u68c0\u7d22\n:param level_ge: \u7fa4\u804a\u7b49\u7ea7\u68c0\u7d22\n\n:return: \u7b26\u5408\u6761\u4ef6\u7684\u7fa4\u804a",
+                "operationId": "query_groups_not_in_endpoint_groups_others_get",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 6
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Group Uid"
+                        }
+                    },
+                    {
+                        "name": "name_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 16
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Name In"
+                        }
+                    },
+                    {
+                        "name": "level_ge",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "ge": 0
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Level Ge"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/GroupParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Groups Not In Endpoint Groups Others Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/me": {
+            "get": {
+                "summary": "Query Groups In Endpoint",
+                "description": "\u67e5\u770b\u81ea\u5df1\u5df2\u52a0\u5165\u7684\u7fa4\u804a(\u7528\u4e8e\u5728\u7fa4\u804a\u4e3b\u9875\u8fd4\u56de\u6570\u636e)\n\n:param user_id: \u7528\u6237id\n\n:return:",
+                "operationId": "query_groups_in_endpoint_groups_me_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "items": {
+                                                    "$ref": "#/components/schemas/GroupParams"
+                                                },
+                                                "type": "array"
+                                            }
+                                        ]
+                                    },
+                                    "type": "object",
+                                    "title": "Response Query Groups In Endpoint Groups Me Get"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/group_notice": {
+            "get": {
+                "summary": "Query Group Notice Endpoint",
+                "description": "\u67e5\u770b\u6307\u5b9a\u7fa4\u804a\u7684\u7fa4\u516c\u544a\n\n:param group_uid: \u7fa4\u804auid\n:param user_id: \u5f53\u524d\u7528\u6237id\uff0c\u4f9d\u8d56\u81ea\u52a8\u83b7\u53d6\n\n:return: \u7fa4\u516c\u544a\u5217\u8868",
+                "operationId": "query_group_notice_endpoint_groups__group_uid__group_notice_get",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Group Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/GroupMessageParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Query Group Notice Endpoint Groups  Group Uid  Group Notice Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/members/owner": {
+            "post": {
+                "summary": "Create Group Endpoint",
+                "operationId": "create_group_endpoint_groups_members_owner_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GroupSelfParams"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "type": "object",
+                                    "title": "Response Create Group Endpoint Groups Members Owner Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/members/me": {
+            "post": {
+                "summary": "Join Group Endpoint",
+                "description": "\u52a0\u5165\u6307\u5b9a\u7fa4\u804a\n\n:param group_uid: \u76ee\u6807\u7fa4\u7ec4uid\n:param user_id: \u7528\u6237id\n\n:return:",
+                "operationId": "join_group_endpoint_groups__group_uid__members_me_post",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Group Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Join Group Endpoint Groups  Group Uid  Members Me Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Leave Group Endpoint",
+                "description": "\u9000\u51fa\u6307\u5b9a\u7684\u7fa4\u804a\n\n:param group_uid: \u76ee\u6807\u7fa4\u7ec4uid\n:param user_id: \u7528\u6237id\n\n:return:",
+                "operationId": "leave_group_endpoint_groups__group_uid__members_me_delete",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Group Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Leave Group Endpoint Groups  Group Uid  Members Me Delete"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/under_review_members": {
+            "get": {
+                "summary": "Get Join Request Members Endpoint",
+                "description": "\u67e5\u770b\u5f85\u5904\u7406\u7684\u5165\u7fa4\u8bf7\u6c42\n\n:param group_uid: \u67e5\u770b\u7684\u7fa4\u804a\n:param user_id: \u5f53\u524d\u7528\u6237id\uff0c\u4f9d\u8d56\u81ea\u52a8\u83b7\u53d6\uff0c\u5e94\u5f53\u4e3a\u8be5\u7fa4\u7ba1\u7406\u5458\n:return: \u5f85\u540c\u610f\u7684\u53d1\u8d77\u5165\u7fa4\u8bf7\u6c42\u7684\u73a9\u5bb6\u4e2a\u4eba\u4fe1\u606f",
+                "operationId": "get_join_request_members_endpoint_groups__group_uid__under_review_members_get",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Group Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/app__schemas__base_schemas__UserParams"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Get Join Request Members Endpoint Groups  Group Uid  Under Review Members Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/group_message/notice": {
+            "post": {
+                "summary": "Post Group Notice Endpoint",
+                "description": "\u53d1\u5e03\u7fa4\u516c\u544a\n\n:param notice: \u7fa4\u516c\u544a\u5185\u5bb9\uff08\u53ea\u652f\u6301\u7eaf\u6587\u672c\uff09\n:param group_uid: \u7fa4\u804auid\n:param user_id: \u5f53\u524d\u7528\u6237id\uff0c\u4f9d\u8d56\u81ea\u52a8\u83b7\u53d6\uff0c\u5e94\u5f53\u4e3a\u8be5\u7fa4\u7ba1\u7406\u5458\n:return:",
+                "operationId": "post_group_notice_endpoint_groups__group_uid__group_message_notice_post",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Group Uid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string",
+                                "maxLength": 1024,
+                                "title": "Notice"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Post Group Notice Endpoint Groups  Group Uid  Group Message Notice Post"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/under_review_members/{request_user_uid}": {
+            "put": {
+                "summary": "Handle Join Request Members Endpoint",
+                "description": "\u5904\u7406\u5165\u7fa4\u8bf7\u6c42\n\n:param is_agree: \u662f\u5426\u540c\u610f\n:param group_uid: \u7fa4\u804auid\n:param request_user_uid: \u7533\u8bf7\u8005uid\n:param user_id: \u5f53\u524d\u7528\u6237id\uff0c\u4f9d\u8d56\u81ea\u52a8\u83b7\u53d6\uff0c\u5e94\u5f53\u4e3a\u8be5\u7fa4\u7ba1\u7406\u5458\n\n:return:",
+                "operationId": "handle_join_request_members_endpoint_groups__group_uid__under_review_members__request_user_uid__put",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Group Uid"
+                        }
+                    },
+                    {
+                        "name": "request_user_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Request User Uid"
+                        }
+                    },
+                    {
+                        "name": "is_agree",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean",
+                            "title": "Is Agree"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Handle Join Request Members Endpoint Groups  Group Uid  Under Review Members  Request User Uid  Put"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/info": {
+            "put": {
+                "summary": "Modify Group Info Endpoint",
+                "description": "\u4fee\u6539\u7fa4\u4fe1\u606f/\u7fa4\u8bbe\u7f6e\n\n:param group_params: \u65b0\u7684\u7fa4\u4fe1\u606f/\u7fa4\u8bbe\u7f6e\u6a21\u578b\n:param user_id: \u5f53\u524d\u7528\u6237id\uff0c\u4f9d\u8d56\u81ea\u52a8\u83b7\u53d6\uff0c\u5e94\u5f53\u4e3a\u8be5\u7fa4\u7ba1\u7406\u5458\n\n:return:",
+                "operationId": "modify_group_info_endpoint_groups__group_uid__info_put",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GroupSelfParams"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "type": "object",
+                                    "title": "Response Modify Group Info Endpoint Groups  Group Uid  Info Put"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/members/{member_uid}": {
+            "delete": {
+                "summary": "Kick Out Member Endpoint",
+                "description": "\u8e22\u51fa\u6307\u5b9a\u7684\u7fa4\u6210\u5458\n\n:param group_uid: \u7fa4\u804auid\n:param member_uid: \u8981\u8e22\u51fa\u7684\u7fa4\u6210\u5458\u7684uid\n:param user_id: \u5f53\u524d\u7528\u6237id\uff0c\u4f9d\u8d56\u81ea\u52a8\u83b7\u53d6\uff0c\u5e94\u5f53\u4e3a\u8be5\u7fa4\u7ba1\u7406\u5458\n\n:return:",
+                "operationId": "kick_out_member_endpoint_groups__group_uid__members__member_uid__delete",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Group Uid"
+                        }
+                    },
+                    {
+                        "name": "member_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 6,
+                            "title": "Member Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    },
+                                    "title": "Response Kick Out Member Endpoint Groups  Group Uid  Members  Member Uid  Delete"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/member/{member_uid}": {
+            "put": {
+                "summary": "Appoint Group Admin Endpoint",
+                "description": "\u4efb\u547d\u7fa4\u7ba1\u7406\u5458\n\n:param group_uid: \u7fa4\u804auid\n:param member_uid: \u8981\u4efb\u547d\u7684\u7fa4\u6210\u5458uid\n:param user_id: \u5f53\u524d\u7528\u6237id\n\n:return:",
+                "operationId": "appoint_group_admin_endpoint_groups__group_uid__member__member_uid__put",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "title": "Group Uid"
+                        }
+                    },
+                    {
+                        "name": "member_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "title": "Member Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/admin/{admin_uid}": {
+            "put": {
+                "summary": "Dismiss Group Admin Endpoint",
+                "description": "\u64a4\u804c\u7fa4\u7ba1\u7406\u5458\n\n:param group_uid: \u7fa4\u804auid\n:param admin_uid: \u8981\u64a4\u804c\u7684\u7fa4\u7ba1\u7406uid\n:param user_id: \u5f53\u524d\u7528\u6237id\n\n:return:",
+                "operationId": "dismiss_group_admin_endpoint_groups__group_uid__admin__admin_uid__put",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "title": "Group Uid"
+                        }
+                    },
+                    {
+                        "name": "admin_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "title": "Admin Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}/owner/{member_uid}": {
+            "put": {
+                "summary": "Transfer Group Owner Endpoint",
+                "description": "\u8f6c\u8ba9\u7fa4\u4e3b\n\n:param group_uid: \u7fa4\u804auid\n:param member_uid: \u8981\u4efb\u547d\u7684\u7fa4\u6210\u5458uid\n:param user_id: \u5f53\u524d\u7528\u6237id\n\n:return:",
+                "operationId": "transfer_group_owner_endpoint_groups__group_uid__owner__member_uid__put",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "title": "Group Uid"
+                        }
+                    },
+                    {
+                        "name": "member_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "title": "Member Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/{group_uid}": {
+            "delete": {
+                "summary": "Dissolve Group Endpoint",
+                "description": "\u89e3\u6563\u7fa4\u804a\n\n:param group_uid: \u8981\u89e3\u6563\u7684\u7fa4\u804auid\n:param user_id: \u5f53\u524d\u7528\u6237id\n\n:return:",
+                "operationId": "dissolve_group_endpoint_groups__group_uid__delete",
+                "parameters": [
+                    {
+                        "name": "group_uid",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "title": "Group Uid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CardParams": {
+                "properties": {
+                    "card_id": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u5361\u724cid"
+                    },
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 16
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u540d\u79f0"
+                    },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 1024,
+                                "minLength": 0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u539f\u753b"
+                    },
+                    "rarity": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 5.0,
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u7a00\u6709\u5ea6"
+                    },
+                    "package": {
+                        "$ref": "#/components/schemas/Package",
+                        "maxLength": 16,
+                        "title": "\u5361\u724c\u5305",
+                        "default": "base"
+                    },
+                    "unlock_level": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u89e3\u9501\u7b49\u7ea7"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u63cf\u8ff0"
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "card_id"
+                ],
+                "title": "CardParams",
+                "description": "\u5361\u724c\u57fa\u672c\u6a21\u578b"
+            },
+            "GroupMessageParams": {
+                "properties": {
+                    "group_uid": {
+                        "type": "string",
+                        "maxLength": 6,
+                        "title": "\u6240\u5728\u7fa4\u804auid"
+                    },
+                    "user_name": {
+                        "type": "string",
+                        "maxLength": 16,
+                        "title": "\u8bf4\u8bdd\u4eba"
+                    },
+                    "content": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "title": "\u6d88\u606f\u5185\u5bb9"
+                    },
+                    "message_type": {
+                        "$ref": "#/components/schemas/MessageType",
+                        "title": "\u6d88\u606f\u7c7b\u578b",
+                        "description": "0\u4e3a\u6587\u672c\uff0c1\u4e3a\u56fe\u7247url\uff0c2\u4e3a\u94fe\u63a5\uff0c3\u4e3a\u7fa4\u901a\u77e5",
+                        "default": 0
+                    },
+                    "created_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u521b\u5efa\u65f6\u95f4",
+                        "description": "\u5b9e\u9645\u4e0a\u662f\u6d88\u606f\u62b5\u8fbe\u540e\u7aef\u65f6\u88ab\u8bb0\u5f55\u7684\u65f6\u95f4"
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "group_uid",
+                    "user_name",
+                    "content"
+                ],
+                "title": "GroupMessageParams",
+                "description": "\u7fa4\u804a\u6d88\u606f\u6a21\u578b"
+            },
+            "GroupParams": {
+                "properties": {
+                    "uid": {
+                        "type": "string",
+                        "maxLength": 6,
+                        "title": "\u7fa4\u804auid"
+                    },
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 16
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u804a\u540d\u79f0"
+                    },
+                    "avatar": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 1024
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u5934\u50cf\u5728\u6587\u4ef6\u670d\u52a1\u5668\u4e2d\u7684url"
+                    },
+                    "signature": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 255
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u63cf\u8ff0"
+                    },
+                    "tags": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u6807\u7b7e"
+                    },
+                    "level": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u7b49\u7ea7",
+                        "default": 1
+                    },
+                    "allow_search": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u662f\u5426\u5141\u8bb8\u516c\u5f00\u641c\u7d22",
+                        "default": true
+                    },
+                    "join_free": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u662f\u5426\u5141\u8bb8\u81ea\u7531\u52a0\u5165",
+                        "description": "\u5426\u5219\u9700\u8981\u7ba1\u7406\u5458\u540c\u610f",
+                        "default": true
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "uid",
+                    "name",
+                    "avatar",
+                    "signature"
+                ],
+                "title": "GroupParams",
+                "description": "\u7fa4\u804a\u53c2\u6570\u6a21\u578b(\u516c\u5f00\u7684\u4fe1\u606f)"
+            },
+            "GroupSelfParams": {
+                "properties": {
+                    "uid": {
+                        "type": "string",
+                        "maxLength": 6,
+                        "title": "\u7fa4\u804auid"
+                    },
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 16
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u804a\u540d\u79f0"
+                    },
+                    "avatar": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 1024
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u5934\u50cf\u5728\u6587\u4ef6\u670d\u52a1\u5668\u4e2d\u7684url"
+                    },
+                    "signature": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 255
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u63cf\u8ff0"
+                    },
+                    "tags": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u6807\u7b7e"
+                    },
+                    "level": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u7fa4\u7b49\u7ea7",
+                        "default": 1
+                    },
+                    "allow_search": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u662f\u5426\u5141\u8bb8\u516c\u5f00\u641c\u7d22",
+                        "default": true
+                    },
+                    "join_free": {
+                        "anyOf": [
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u662f\u5426\u5141\u8bb8\u81ea\u7531\u52a0\u5165",
+                        "description": "\u5426\u5219\u9700\u8981\u7ba1\u7406\u5458\u540c\u610f",
+                        "default": true
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "uid",
+                    "name",
+                    "avatar",
+                    "signature"
+                ],
+                "title": "GroupSelfParams",
+                "description": "\u7fa4\u804a\u53c2\u6570\u6a21\u578b(\u7fa4\u6210\u5458\u7684\u4fe1\u606f)"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "LoginParams": {
+                "properties": {
+                    "user_name": {
+                        "type": "string",
+                        "maxLength": 16,
+                        "minLength": 1,
+                        "title": "User Name",
+                        "description": "\u7528\u6237\u540d\u4e0d\u80fd\u4e3a\u7a7a"
+                    },
+                    "password": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "minLength": 8,
+                        "pattern": "^[a-zA-Z0-9!@#$%^&*_.-]+$",
+                        "title": "Password",
+                        "description": "\u5bc6\u7801\u4e0d\u80fd\u4e3a\u7a7a"
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "user_name",
+                    "password"
+                ],
+                "title": "LoginParams",
+                "description": "\u767b\u5f55\u53c2\u6570\u6a21\u578b"
+            },
+            "MessageType": {
+                "type": "integer",
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3
+                ],
+                "title": "MessageType"
+            },
+            "OrderParams": {
+                "properties": {
+                    "order_id": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u8ba2\u5355\u7f16\u53f7"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u7528\u6237\u7f16\u53f7"
+                    },
+                    "require": {
+                        "items": {
+                            "$ref": "#/components/schemas/UserCardParams"
+                        },
+                        "type": "array",
+                        "title": "\u8ba2\u5355\u5185\u5bb9"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "minimum": 0.0,
+                        "title": "\u8ba2\u5355\u4ef7\u683c",
+                        "description": "\u5b8c\u6210\u8ba2\u5355\u53ef\u4ee5\u83b7\u5f97\u7684\u6bd4\u7279"
+                    },
+                    "exp": {
+                        "type": "integer",
+                        "minimum": 0.0,
+                        "title": "\u7ecf\u9a8c\u503c",
+                        "description": "\u5b8c\u6210\u8ba2\u5355\u83b7\u5f97"
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "order_id",
+                    "user_id",
+                    "require",
+                    "price",
+                    "exp"
+                ],
+                "title": "OrderParams",
+                "description": "\u8ba2\u5355\u53c2\u6570\u6a21\u578b"
+            },
+            "Package": {
+                "type": "string",
+                "enum": [
+                    "base",
+                    "chinese_pastry"
+                ],
+                "title": "Package"
+            },
+            "PullCardParams": {
+                "properties": {
+                    "times": {
+                        "type": "integer",
+                        "maximum": 100.0,
+                        "minimum": 1.0,
+                        "title": "\u62bd\u5361\u6b21\u6570",
+                        "default": 1
+                    },
+                    "package": {
+                        "type": "string",
+                        "maxLength": 16,
+                        "minLength": 1,
+                        "title": "Package",
+                        "default": "base"
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "title": "PullCardParams",
+                "description": "\u73a9\u5bb6\u62bd\u5361\u8bf7\u6c42\u6a21\u578b\uff0c\u7528\u4e8e\u6821\u9a8c\u62bd\u5361\u8bf7\u6c42\u4f53"
+            },
+            "SignupParams": {
+                "properties": {
+                    "user_name": {
+                        "type": "string",
+                        "title": "User Name"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "user_name",
+                    "password",
+                    "email"
+                ],
+                "title": "SignupParams",
+                "description": "\u6ce8\u518c\u53c2\u6570\u6a21\u578b"
+            },
+            "StoreCardParams": {
+                "properties": {
+                    "card_id": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u5361\u724cid"
+                    },
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 16
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u540d\u79f0"
+                    },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 1024,
+                                "minLength": 0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u539f\u753b"
+                    },
+                    "rarity": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 5.0,
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u7a00\u6709\u5ea6"
+                    },
+                    "package": {
+                        "$ref": "#/components/schemas/Package",
+                        "maxLength": 16,
+                        "title": "\u5361\u724c\u5305",
+                        "default": "base"
+                    },
+                    "unlock_level": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u89e3\u9501\u7b49\u7ea7"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u63cf\u8ff0"
+                    },
+                    "store_id": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u7684\u5546\u5e97id"
+                    },
+                    "number": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u5361\u724c\u6570\u91cf"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u5361\u724c\u4ef7\u683c"
+                    },
+                    "owner_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u6301\u6709\u8005\u540d\u79f0"
+                    },
+                    "is_publish": {
+                        "type": "boolean",
+                        "title": "\u662f\u5426\u516c\u5f00\u51fa\u552e",
+                        "description": "\u5426\u5219\u53ea\u6709\u670b\u53cb\u53ef\u89c1",
+                        "default": true
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "card_id",
+                    "number",
+                    "price"
+                ],
+                "title": "StoreCardParams",
+                "description": "\u5546\u5e97\u4e2d\u7684\u5361\u724c\u6a21\u578b\uff0c\u7528\u4e8e\u6821\u9a8c\u67e5\u5546\u5e97\u3001\u4e70\u5361\u3001\u4e0a\u67b6\u5361\u724c\u7684\u8bf7\u6c42\u53c2\u6570"
+            },
+            "UserCardParams": {
+                "properties": {
+                    "card_id": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u5361\u724cid"
+                    },
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 16
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u540d\u79f0"
+                    },
+                    "image": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "maxLength": 1024,
+                                "minLength": 0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u539f\u753b"
+                    },
+                    "rarity": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "maximum": 5.0,
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u7a00\u6709\u5ea6"
+                    },
+                    "package": {
+                        "$ref": "#/components/schemas/Package",
+                        "maxLength": 16,
+                        "title": "\u5361\u724c\u5305",
+                        "default": "base"
+                    },
+                    "unlock_level": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u89e3\u9501\u7b49\u7ea7"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u63cf\u8ff0"
+                    },
+                    "number": {
+                        "anyOf": [
+                            {
+                                "type": "integer",
+                                "minimum": 1.0
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "\u5361\u724c\u6570\u91cf"
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "card_id"
+                ],
+                "title": "UserCardParams",
+                "description": "\u73a9\u5bb6\u5361\u724c\u6a21\u578b\uff0c\u7528\u4e8e\u6821\u9a8c\u5408\u5361\u3001\u5206\u5361\u7684\u8bf7\u6c42\u53c2\u6570"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "app__schemas__auth_schemas__UserParams": {
+                "properties": {
+                    "uid": {
+                        "type": "string",
+                        "maxLength": 6,
+                        "title": "Uid",
+                        "description": "\u7528\u6237uid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 16,
+                        "title": "Name",
+                        "description": "\u7528\u6237\u540d\u79f0"
+                    },
+                    "avatar": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "title": "Avatar",
+                        "description": "\u7528\u6237\u5934\u50cf\u5728\u6587\u4ef6\u670d\u52a1\u5668\u4e2d\u7684url",
+                        "default": ""
+                    },
+                    "signature": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "title": "Signature",
+                        "description": "\u4e2a\u6027\u7b7e\u540d",
+                        "default": ""
+                    },
+                    "level": {
+                        "type": "integer",
+                        "title": "Level",
+                        "description": "\u7528\u6237\u7b49\u7ea7",
+                        "default": 1
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "uid",
+                    "name"
+                ],
+                "title": "UserParams",
+                "description": "\u7528\u6237\u6a21\u578b"
+            },
+            "app__schemas__base_schemas__UserParams": {
+                "properties": {
+                    "uid": {
+                        "type": "string",
+                        "maxLength": 6,
+                        "title": "\u7528\u6237uid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 16,
+                        "title": "\u7528\u6237\u59d3\u540d"
+                    },
+                    "avatar": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "title": "\u7528\u6237\u5934\u50cf\u5728\u6587\u4ef6\u670d\u52a1\u5668\u4e2d\u7684url",
+                        "default": ""
+                    },
+                    "signature": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "title": "\u4e2a\u6027\u7b7e\u540d",
+                        "default": ""
+                    },
+                    "level": {
+                        "type": "integer",
+                        "minimum": 1.0,
+                        "title": "\u7b49\u7ea7",
+                        "default": 1
+                    }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                    "uid",
+                    "name"
+                ],
+                "title": "UserParams",
+                "description": "\u7528\u6237\u4e2a\u4eba\u53c2\u6570\u6a21\u578b\uff08\u516c\u5f00\u7684\u4fe1\u606f\uff09"
+            }
+        }
+    }
+}

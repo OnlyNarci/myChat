@@ -1,0 +1,16 @@
+2025-12-06 16:42:33,208 - INFO - Received: GET http://localhost:8000/docs | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a6f6510>>
+2025-12-06 16:42:33,208 - INFO - Completed: GET http://localhost:8000/docs | Status: 200 | Duration: 0.00s
+2025-12-06 16:42:34,302 - INFO - Received: GET http://localhost:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a5cfc50>>
+2025-12-06 16:42:34,336 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.03s
+2025-12-06 16:42:35,618 - INFO - Received: GET http://localhost:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a5cfed0>>
+2025-12-06 16:42:35,619 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.00s
+2025-12-06 16:42:35,751 - INFO - Received: GET http://localhost:8000/favicon.ico | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a54a190>>
+2025-12-06 16:42:35,751 - INFO - Completed: GET http://localhost:8000/favicon.ico | Status: 404 | Duration: 0.00s
+2025-12-06 16:56:38,398 - INFO - Received: GET http://localhost:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a549cd0>>
+2025-12-06 16:56:38,399 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.00s
+2025-12-06 16:56:46,127 - INFO - Received: GET http://localhost:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a430b90>>
+2025-12-06 16:56:46,128 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.00s
+2025-12-06 18:13:48,831 - INFO - Received: GET http://localhost:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a6d3ce0>>
+2025-12-06 18:13:48,832 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.00s
+2025-12-06 18:13:58,383 - INFO - Received: GET http://localhost:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a41d6a0>>
+2025-12-06 18:13:58,384 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.00s
