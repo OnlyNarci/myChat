@@ -13,20 +13,19 @@ import { LoadingState } from '../stores/types';
  * @returns Promise<boolean> 登录是否成功
  */
 export const loginService = async (params: LoginParams): Promise<boolean> => {
-  const { setUser, setToken, setLoading, setError } = useUserStore.getState();
+  const { setUser, setLoading, setError } = useUserStore.getState();
   
   try {
     setLoading(LoadingState.LOADING);
     
     const response = await login(params);
     
-    if (response.code === 200 && response.data) {
-      // 假设登录成功后返回token，实际情况可能需要调整
-      const token = 'mock_token_' + Date.now(); // 实际应从response中获取
-      
-      setUser(response.data);
-      setToken(token);
+    if (response.code === 200) {
+      // 登录成功，session会自动通过cookie设置，无需手动管理token
       setLoading(LoadingState.SUCCESS);
+      
+      // 尝试获取用户信息
+      await getCurrentUserService();
       
       return true;
     } else {
@@ -142,7 +141,7 @@ export const logoutService = async (): Promise<boolean> => {
     
     const response = await logout();
     
-    // 无论API调用是否成功，都清除本地用户信息
+    // 清除本地用户信息（cookie会自动清除）
     clearUser();
     setLoading(LoadingState.SUCCESS);
     
@@ -158,14 +157,22 @@ export const logoutService = async (): Promise<boolean> => {
 
 /**
  * 初始化用户状态
- * 在应用启动时调用，检查本地存储的token并获取用户信息
+ * 在应用启动时调用，检查持久化数据并验证session
  * @returns Promise<void>
  */
 export const initializeUserState = async (): Promise<void> => {
-  const { token, isAuthenticated } = useUserStore.getState();
+  const { isAuthenticated, user } = useUserStore.getState();
   
-  // 如果本地有token但用户信息为空，尝试获取用户信息
-  if (token && !isAuthenticated) {
+  // 如果本地有用户信息，尝试验证session是否仍然有效
+  if (isAuthenticated && user) {
+    try {
+      await getCurrentUserService();
+    } catch (error) {
+      // session已过期，清除本地数据
+      useUserStore.getState().clearUser();
+    }
+  } else {
+    // 没有本地用户信息，尝试通过cookie获取
     await getCurrentUserService();
   }
 };

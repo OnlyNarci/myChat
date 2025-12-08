@@ -11,7 +11,7 @@ class Settings:
     DB_HOST: str = "localhost"
     DB_PORT: int = 3306
     DB_USER: str = "root"
-    DB_PASSWORD: str = 'binfen020617'
+    DB_PASSWORD: str = ''
     DB_NAME: str = "narcissus_tcg"
     DB_CHARSET: str = "utf8mb4"
 
@@ -24,7 +24,7 @@ class Settings:
     SESSION_EXPIRE_HOURS = 120
     SERVER_PORT: int = 8000
     SERVER_HOST: str = "127.0.0.1"
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:8000", "http://127.0.0.1:8000"]
+    ALLOWED_ORIGINS: list[str] = ["http://localhost:8000", "http://127.0.0.1:8000", "http://localhost:5173"]
 
     class Config:
         case_sensitive = True  # 保持配置项大小写敏感

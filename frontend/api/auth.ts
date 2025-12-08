@@ -11,7 +11,7 @@ import type { User, UserParams, LoginParams, RegisterParams, BaseResponse } from
  * @returns Promise<User>
  */
 export const login = (params: LoginParams): Promise<BaseResponse<User>> => {
-  return apiRequest.post('/auth/login', params);
+  return apiRequest.post('/player/login', params);
 };
 
 /**
@@ -20,7 +20,7 @@ export const login = (params: LoginParams): Promise<BaseResponse<User>> => {
  * @returns Promise<User>
  */
 export const register = (params: RegisterParams): Promise<BaseResponse<User>> => {
-  return apiRequest.post('/auth/register', params);
+  return apiRequest.post('/player/signup', params);
 };
 
 /**
@@ -28,7 +28,7 @@ export const register = (params: RegisterParams): Promise<BaseResponse<User>> =>
  * @returns Promise<User>
  */
 export const getCurrentUser = (): Promise<BaseResponse<User>> => {
-  return apiRequest.get('/auth/me');
+  return apiRequest.get('/player/info/me');
 };
 
 /**
@@ -37,7 +37,7 @@ export const getCurrentUser = (): Promise<BaseResponse<User>> => {
  * @returns Promise<User>
  */
 export const updateUser = (params: UserParams): Promise<BaseResponse<User>> => {
-  return apiRequest.put('/auth/update', params);
+  return apiRequest.put('/player/info/me', params);
 };
 
 /**
@@ -45,5 +45,5 @@ export const updateUser = (params: UserParams): Promise<BaseResponse<User>> => {
  * @returns Promise<BaseResponse<null>>
  */
 export const logout = (): Promise<BaseResponse<null>> => {
-  return apiRequest.post('/auth/logout');
+  return apiRequest.post('/player/logout');
 };

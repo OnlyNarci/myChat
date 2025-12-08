@@ -42,7 +42,7 @@ async def query_store_service(
 	if price_ge is not None:
 		query &= Q(price__gte=price_ge)
 
-	store_items = await Store.filter(query).select_related('card').all()
+	store_items = await Store.filter(query).select_related('card', 'owner').all()
 	
 	# 3.将要返回的数据组织为pydantic.BaseModel
 	cards = [
@@ -56,6 +56,8 @@ async def query_store_service(
 			description=store_card.card.description,
 			number=store_card.number,
 			price=store_card.price,
+			owner_name=store_card.owner.name,
+			is_publish=True,
 		)
 		for store_card in store_items
 	]
@@ -74,7 +76,7 @@ async def query_friend_store_service(
 	# 1.查询指定用户商店的所有卡牌
 	store_items = await Store.filter(
 		owner__uid=store_user_uid,
-	)
+	).select_related('card', 'owner').all()
 	
 	# 2.将要返回的数据组织为pydantic.BaseModel
 	cards = [
@@ -88,6 +90,8 @@ async def query_friend_store_service(
 			description=store_card.card.description,
 			number=store_card.number,
 			price=store_card.price,
+			owner_name=store_card.owner.name,
+			is_publish=store_card.is_publish
 		)
 		for store_card in store_items
 	]

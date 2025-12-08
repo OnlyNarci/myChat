@@ -106,7 +106,7 @@ async def pull_card_service(
     cards_by_rarity: Dict[int, List[Card]] = defaultdict(list)
     for card in all_available_card:
         cards_by_rarity[card.rarity].append(card)
-        
+    
     # 5.遍历稀有度列表，为每次抽卡随机选择对应稀有度的卡牌，并记录每张卡牌抽到的次数
     drawn_cards: Dict[int, UserCardParams] = {}
     
@@ -132,7 +132,10 @@ async def pull_card_service(
         user_id=user_id,
         card_id__in=list(drawn_cards.keys())
     ).select_for_update().select_related('card').all()
-    existing_card_dict = {uc.card.id: uc for uc in existing_user_cards}
+    if existing_user_cards:
+        existing_card_dict = {uc.card.id: uc for uc in existing_user_cards}
+    else:
+        existing_card_dict = {}
     
     # 7.区分需要更新和创建的卡牌
     to_update = []

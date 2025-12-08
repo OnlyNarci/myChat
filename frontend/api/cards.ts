@@ -11,7 +11,7 @@ import type { Card, UserCard, UserCardParams, BaseResponse, PaginatedResponse } 
  * @returns Promise<Card>
  */
 export const getCardInfo = (cardId: number): Promise<BaseResponse<Card>> => {
-  return apiRequest.get(`/cards/${cardId}`);
+  return apiRequest.get(`/card/info`, { params: { card_id: cardId } });
 };
 
 /**
@@ -25,7 +25,7 @@ export const getUserCards = (params?: {
   package?: string;
   rarity?: number;
 }): Promise<PaginatedResponse<UserCard>> => {
-  return apiRequest.get('/cards/user', { params });
+  return apiRequest.get('/player/cards', { params });
 };
 
 /**
@@ -37,7 +37,7 @@ export const craftCard = (params: {
   target_card_id: number;
   materials: { card_id: number; number: number }[];
 }): Promise<BaseResponse<UserCard>> => {
-  return apiRequest.post('/cards/craft', params);
+  return apiRequest.post('/player/cards', params);
 };
 
 /**
@@ -49,7 +49,7 @@ export const decomposeCard = (params: {
   card_id: number;
   number: number;
 }): Promise<BaseResponse<UserCard>> => {
-  return apiRequest.post('/cards/decompose', params);
+  return apiRequest.delete('/player/cards', { params });
 };
 
 /**
@@ -58,7 +58,7 @@ export const decomposeCard = (params: {
  * @returns Promise<BaseResponse<UserCard[]>>
  */
 export const getCraftMaterials = (cardId: number): Promise<BaseResponse<UserCard[]>> => {
-  return apiRequest.get(`/cards/craft/materials/${cardId}`);
+  return apiRequest.get('/card/materials/compose', { params: { card_id: cardId } });
 };
 
 /**
@@ -67,7 +67,7 @@ export const getCraftMaterials = (cardId: number): Promise<BaseResponse<UserCard
  * @returns Promise<BaseResponse<UserCard[]>>
  */
 export const getDecomposeMaterials = (cardId: number): Promise<BaseResponse<UserCard[]>> => {
-  return apiRequest.get(`/cards/decompose/materials/${cardId}`);
+  return apiRequest.get('/card/materials/decompose', { params: { card_id: cardId } });
 };
 
 /**
@@ -79,5 +79,5 @@ export const drawCards = (params: {
   count: number;
   package?: string;
 }): Promise<BaseResponse<{ cards: UserCard[]; cost: number }>> => {
-  return apiRequest.post('/cards/draw', params);
+  return apiRequest.post('/player/cards', params);
 };

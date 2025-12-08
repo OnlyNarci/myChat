@@ -11,18 +11,16 @@ import { LoadingState, type BaseState } from './types';
 interface UserState extends BaseState {
   // 用户数据
   user: User | null;
-  token: string | null;
   isAuthenticated: boolean;
   
   // 操作方法
   setUser: (user: User) => void;
-  setToken: (token: string) => void;
   clearUser: () => void;
   setLoading: (loading: LoadingState) => void;
   setError: (error: string | null) => void;
 }
 
-// 创建用户store
+// 创建用户store（持久化用户基本信息，认证依赖cookie）
 export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
@@ -30,7 +28,6 @@ export const useUserStore = create<UserState>()(
       loading: LoadingState.IDLE,
       error: null,
       user: null,
-      token: null,
       isAuthenticated: false,
       
       // 设置用户信息
@@ -38,23 +35,13 @@ export const useUserStore = create<UserState>()(
         set({ user, isAuthenticated: true, error: null });
       },
       
-      // 设置token
-      setToken: (token: string) => {
-        set({ token });
-        // 同时将token保存到localStorage，供axios拦截器使用
-        localStorage.setItem('token', token);
-      },
-      
       // 清除用户信息
       clearUser: () => {
         set({ 
           user: null, 
-          token: null, 
           isAuthenticated: false, 
           error: null 
         });
-        // 清除localStorage中的token
-        localStorage.removeItem('token');
       },
       
       // 设置加载状态
@@ -68,12 +55,11 @@ export const useUserStore = create<UserState>()(
       },
     }),
     {
-      name: 'user-storage', // localStorage中的key名
+      name: 'tcg-user-storage', // localStorage中的key名
       partialize: (state) => ({ 
-        user: state.user, 
-        token: state.token, 
-        isAuthenticated: state.isAuthenticated 
-      }), // 只持久化这些字段
+        user: state.user,           // 持久化用户基本信息（游戏公开数据）
+        isAuthenticated: state.isAuthenticated  // 持久化认证状态
+      }), // 认证仍依赖cookie，但持久化可提升体验
     }
   )
 );

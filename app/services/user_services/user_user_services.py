@@ -160,7 +160,7 @@ async def get_waiting_accept_service(user_id: int) -> Dict[str, List[Dict[str, s
     request_messages = await UserMessage.filter(
         user_send_id=user_id,
         message_type=MessageType.NOTICE,
-    )
+    ).select_related('user_receive').all()
     request_messages_map = {
         user_message.user_receive.id: user_message.content
         for user_message in request_messages

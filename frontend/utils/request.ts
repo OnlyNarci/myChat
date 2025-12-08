@@ -1,9 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type AxiosError } from 'axios';
 
 // API基础配置
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://api.example.com' 
-  : 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (import.meta.env.MODE === 'production' ? 'https://api.example.com' : 'http://localhost:8000');
 
 // 请求超时时间（毫秒）
 const REQUEST_TIMEOUT = 10000;
@@ -15,18 +14,14 @@ const apiClient: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // 支持跨域cookie
 });
 
 // 请求拦截器
 apiClient.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    // 在发送请求之前做些什么
-    const token = localStorage.getItem('token');
-    
-    // 如果有token，添加到请求头
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // 配置credentials以支持cookie
+    config.withCredentials = true;
     
     // 添加请求时间戳，防止缓存
     if (config.params) {
@@ -68,8 +63,7 @@ apiClient.interceptors.response.use(
       
       switch (status) {
         case 401:
-          // 未授权，清除token并跳转到登录页
-          localStorage.removeItem('token');
+          // 未授权，session过期，跳转到登录页
           window.location.href = '/login';
           break;
         case 403:

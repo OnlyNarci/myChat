@@ -14,3 +14,25 @@
 2025-12-06 18:13:48,832 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.00s
 2025-12-06 18:13:58,383 - INFO - Received: GET http://localhost:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x7af02a41d6a0>>
 2025-12-06 18:13:58,384 - INFO - Completed: GET http://localhost:8000/openapi.json | Status: 200 | Duration: 0.00s
+2025-12-07 23:40:07,973 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765122007652 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001438D46DD30>>
+2025-12-07 23:40:07,974 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765122007652 | Status: 400 | Duration: 0.00s
+2025-12-07 23:40:56,848 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765122056533 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000027518A41D30>>
+2025-12-07 23:40:56,849 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765122056533 | Status: 200 | Duration: 0.00s
+2025-12-07 23:40:56,853 - INFO - Received: POST http://localhost:8000/player/login?t=1765122056533 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000027518933610>>
+2025-12-07 23:40:57,168 - INFO - login success, session_id: 5e7129af-e6a6-401b-9b62-eda64b84d054
+2025-12-07 23:40:57,169 - INFO - Completed: POST http://localhost:8000/player/login?t=1765122056533 | Status: 200 | Duration: 0.32s
+2025-12-07 23:41:06,266 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765122066262 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000027518AE6710>>
+2025-12-07 23:41:06,266 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765122066262 | Status: 200 | Duration: 0.00s
+2025-12-07 23:41:06,268 - INFO - Received: POST http://localhost:8000/player/login?t=1765122066262 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000027518A3AB10>>
+2025-12-07 23:41:06,355 - INFO - login success, session_id: af554531-0887-4487-9420-3725f401aadd
+2025-12-07 23:41:06,355 - INFO - Completed: POST http://localhost:8000/player/login?t=1765122066262 | Status: 200 | Duration: 0.09s
+2025-12-07 23:41:15,604 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765122075293 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000027518B74640>>
+2025-12-07 23:41:15,604 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765122075293 | Status: 200 | Duration: 0.00s
+2025-12-07 23:41:15,606 - INFO - Received: POST http://localhost:8000/player/login?t=1765122075293 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000027518A13BF0>>
+2025-12-07 23:41:15,686 - INFO - login success, session_id: b10f6c7e-da31-42ca-8539-40c033226fd6
+2025-12-07 23:41:15,686 - INFO - Completed: POST http://localhost:8000/player/login?t=1765122075293 | Status: 200 | Duration: 0.08s
+2025-12-08 09:54:40,290 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765158879969 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000019D5533DD30>>
+2025-12-08 09:54:40,291 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765158879969 | Status: 200 | Duration: 0.00s
+2025-12-08 09:54:40,610 - INFO - Received: POST http://localhost:8000/player/login?t=1765158879969 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000019D553E7C50>>
+2025-12-08 09:54:40,807 - INFO - login success, session_id: 272a2d7a-2383-42d9-8e74-58d6c242fcce
+2025-12-08 09:54:40,807 - INFO - Completed: POST http://localhost:8000/player/login?t=1765158879969 | Status: 200 | Duration: 0.20s

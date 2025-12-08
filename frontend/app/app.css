@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* 全局样式重置和优化 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: theme("fontFamily.sans");
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* 响应式容器 */
+.container {
+  @apply w-full px-4 mx-auto;
+}
+
+/* 移动端优化容器 */
+@media (min-width: 640px) {
+  .container {
+    @apply max-w-xl;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    @apply max-w-2xl;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    @apply max-w-4xl;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    @apply max-w-6xl;
+  }
+}
+
+/* 移动端表单优化 */
+input, button, select, textarea {
+  @apply text-base; /* 防止iOS缩放 */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* 移动端按钮优化 */
+button {
+  @apply touch-none; /* 防止触摸延迟 */
+}
+
+/* 滚动条优化 */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* 响应式工具类 */
+.mobile-hidden {
+  @apply hidden sm:block;
+}
+
+.mobile-only {
+  @apply block sm:hidden;
+}
+
+/* 移动端卡片优化 */
+.mobile-card {
+  @apply mx-4 sm:mx-auto sm:max-w-md;
+}
+
+/* 安全区域适配 */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-right {
+  padding-right: env(safe-area-inset-right);
+}

@@ -14,7 +14,7 @@ export const getFriends = (params?: {
   page?: number;
   size?: number;
 }): Promise<PaginatedResponse<Friend>> => {
-  return apiRequest.get('/friends', { params });
+  return apiRequest.get('/player/friendship', { params });
 };
 
 /**
@@ -27,7 +27,7 @@ export const searchUsers = (params: {
   page?: number;
   size?: number;
 }): Promise<PaginatedResponse<Friend>> => {
-  return apiRequest.get('/friends/search', { params });
+  return apiRequest.get('/player/friendship/search', { params });
 };
 
 /**

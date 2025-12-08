@@ -1,4 +1,4 @@
-# TCG React 卡牌游戏前端
+# TCG 卡牌游戏前端
 
 基于 React + TypeScript + react-konva + Zustand + Vite + Socket.IO 技术栈的卡牌游戏前端项目。
 
@@ -17,7 +17,7 @@
 ## 项目结构
 
 ```
-tcg-react/
+frontend/
 ├── api/                # API接口定义
 │   ├── types.ts        # API数据类型
 │   ├── auth.ts         # 认证相关API
@@ -25,8 +25,14 @@ tcg-react/
 │   ├── store.ts        # 商店相关API
 │   ├── friends.ts      # 好友相关API
 │   └── index.ts        # API统一导出
-├── components/         # 组件目录
-├── pages/              # 页面目录
+├── app/                # React Router应用结构
+│   ├── routes/         # 页面路由组件
+│   │   ├── home.tsx    # 首页
+│   │   ├── login.tsx   # 登录页
+│   │   └── signup.tsx  # 注册页
+│   ├── root.tsx        # 根布局组件
+│   ├── routes.ts       # 路由配置
+│   └── app.css         # 全局样式
 ├── services/           # 服务层 - 连接API与状态管理
 │   ├── userService.ts  # 用户服务
 │   ├── cardsService.ts # 卡牌服务
@@ -41,15 +47,20 @@ tcg-react/
 │   ├── friendsStore.ts # 好友状态
 │   └── index.ts        # Store统一导出
 ├── utils/              # 工具函数
-│   ├── api.ts          # API请求封装
+│   ├── request.ts      # API请求封装
 │   ├── types.ts        # 通用类型定义
 │   └── index.ts        # 工具函数统一导出
 ├── tests/              # 测试文件
 │   ├── setup.ts        # 测试设置
-│   ├── utils/          # 工具函数测试
-│   ├── stores/         # 状态管理测试
-│   └── services/       # 服务层测试
-└── public/             # 静态资源
+│   ├── services/       # 服务层测试
+│   └── stores/         # 状态管理测试
+├── public/             # 静态资源
+│   └── favicon.ico     # 网站图标
+└── 配置文件
+    ├── vite.config.ts  # Vite配置
+    ├── vitest.config.ts # 测试配置
+    ├── tsconfig.json   # TypeScript配置
+    └── package.json    # 项目配置
 ```
 
 ## 开发指南
@@ -57,13 +68,16 @@ tcg-react/
 ### 安装依赖
 
 ```bash
-npm install
+# 注意：由于React 19与某些依赖存在兼容性问题，请使用以下命令
+npm install --legacy-peer-deps
 ```
 
 ### 开发模式
 
 ```bash
 npm run dev
+# 服务器启动在 http://localhost:5173
+# 如需指定端口：npm run dev -- --port 3000 --host 0.0.0.0
 ```
 
 ### 构建生产版本
