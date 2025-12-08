@@ -1,9 +1,8 @@
 from datetime import datetime, UTC, timedelta
 from typing import Dict, Union
 from fastapi import Response, Depends
-from fastapi.responses import HTMLResponse
 from app.core.exceptions import ErrorCodes, ServerError, ClientError
-from app.core.config import project_root, settings
+from app.core.config import settings
 from app.api.v1.endpoints.user_endpoints import user_router
 from app.api.v1.dependencies import validate_login_request
 from app.schemas.auth_schemas import SignupParams
@@ -54,26 +53,6 @@ async def login(
         raise ClientError(error_code=ErrorCodes.Unregistered, message='该用户名尚未注册')
 
 
-@user_router.get('/login')
-async def login_page():
-    """
-    访问登录页面
-    """
-    try:
-        html_file_path = project_root / 'frontend' / 'html' / 'login.html'
-
-        html_content = html_file_path.read_text(encoding='utf-8')
-        info_logger.info("get login page successfully")
-        return HTMLResponse(content=html_content)
-
-    except Exception as e:
-        err_logger.error(f"get login page failed, Error: {e}")
-        raise ServerError(
-            error_code=ErrorCodes.InternalServerError,
-            message="something went wrong, login page not found"
-        )
-
-
 @user_router.post('/signup')
 async def signup(signup_params: SignupParams):
     """
@@ -96,26 +75,3 @@ async def signup(signup_params: SignupParams):
     else:
         err_logger.error(f'signup failed course internal server error: {signup_result["message"]}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，请稍后重试')
-
-
-@user_router.get('/signup')
-async def signup_page():
-    """
-    访问注册页面
-    """
-    try:
-        html_file_path = project_root / 'frontend' / 'html' / 'signup.html'
-
-        # 读取HTML文件内容
-        html_content = html_file_path.read_text(encoding='utf-8')  # 读取文本内容
-
-        # 成功返回HTML内容
-        info_logger.info("get signin page successfully")
-        return HTMLResponse(content=html_content)  # 直接返回HTML文本
-
-    except Exception as e:
-        err_logger.error(f"get signup page failed, Error: {e}")
-        raise ServerError(
-            error_code=ErrorCodes.InternalServerError,
-            message=""
-        )

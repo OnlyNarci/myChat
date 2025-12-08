@@ -12,15 +12,18 @@ interface UserState extends BaseState {
   // 用户数据
   user: User | null;
   isAuthenticated: boolean;
+  hasCheckedAuth: boolean;  // 添加标志，避免重复检查
   
   // 操作方法
   setUser: (user: User) => void;
   clearUser: () => void;
   setLoading: (loading: LoadingState) => void;
   setError: (error: string | null) => void;
+  setHasCheckedAuth: (checked: boolean) => void;
+  reset: () => void;
 }
 
-// 创建用户store（持久化用户基本信息，认证依赖cookie）
+// 创建用户store（简化持久化策略）
 export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
@@ -29,18 +32,27 @@ export const useUserStore = create<UserState>()(
       error: null,
       user: null,
       isAuthenticated: false,
+      hasCheckedAuth: false,  // 初始化为false
       
       // 设置用户信息
       setUser: (user: User) => {
-        set({ user, isAuthenticated: true, error: null });
+        console.log('设置用户信息:', user);
+        set({ 
+          user, 
+          isAuthenticated: true, 
+          error: null,
+          hasCheckedAuth: true
+        });
       },
       
       // 清除用户信息
       clearUser: () => {
+        console.log('清除用户信息');
         set({ 
           user: null, 
           isAuthenticated: false, 
-          error: null 
+          error: null,
+          hasCheckedAuth: true  // 即使清除也要标记为已检查
         });
       },
       
@@ -51,15 +63,46 @@ export const useUserStore = create<UserState>()(
       
       // 设置错误信息
       setError: (error: string | null) => {
+        console.log('设置错误信息:', error);
         set({ error });
       },
+      
+      // 设置认证检查状态
+      setHasCheckedAuth: (checked: boolean) => {
+        set({ hasCheckedAuth: checked });
+      },
+      
+      // 重置所有状态
+      reset: () => {
+        console.log('重置用户状态');
+        set({
+          loading: LoadingState.IDLE,
+          error: null,
+          user: null,
+          isAuthenticated: false,
+          hasCheckedAuth: false
+        });
+      }
     }),
     {
-      name: 'tcg-user-storage', // localStorage中的key名
+      name: 'tcg-user-storage',
       partialize: (state) => ({ 
-        user: state.user,           // 持久化用户基本信息（游戏公开数据）
-        isAuthenticated: state.isAuthenticated  // 持久化认证状态
-      }), // 认证仍依赖cookie，但持久化可提升体验
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+        hasCheckedAuth: state.hasCheckedAuth
+      }),
+      // 添加存储版本，便于清理旧数据
+      version: 1,
+      // 每次启动时清理过时数据
+      onRehydrateStorage: () => (state) => {
+        console.log('重新水化用户状态:', state);
+        if (state) {
+          // 如果状态不完整，重置它
+          if (state.hasCheckedAuth === undefined) {
+            state.hasCheckedAuth = false;
+          }
+        }
+      }
     }
   )
 );

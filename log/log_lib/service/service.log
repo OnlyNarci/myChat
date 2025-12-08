@@ -39,3 +39,44 @@
 2025-12-08 13:54:18,195 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765173257864 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001792062DD30>>
 2025-12-08 13:54:18,196 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765173257864 | Status: 200 | Duration: 0.00s
 2025-12-08 13:54:18,510 - INFO - Received: POST http://localhost:8000/player/login?t=1765173257864 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x00000179206D7C50>>
+2025-12-08 13:54:52,063 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765173291744 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305A4DD30>>
+2025-12-08 13:54:52,064 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765173291744 | Status: 200 | Duration: 0.00s
+2025-12-08 13:54:52,377 - INFO - Received: POST http://localhost:8000/player/login?t=1765173291744 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305AF7C50>>
+2025-12-08 13:54:52,569 - INFO - login success, session_id: e68eb1f3-1f14-49fe-a74f-726315d87bdd
+2025-12-08 13:54:52,569 - INFO - Completed: POST http://localhost:8000/player/login?t=1765173291744 | Status: 200 | Duration: 0.19s
+2025-12-08 13:54:59,303 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765173299301 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305AF7ED0>>
+2025-12-08 13:54:59,304 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765173299301 | Status: 200 | Duration: 0.00s
+2025-12-08 13:54:59,305 - INFO - Received: POST http://localhost:8000/player/login?t=1765173299301 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305A4B820>>
+2025-12-08 13:54:59,369 - INFO - login success, session_id: 5592c0c0-0159-4358-87a5-4baa332cc709
+2025-12-08 13:54:59,369 - INFO - Completed: POST http://localhost:8000/player/login?t=1765173299301 | Status: 200 | Duration: 0.06s
+2025-12-08 14:02:15,118 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765173734810 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305B88B00>>
+2025-12-08 14:02:15,118 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765173734810 | Status: 200 | Duration: 0.00s
+2025-12-08 14:02:15,428 - INFO - Received: POST http://localhost:8000/player/login?t=1765173734810 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305B4EC30>>
+2025-12-08 14:02:15,506 - INFO - login success, session_id: b0186bf2-00d2-4152-a548-ba311de82e1a
+2025-12-08 14:02:15,506 - INFO - Completed: POST http://localhost:8000/player/login?t=1765173734810 | Status: 200 | Duration: 0.08s
+2025-12-08 15:06:36,173 - INFO - Received: GET http://localhost:8000/ | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305A3F240>>
+2025-12-08 15:06:36,177 - INFO - Completed: GET http://localhost:8000/ | Status: 303 | Duration: 0.00s
+2025-12-08 15:06:36,181 - INFO - Received: GET http://127.0.0.1:8000/player/login | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305A3F130>>
+2025-12-08 15:06:36,196 - INFO - Completed: GET http://127.0.0.1:8000/player/login | Status: 500 | Duration: 0.01s
+2025-12-08 15:06:36,233 - INFO - Received: GET http://127.0.0.1:8000/favicon.ico | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305B3AB50>>
+2025-12-08 15:06:36,235 - INFO - Completed: GET http://127.0.0.1:8000/favicon.ico | Status: 404 | Duration: 0.00s
+2025-12-08 15:07:34,541 - INFO - Received: GET http://127.0.0.1:8000/player/login | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F305B39E50>>
+2025-12-08 15:07:34,548 - INFO - Completed: GET http://127.0.0.1:8000/player/login | Status: 500 | Duration: 0.01s
+2025-12-08 15:07:41,967 - INFO - Received: GET http://127.0.0.1:8000/player/login | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9B59D30>>
+2025-12-08 15:07:41,968 - INFO - Completed: GET http://127.0.0.1:8000/player/login | Status: 405 | Duration: 0.00s
+2025-12-08 15:07:54,521 - INFO - Received: GET http://127.0.0.1:8000/player/info/me | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9C0A850>>
+2025-12-08 15:07:54,521 - INFO - Completed: GET http://127.0.0.1:8000/player/info/me | Status: 404 | Duration: 0.00s
+2025-12-08 15:08:55,296 - INFO - Received: GET http://127.0.0.1:8000/player/info/vtmouz | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9C0BD90>>
+2025-12-08 15:08:55,296 - INFO - Completed: GET http://127.0.0.1:8000/player/info/vtmouz | Status: 404 | Duration: 0.00s
+2025-12-08 15:09:13,194 - INFO - Received: GET http://127.0.0.1:8000/ | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9B53950>>
+2025-12-08 15:09:13,319 - INFO - Completed: GET http://127.0.0.1:8000/ | Status: 200 | Duration: 0.12s
+2025-12-08 15:09:28,502 - INFO - Received: GET http://127.0.0.1:8000/player/info/me | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9B53CE0>>
+2025-12-08 15:09:28,503 - INFO - Completed: GET http://127.0.0.1:8000/player/info/me | Status: 404 | Duration: 0.00s
+2025-12-08 15:09:38,432 - INFO - Received: GET http://127.0.0.1:8000/player/info/me | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9C54A70>>
+2025-12-08 15:09:38,433 - INFO - Completed: GET http://127.0.0.1:8000/player/info/me | Status: 404 | Duration: 0.00s
+2025-12-08 15:09:39,947 - INFO - Received: GET http://127.0.0.1:8000/player/info/me | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9B4AF10>>
+2025-12-08 15:09:39,948 - INFO - Completed: GET http://127.0.0.1:8000/player/info/me | Status: 404 | Duration: 0.00s
+2025-12-08 15:09:55,906 - INFO - Received: GET http://127.0.0.1:8000/docs | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E9B4B460>>
+2025-12-08 15:09:55,907 - INFO - Completed: GET http://127.0.0.1:8000/docs | Status: 200 | Duration: 0.00s
+2025-12-08 15:09:56,028 - INFO - Received: GET http://127.0.0.1:8000/openapi.json | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000002B4E805A750>>
+2025-12-08 15:09:56,063 - INFO - Completed: GET http://127.0.0.1:8000/openapi.json | Status: 200 | Duration: 0.04s

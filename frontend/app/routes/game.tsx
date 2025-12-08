@@ -1,5 +1,6 @@
 import { Outlet, Link } from 'react-router';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import { useUserStore } from '../../stores';
 import { getCurrentUserService } from '../../services/userService';
 import { UserAvatar } from '../../components/UserAvatar';
@@ -8,13 +9,21 @@ import { TopBar } from '../../components/TopBar';
 
 
 export default function GameLayout() {
+  const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const { user, isAuthenticated } = useUserStore();
 
-  // 初始化时获取玩家信息
+  // 初始化时获取玩家信息（只在真正需要时获取）
   useEffect(() => {
     if (!isAuthenticated) {
-      getCurrentUserService();
+      const checkUser = async () => {
+        try {
+          await getCurrentUserService();
+        } catch (error) {
+          console.error('获取用户信息失败:', error);
+        }
+      };
+      checkUser();
     }
   }, [isAuthenticated]);
 

@@ -4,7 +4,7 @@ import { useUserStore } from '../../stores';
 import { getCurrentUserService } from '../../services/userService';
 import { useEffect, useState } from 'react';
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Narcissus TCG - 游戏主页" },
     { name: "description", content: "TCG卡牌游戏主页" },
@@ -21,31 +21,33 @@ export default function Home() {
     const checkUserStatus = async () => {
       // 设置超时，避免长时间卡住
       const timeout = setTimeout(() => {
+        console.log('用户状态检查超时，直接跳转到登录页面');
         setHasChecked(true);
-      }, 3000); // 3秒超时
+      }, 2000); // 2秒超时
 
       try {
         // 尝试获取用户信息
-        await getCurrentUserService();
+        const success = await getCurrentUserService();
         clearTimeout(timeout);
+        console.log('用户状态检查结果:', success);
         setHasChecked(true);
       } catch (error) {
         clearTimeout(timeout);
+        console.error('用户状态检查失败:', error);
         setHasChecked(true);
       }
     };
 
-    // 只有在未认证且还未检查过时才检查
-    if (!isAuthenticated && !hasChecked) {
+    // 只有在还未检查过时才检查
+    if (!hasChecked) {
       checkUserStatus();
-    } else {
-      setHasChecked(true);
     }
-  }, [isAuthenticated, hasChecked]);
+  }, [hasChecked]);
 
   // 根据认证状态决定跳转
   useEffect(() => {
     if (hasChecked) {
+      console.log('开始跳转，认证状态:', isAuthenticated);
       if (isAuthenticated) {
         // 已认证，直接跳转到游戏页面
         navigate('/game', { replace: true });

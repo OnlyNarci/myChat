@@ -13,31 +13,41 @@ import { LoadingState } from '../stores/types';
  * @returns Promise<boolean> 登录是否成功
  */
 export const loginService = async (params: LoginParams): Promise<boolean> => {
-  const { setUser, setLoading, setError } = useUserStore.getState();
+  const store = useUserStore.getState();
+  const { setUser, setLoading, setError } = store;
   
   try {
     setLoading(LoadingState.LOADING);
+    console.log('开始登录，参数:', { user_name: params.user_name });
     
     const response = await login(params);
+    console.log('登录响应:', response);
     
     if (response.code === 200) {
       // 登录成功，session会自动通过cookie设置，无需手动管理token
       
-      // 尝试获取用户信息，但不覆盖登录的加载状态
+      // 尝试获取用户信息
       const userResponse = await getCurrentUser();
+      console.log('获取用户信息响应:', userResponse);
+      
       if (userResponse.code === 200 && userResponse.data) {
         setUser(userResponse.data);
+        console.log('登录成功并获取到用户信息:', userResponse.data);
+      } else {
+        console.warn('登录成功但获取用户信息失败:', userResponse.message);
       }
       
       setLoading(LoadingState.SUCCESS);
       return true;
     } else {
+      console.error('登录失败:', response.message);
       setError(response.message || '登录失败');
       setLoading(LoadingState.ERROR);
       return false;
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : '登录失败';
+    console.error('登录异常:', error);
     setError(errorMessage);
     setLoading(LoadingState.ERROR);
     return false;
@@ -78,36 +88,46 @@ export const registerService = async (params: RegisterParams): Promise<boolean> 
  * @returns Promise<boolean> 获取是否成功
  */
 export const getCurrentUserService = async (): Promise<boolean> => {
-  const { setUser, setError, loading: currentLoading } = useUserStore.getState();
+  const store = useUserStore.getState();
+  const { setUser, setError, isAuthenticated } = store;
   
   try {
-    // 只有在IDLE状态下才设置LOADING，避免干扰其他操作
-    if (currentLoading === LoadingState.IDLE) {
-      useUserStore.getState().setLoading(LoadingState.LOADING);
-    }
+    console.log('开始获取当前用户信息...');
     
     const response = await getCurrentUser();
+    console.log('获取用户信息响应:', response);
     
     if (response.code === 200 && response.data) {
       setUser(response.data);
-      // 只有在IDLE状态下设置过LOADING才设置SUCCESS
-      if (currentLoading === LoadingState.IDLE) {
-        useUserStore.getState().setLoading(LoadingState.SUCCESS);
-      }
+      store.setLoading(LoadingState.SUCCESS);
+      console.log('✅ 成功获取用户信息:', response.data);
       return true;
     } else {
-      setError(response.message || '获取用户信息失败');
-      if (currentLoading === LoadingState.IDLE) {
-        useUserStore.getState().setLoading(LoadingState.ERROR);
+      // 401或403表示未登录，这是正常情况，不算错误
+      if (response.code === 401 || response.code === 403) {
+        console.log('ℹ️ 用户未登录，这是正常情况');
+        store.clearUser(); // 确保清理状态
+        return false;
       }
+      
+      console.error('❌ 获取用户信息失败:', response.message);
+      setError(response.message || '获取用户信息失败');
+      store.setLoading(LoadingState.ERROR);
       return false;
     }
   } catch (error) {
+    // 网络错误或其他异常
     const errorMessage = error instanceof Error ? error.message : '获取用户信息失败';
-    setError(errorMessage);
-    if (currentLoading === LoadingState.IDLE) {
-      useUserStore.getState().setLoading(LoadingState.ERROR);
+    console.error('❌ 获取用户信息异常:', error);
+    
+    // 如果是网络错误，不设置错误状态，让用户继续
+    if (errorMessage.includes('网络') || errorMessage.includes('timeout')) {
+      console.log('ℹ️ 网络问题，忽略错误');
+      return false;
     }
+    
+    setError(errorMessage);
+    store.setLoading(LoadingState.ERROR);
     return false;
   }
 };

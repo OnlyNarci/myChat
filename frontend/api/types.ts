@@ -82,14 +82,14 @@ export interface StoreCardParams {
 
 // 登录相关类型
 export interface LoginParams {
-  uid: string;
+  user_name: string;
   password: string;
 }
 
 export interface RegisterParams {
-  uid: string;
-  name: string;
+  user_name: string;
   password: string;
+  email: string;
 }
 
 // 好友相关类型
