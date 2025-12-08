@@ -11,10 +11,10 @@ def find_project_root(start_path: Path) -> Path:
     current = start_path
     max_depth = 10  # 最大向上查找层数
     for _ in range(max_depth):
-        if (current / 'readme-zh.md').exists() or (current / 'requirements.txt').exists():
+        if (current / 'README.md').exists() or (current / 'pyproject.toml').exists():
             return current
         parent = current.parent
         if parent == current:
             break
         current = parent
-    raise RuntimeError("无法找到包含'readme-zh.md'的项目根目录")
+    raise RuntimeError("无法找到包含'README.md'的项目根目录")

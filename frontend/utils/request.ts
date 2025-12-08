@@ -63,8 +63,8 @@ apiClient.interceptors.response.use(
       
       switch (status) {
         case 401:
-          // 未授权，session过期，跳转到登录页
-          window.location.href = '/login';
+          // 未授权，session过期，不在这里跳转，让业务逻辑处理
+          console.error('未授权或session过期');
           break;
         case 403:
           // 权限不足

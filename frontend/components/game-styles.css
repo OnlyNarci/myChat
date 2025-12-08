@@ -1,0 +1,201 @@
+/* 移动端横屏适配和TCG游戏优化 */
+
+/* 基础横屏适配 */
+@media screen and (orientation: landscape) {
+  /* 确保横屏时布局合理 */
+  .landscape-optimize {
+    @apply h-screen overflow-hidden;
+  }
+  
+  /* 移动端横屏时的侧边栏优化 */
+  .mobile-sidebar-landscape {
+    @apply w-16 transition-all duration-300;
+  }
+  
+  .mobile-sidebar-landscape:not(.collapsed) {
+    @apply w-48;
+  }
+}
+
+/* 移动端断点优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+  /* 横屏时减少内边距 */
+  .mobile-landscape-padding {
+    @apply p-2;
+  }
+  
+  /* 横屏时字体大小调整 */
+  .mobile-landscape-text {
+    @apply text-sm;
+  }
+  
+  /* 横屏时头像尺寸调整 */
+  .mobile-landscape-avatar {
+    @apply w-10 h-10;
+  }
+}
+
+/* 触摸设备优化 */
+@media (pointer: coarse) {
+  /* 增加触摸目标大小 */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* 触摸反馈优化 */
+  .touch-feedback:active {
+    @apply scale-95 opacity-80;
+  }
+}
+
+/* iOS Safari 横屏优化 */
+@supports (-webkit-touch-callout: none) {
+  @media screen and (orientation: landscape) {
+    /* 防止iOS Safari横屏时的缩放 */
+    html {
+      -webkit-text-size-adjust: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    
+    body {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+/* 小屏设备优化 */
+@media (max-height: 500px) and (orientation: landscape) {
+  /* 超小屏横屏设备（如小尺寸手机横屏） */
+  .compact-layout {
+    @apply p-1;
+  }
+  
+  .compact-text {
+    @apply text-xs;
+  }
+  
+  .compact-avatar {
+    @apply w-8 h-8;
+  }
+}
+
+/* 卡牌游戏特有的动画效果 */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+/* 游戏UI玻璃态效果 */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-effect-hover:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* 滚动条样式优化 */
+.game-scrollbar::-webkit-scrollbar {
+  @apply w-1.5;
+}
+
+.game-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.game-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6, #6366f1);
+  border-radius: 4px;
+}
+
+.game-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7c3aed, #4f46e5);
+}
+
+/* 防止文本选中 */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 平滑滚动 */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 游戏按钮样式 */
+.game-button {
+  @apply relative overflow-hidden transition-all duration-200;
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+}
+
+.game-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.game-button:hover::before {
+  left: 100%;
+}
+
+/* 响应式网格布局 */
+.game-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+/* 游戏状态指示器 */
+.status-indicator {
+  @apply w-2 h-2 rounded-full;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.online {
+  @apply bg-green-400;
+}
+
+.status-indicator.offline {
+  @apply bg-gray-400;
+  animation: none;
+}
+
+.status-indicator.busy {
+  @apply bg-yellow-400;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

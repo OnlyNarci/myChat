@@ -2,7 +2,8 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router';
 import { useNavigate } from 'react-router';
-import { apiRequest } from '@/utils/request';
+import { registerService } from '../../services/userService';
+import { useUserStore } from '../../stores';
 
 interface SignupFormData {
   user_name: string;
@@ -16,10 +17,10 @@ export default function SignupPage() {
     password: '',
     email: ''
   });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+  const { loading } = useUserStore();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,34 +34,32 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
     setSuccess('');
-    setLoading(true);
 
     if (!formData.user_name || !formData.password) {
       setError('请输入用户名和密码');
-      setLoading(false);
       return;
     }
 
     if (!formData.email) {
       setError('请输入邮箱');
-      setLoading(false);
       return;
     }
 
     try {
-      const response = await apiRequest.post('/player/signup', formData);
+      const success = await registerService(formData);
       
-      if (response.status === 200 || response.message?.includes('成功')) {
+      if (success) {
         setSuccess('注册成功，即将跳转登录页面');
         setTimeout(() => {
           navigate('/login');
         }, 1500);
+      } else {
+        const store = useUserStore.getState();
+        setError(store.error || '注册失败，请检查输入信息');
       }
     } catch (error: any) {
       console.error('注册请求失败:', error);
       setError(error.message || '注册失败，请检查输入信息');
-    } finally {
-      setLoading(false);
     }
   };
 

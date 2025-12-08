@@ -4,7 +4,7 @@
 
 import { login, register, getCurrentUser, updateUser, logout } from '../api';
 import { useUserStore } from '../stores';
-import { LoginParams, RegisterParams, UserParams } from '../api/types';
+import type { LoginParams, RegisterParams, UserParams } from '../api/types';
 import { LoadingState } from '../stores/types';
 
 /**
@@ -22,11 +22,14 @@ export const loginService = async (params: LoginParams): Promise<boolean> => {
     
     if (response.code === 200) {
       // 登录成功，session会自动通过cookie设置，无需手动管理token
+      
+      // 尝试获取用户信息，但不覆盖登录的加载状态
+      const userResponse = await getCurrentUser();
+      if (userResponse.code === 200 && userResponse.data) {
+        setUser(userResponse.data);
+      }
+      
       setLoading(LoadingState.SUCCESS);
-      
-      // 尝试获取用户信息
-      await getCurrentUserService();
-      
       return true;
     } else {
       setError(response.message || '登录失败');
@@ -75,26 +78,36 @@ export const registerService = async (params: RegisterParams): Promise<boolean> 
  * @returns Promise<boolean> 获取是否成功
  */
 export const getCurrentUserService = async (): Promise<boolean> => {
-  const { setUser, setLoading, setError } = useUserStore.getState();
+  const { setUser, setError, loading: currentLoading } = useUserStore.getState();
   
   try {
-    setLoading(LoadingState.LOADING);
+    // 只有在IDLE状态下才设置LOADING，避免干扰其他操作
+    if (currentLoading === LoadingState.IDLE) {
+      useUserStore.getState().setLoading(LoadingState.LOADING);
+    }
     
     const response = await getCurrentUser();
     
     if (response.code === 200 && response.data) {
       setUser(response.data);
-      setLoading(LoadingState.SUCCESS);
+      // 只有在IDLE状态下设置过LOADING才设置SUCCESS
+      if (currentLoading === LoadingState.IDLE) {
+        useUserStore.getState().setLoading(LoadingState.SUCCESS);
+      }
       return true;
     } else {
       setError(response.message || '获取用户信息失败');
-      setLoading(LoadingState.ERROR);
+      if (currentLoading === LoadingState.IDLE) {
+        useUserStore.getState().setLoading(LoadingState.ERROR);
+      }
       return false;
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : '获取用户信息失败';
     setError(errorMessage);
-    setLoading(LoadingState.ERROR);
+    if (currentLoading === LoadingState.IDLE) {
+      useUserStore.getState().setLoading(LoadingState.ERROR);
+    }
     return false;
   }
 };

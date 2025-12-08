@@ -2,7 +2,8 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router';
 import { useNavigate } from 'react-router';
-import { apiRequest } from '@/utils/request';
+import { loginService } from '../../services/userService';
+import { useUserStore } from '../../stores';
 
 interface LoginFormData {
   user_name: string;
@@ -14,10 +15,10 @@ export default function LoginPage() {
     user_name: '',
     password: ''
   });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+  const { loading } = useUserStore();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,28 +32,27 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     setSuccess('');
-    setLoading(true);
 
     if (!formData.user_name || !formData.password) {
       setError('请输入用户名和密码');
-      setLoading(false);
       return;
     }
 
     try {
-      const response = await apiRequest.post('/player/login', formData);
+      const success = await loginService(formData);
       
-      if (response.status === 200 || response.message?.includes('成功')) {
-        setSuccess('登录成功，页面将在5秒后跳转');
+      if (success) {
+        setSuccess('登录成功，即将跳转...');
         setTimeout(() => {
-          navigate('/');
-        }, 1500);
+          navigate('/game', { replace: true });
+        }, 1000);
+      } else {
+        const store = useUserStore.getState();
+        setError(store.error || '登录失败，请检查用户名或密码');
       }
     } catch (error: any) {
       console.error('登录请求失败:', error);
       setError(error.message || '登录失败，请检查用户名或密码');
-    } finally {
-      setLoading(false);
     }
   };
 

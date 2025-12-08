@@ -36,3 +36,6 @@
 2025-12-08 09:54:40,610 - INFO - Received: POST http://localhost:8000/player/login?t=1765158879969 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000019D553E7C50>>
 2025-12-08 09:54:40,807 - INFO - login success, session_id: 272a2d7a-2383-42d9-8e74-58d6c242fcce
 2025-12-08 09:54:40,807 - INFO - Completed: POST http://localhost:8000/player/login?t=1765158879969 | Status: 200 | Duration: 0.20s
+2025-12-08 13:54:18,195 - INFO - Received: OPTIONS http://localhost:8000/player/login?t=1765173257864 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001792062DD30>>
+2025-12-08 13:54:18,196 - INFO - Completed: OPTIONS http://localhost:8000/player/login?t=1765173257864 | Status: 200 | Duration: 0.00s
+2025-12-08 13:54:18,510 - INFO - Received: POST http://localhost:8000/player/login?t=1765173257864 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x00000179206D7C50>>
