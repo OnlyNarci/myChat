@@ -95,12 +95,15 @@ export const useUserStore = create<UserState>()(
       version: 1,
       // 每次启动时清理过时数据
       onRehydrateStorage: () => (state) => {
-        console.log('重新水化用户状态:', state);
+        console.log('重新初始化用户状态:', state);
         if (state) {
           // 如果状态不完整，重置它
           if (state.hasCheckedAuth === undefined) {
             state.hasCheckedAuth = false;
           }
+          // 重置加载状态和错误状态
+          state.loading = LoadingState.IDLE;
+          state.error = null;
         }
       }
     }

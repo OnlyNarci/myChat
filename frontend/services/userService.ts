@@ -23,29 +23,26 @@ export const loginService = async (params: LoginParams): Promise<boolean> => {
     const response = await login(params);
     console.log('登录响应:', response);
     
-    if (response.code === 200) {
-      // 登录成功，session会自动通过cookie设置，无需手动管理token
-      
-      // 尝试获取用户信息
-      const userResponse = await getCurrentUser();
-      console.log('获取用户信息响应:', userResponse);
-      
-      if (userResponse.code === 200 && userResponse.data) {
-        setUser(userResponse.data);
-        console.log('登录成功并获取到用户信息:', userResponse.data);
-      } else {
-        console.warn('登录成功但获取用户信息失败:', userResponse.message);
-      }
-      
-      setLoading(LoadingState.SUCCESS);
-      return true;
+    // axios已经通过HTTP状态码判断了请求是否成功
+    // 如果代码能执行到这里，说明HTTP请求是成功的（2xx状态码）
+    
+    // 登录成功，session会自动通过cookie设置，无需手动管理token
+    
+    // 尝试获取用户信息
+    const userResponse = await getCurrentUser();
+    console.log('获取用户信息响应:', userResponse);
+    
+    if (userResponse.data) {
+      setUser(userResponse.data);
+      console.log('登录成功并获取到用户信息:', userResponse.data);
     } else {
-      console.error('登录失败:', response.message);
-      setError(response.message || '登录失败');
-      setLoading(LoadingState.ERROR);
-      return false;
+      console.warn('登录成功但获取用户信息失败:', userResponse.message);
     }
+    
+    setLoading(LoadingState.SUCCESS);
+    return true;
   } catch (error) {
+    // HTTP请求失败，axios会抛出包含状态码的错误
     const errorMessage = error instanceof Error ? error.message : '登录失败';
     console.error('登录异常:', error);
     setError(errorMessage);
@@ -67,14 +64,9 @@ export const registerService = async (params: RegisterParams): Promise<boolean> 
     
     const response = await register(params);
     
-    if (response.code === 200) {
-      setLoading(LoadingState.SUCCESS);
-      return true;
-    } else {
-      setError(response.message || '注册失败');
-      setLoading(LoadingState.ERROR);
-      return false;
-    }
+    // 注册成功
+    setLoading(LoadingState.SUCCESS);
+    return true;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : '注册失败';
     setError(errorMessage);
@@ -97,22 +89,15 @@ export const getCurrentUserService = async (): Promise<boolean> => {
     const response = await getCurrentUser();
     console.log('获取用户信息响应:', response);
     
-    if (response.code === 200 && response.data) {
+    if (response.data) {
       setUser(response.data);
       store.setLoading(LoadingState.SUCCESS);
       console.log('✅ 成功获取用户信息:', response.data);
       return true;
     } else {
-      // 401或403表示未登录，这是正常情况，不算错误
-      if (response.code === 401 || response.code === 403) {
-        console.log('ℹ️ 用户未登录，这是正常情况');
-        store.clearUser(); // 确保清理状态
-        return false;
-      }
-      
-      console.error('❌ 获取用户信息失败:', response.message);
-      setError(response.message || '获取用户信息失败');
-      store.setLoading(LoadingState.ERROR);
+      // 没有用户数据，表示未登录
+      console.log('ℹ️ 用户未登录，这是正常情况');
+      store.clearUser(); // 确保清理状态
       return false;
     }
   } catch (error) {
@@ -145,7 +130,7 @@ export const updateUserService = async (params: UserParams): Promise<boolean> =>
     
     const response = await updateUser(params);
     
-    if (response.code === 200 && response.data) {
+    if (response.data) {
       setUser(response.data);
       setLoading(LoadingState.SUCCESS);
       return true;

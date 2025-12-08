@@ -138,9 +138,9 @@ export interface DecomposeParams {
 
 // API响应类型
 export interface BaseResponse<T = any> {
-  code: number;
+  success: boolean;
   message: string;
-  data: T;
+  data?: T;
 }
 
 export interface PaginatedResponse<T = any> extends BaseResponse<{

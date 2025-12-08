@@ -39,7 +39,7 @@ source venv/bin/activate  # Linux/Mac
 # 或 venv\Scripts\activate  # Windows
 
 # 安装依赖
-pip install -r requirements.txt
+pip install -i https://mirrors.aliyun.com/pypi/simple/
 ```
 
 ### 2. 数据库配置

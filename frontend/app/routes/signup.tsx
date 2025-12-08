@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { useNavigate } from 'react-router';
 import { registerService } from '../../services/userService';
 import { useUserStore } from '../../stores';
+import { LoadingState } from '../../stores/types';
 
 interface SignupFormData {
   user_name: string;
@@ -161,10 +162,10 @@ export default function SignupPage() {
           {/* 注册按钮 */}
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading === LoadingState.LOADING}
             className="w-full bg-[#165DFF] hover:bg-[#165DFF]/90 disabled:bg-gray-400 text-white font-medium py-3 sm:py-3.5 text-base sm:text-base rounded-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] focus:ring-2 focus:ring-[#165DFF]/50 flex items-center justify-center gap-2 shadow-md hover:shadow-lg min-h-[48px]"
           >
-            {loading ? (
+            {loading === LoadingState.LOADING ? (
               <>
                 <span className="inline-block animate-spin text-lg sm:text-xl">⏳</span>
                 <span className="text-sm sm:text-base">注册中...</span>

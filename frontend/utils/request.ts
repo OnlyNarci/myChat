@@ -47,9 +47,10 @@ apiClient.interceptors.response.use(
     // 对响应数据做点什么
     console.log('接收响应:', response.status, response.config.url, response.data);
     
-    // 这里可以根据后端返回的数据结构进行统一处理
-    // 例如：后端返回格式为 { code: number, message: string, data: any }
-    // 可以在这里判断code是否为成功状态，如果不是则抛出错误
+    // 检查HTTP状态码，如果不是2xx则抛出错误
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
     
     return response;
   },

@@ -36,7 +36,7 @@ async def login(
             err_logger.error(f"something went wrong during setting cookie: {e}")
             raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器错误，请联系管理员')
         return {
-                "status": ErrorCodes.Success.value,
+                "success": True,
                 "message": "登录成功，页面将在5秒后跳转"
             }
 
@@ -66,7 +66,7 @@ async def signup(signup_params: SignupParams):
     if signup_result['success']:
         info_logger.info(f'signup success, user_name: {signup_params.user_name}')
         return {
-                "status": ErrorCodes.Success.value,
+                "success": True,
                 "message": "注册成功，即将跳转登录页面"
             }
 
