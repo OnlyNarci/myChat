@@ -5,7 +5,7 @@ export default [
   route("login", "routes/login.tsx"),
   route("signup", "routes/signup.tsx"),
   route("game", "routes/game.tsx", [
-    index("routes/game/chat.tsx"),
+    route("chat", "routes/game/chat.tsx"),
     route("profile", "routes/game/profile.tsx"),
     route("restaurant", "routes/game/restaurant.tsx"),
     route("cards", "routes/game/cards.tsx"),

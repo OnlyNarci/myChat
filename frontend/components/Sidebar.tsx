@@ -28,13 +28,13 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
     `;
     
     const activeStyles = `
-      bg-purple-600/40 text-white border border-purple-400/50 
-      shadow-lg shadow-purple-500/20 glass-effect-hover
+      bg-sky-600/40 text-white border border-sky-400/50 
+      shadow-lg shadow-sky-500/20 glass-effect-hover
     `;
     
     const inactiveStyles = `
-      text-purple-200 hover:text-white hover:bg-purple-600/20 
-      hover:border-purple-500/30 glass-effect
+      text-sky-200 hover:text-white hover:bg-sky-600/20 
+      hover:border-sky-500/30 glass-effect
     `;
     
     const collapsedStyles = collapsed ? 'justify-center px-2' : 'px-2 sm:px-3';
@@ -83,7 +83,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             {/* 激活状态指示器 */}
             {activeTab === item.id && !collapsed && !(typeof window !== 'undefined' && window.innerWidth <= 768) && (
               <div className="ml-auto">
-                <div className="w-1 h-4 bg-purple-400 rounded-full"></div>
+                <div className="w-1 h-4 bg-sky-400 rounded-full"></div>
               </div>
             )}
           </Link>
@@ -91,12 +91,12 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       </div>
 
       {/* 收起/展开按钮 */}
-      <div className="p-1 sm:p-2 border-t border-purple-500/20">
+      <div className="p-1 sm:p-2 border-t border-sky-500/20">
         <button
           onClick={onToggle}
           className="w-full flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg
-                   text-purple-200 hover:text-white hover:bg-purple-600/20
-                   transition-all duration-200 border border-purple-500/20
+                   text-sky-200 hover:text-white hover:bg-sky-600/20
+                   transition-all duration-200 border border-sky-500/20
                    touch-feedback touch-target glass-effect"
         >
           <span className={`${getTextSize()} sm:text-lg`}>

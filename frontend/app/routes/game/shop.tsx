@@ -6,9 +6,9 @@ export default function ShopPage() {
           <span className="text-4xl">🛍️</span>
         </div>
         <h2 className="text-2xl font-bold text-white mb-4">卡牌商店</h2>
-        <div className="bg-purple-600/20 rounded-lg p-6 border border-purple-500/30 max-w-md">
-          <p className="text-purple-200">卡牌商店功能开发中...</p>
-          <p className="text-purple-200 mt-2">购买卡包，获取强力卡牌！</p>
+        <div className="bg-sky-600/20 rounded-lg p-6 border border-sky-500/30 max-w-md">
+          <p className="text-sky-200">卡牌商店功能开发中...</p>
+          <p className="text-sky-200 mt-2">购买卡包，获取强力卡牌！</p>
         </div>
       </div>
     </div>

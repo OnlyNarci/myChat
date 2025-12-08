@@ -3,7 +3,7 @@
  */
 
 import { apiRequest } from '../utils';
-import type { User, UserParams, LoginParams, RegisterParams, BaseResponse } from './types';
+import type { User, UserParams, UserSelfParams, LoginParams, RegisterParams, BaseResponse } from './types';
 
 /**
  * 用户登录
@@ -25,9 +25,9 @@ export const register = (params: RegisterParams): Promise<BaseResponse<User>> =>
 
 /**
  * 获取当前用户信息
- * @returns Promise<User>
+ * @returns Promise<UserSelfParams>
  */
-export const getCurrentUser = (): Promise<BaseResponse<User>> => {
+export const getCurrentUser = (): Promise<BaseResponse<UserSelfParams>> => {
   return apiRequest.get('/player/info/me');
 };
 

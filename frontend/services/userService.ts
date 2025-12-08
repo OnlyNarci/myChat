@@ -4,7 +4,7 @@
 
 import { login, register, getCurrentUser, updateUser, logout } from '../api';
 import { useUserStore } from '../stores';
-import type { LoginParams, RegisterParams, UserParams } from '../api/types';
+import type { LoginParams, RegisterParams, UserParams, UserSelfParams } from '../api/types';
 import { LoadingState } from '../stores/types';
 
 /**
@@ -89,10 +89,10 @@ export const getCurrentUserService = async (): Promise<boolean> => {
     const response = await getCurrentUser();
     console.log('获取用户信息响应:', response);
     
-    if (response.data) {
-      setUser(response.data);
+    if (response.success) {
+      setUser(response.self_info);
       store.setLoading(LoadingState.SUCCESS);
-      console.log('✅ 成功获取用户信息:', response.data);
+      console.log('✅ 成功获取用户信息');
       return true;
     } else {
       // 没有用户数据，表示未登录

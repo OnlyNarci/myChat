@@ -24,13 +24,13 @@ export function TopBar() {
   };
 
   return (
-    <div className={`${getBarHeight()} bg-black/30 backdrop-blur-md border-b border-purple-500/20 flex items-center ${getPadding()} glass-effect`}>
+    <div className={`${getBarHeight()} bg-black/30 backdrop-blur-md border-b border-sky-500/20 flex items-center ${getPadding()} glass-effect`}>
       {/* 暂留空间，可添加游戏标题、通知、设置等功能 */}
       <div className="flex-1"></div>
       
       {/* 游戏标题 - 可选 */}
       <div className="text-center">
-        <h1 className={`${getTitleSize()} font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent`}>
+        <h1 className={`${getTitleSize()} font-bold bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent`}>
           Narcissus TCG
         </h1>
       </div>

@@ -7,8 +7,8 @@ export default function ProfilePage() {
     <div className="h-full flex items-center justify-center p-8">
       <div className="text-center">
         <h2 className="text-2xl font-bold text-white mb-4">个人主页</h2>
-        <div className="bg-purple-600/20 rounded-lg p-6 border border-purple-500/30">
-          <p className="text-purple-200">玩家个人主页 - 功能开发中...</p>
+        <div className="bg-sky-600/20 rounded-lg p-6 border border-sky-500/30">
+          <p className="text-sky-200">玩家个人主页 - 功能开发中...</p>
           {user && (
             <div className="mt-4 text-left">
               <p className="text-white">用户名: {user.name}</p>

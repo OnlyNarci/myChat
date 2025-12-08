@@ -6,9 +6,9 @@ export default function RestaurantPage() {
           <span className="text-4xl">🍽️</span>
         </div>
         <h2 className="text-2xl font-bold text-white mb-4">我的餐厅</h2>
-        <div className="bg-purple-600/20 rounded-lg p-6 border border-purple-500/30 max-w-md">
-          <p className="text-purple-200">餐厅功能开发中...</p>
-          <p className="text-purple-200 mt-2">敬请期待美食系统上线！</p>
+        <div className="bg-sky-600/20 rounded-lg p-6 border border-sky-500/30 max-w-md">
+          <p className="text-sky-200">餐厅功能开发中...</p>
+          <p className="text-sky-200 mt-2">敬请期待美食系统上线！</p>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@
 export interface User {
   uid: string;
   name: string;
+  title: string;
   avatar?: string;
   signature?: string;
   level: number;
@@ -15,9 +16,17 @@ export interface User {
 export interface UserParams {
   uid: string;
   name: string;
+  title: string;
   avatar?: string;
   signature?: string;
   level?: number;
+}
+
+// 用户自身信息类型（包含邮箱等私有信息）
+export interface UserSelfParams extends UserParams {
+  email?: string;
+  exp?: number;
+  byte?: number;
 }
 
 // 卡牌相关类型

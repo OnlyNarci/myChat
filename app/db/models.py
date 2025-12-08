@@ -21,6 +21,7 @@ class User(Model):
     id = fields.IntField(pk=True)
     uid = fields.CharField(max_length=6, unique=True, description='用户uid')
     name = fields.CharField(max_length=16, unique=True, description='用户名')
+    title = fields.CharField(max_length=16, default='萌新', description='用户称号')
     password = fields.CharField(max_length=255, description='哈希加密后的密码')
     email = fields.CharField(max_length=60, unique=True, description='用户邮箱')
     avatar = fields.CharField(default='', max_length=1024, description='用户头像在文件服务器中的url')

@@ -8,6 +8,7 @@ class UserParams(BaseParams):
     """用户个人参数模型（公开的信息）"""
     uid: str = Field(max_length=6, title='用户uid')
     name: str = Field(max_length=16, title='用户姓名')
+    title: str = Field(max_length=16, title='用户称号')
     avatar: str = Field(default='', max_length=1024, title='用户头像在文件服务器中的url')
     signature: str = Field(default='', max_length=255, title='个性签名')
     level: int = Field(default=1, ge=1, title='等级')

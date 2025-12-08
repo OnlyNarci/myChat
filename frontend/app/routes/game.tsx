@@ -48,15 +48,15 @@ export default function GameLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white safe-top safe-bottom">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-sky-900 to-slate-900 text-white safe-top safe-bottom">
       {/* 游戏主页容器 */}
       <div className="flex h-screen overflow-hidden">
         
         {/* 左侧区域 - 包含头像和侧边栏 */}
-        <div className={`${sidebarWidth()} transition-all duration-300 bg-black/30 backdrop-blur-md border-r border-purple-500/20 flex flex-col`}>
+        <div className={`${sidebarWidth()} transition-all duration-300 bg-black/30 backdrop-blur-md border-r border-sky-500/20 flex flex-col`}>
 
           {/* 用户头像区域 */}
-          <div className={`p-2 sm:p-4 border-b border-purple-500/20`}>
+          <div className={`p-2 sm:p-4 border-b border-sky-500/20`}>
             <Link to="/game/profile" className="block">
               <UserAvatar 
                 user={user} 
@@ -86,7 +86,7 @@ export default function GameLayout() {
           </div>
           
           {/* 底部空间 */}
-          <div className={`h-6 sm:h-8 bg-black/20 border-t border-purple-500/10`}></div>
+          <div className={`h-6 sm:h-8 bg-black/20 border-t border-sky-500/10`}></div>
         </div>
       </div>
     </div>

@@ -4,18 +4,18 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User } from '../api';
+import type { User, UserSelfParams } from '../api';
 import { LoadingState, type BaseState } from './types';
 
 // 用户状态接口
 interface UserState extends BaseState {
   // 用户数据
-  user: User | null;
+  user: UserSelfParams | null;
   isAuthenticated: boolean;
   hasCheckedAuth: boolean;  // 添加标志，避免重复检查
   
   // 操作方法
-  setUser: (user: User) => void;
+  setUser: (user: UserSelfParams) => void;
   clearUser: () => void;
   setLoading: (loading: LoadingState) => void;
   setError: (error: string | null) => void;
@@ -35,7 +35,7 @@ export const useUserStore = create<UserState>()(
       hasCheckedAuth: false,  // 初始化为false
       
       // 设置用户信息
-      setUser: (user: User) => {
+      setUser: (user: UserSelfParams) => {
         console.log('设置用户信息:', user);
         set({ 
           user, 

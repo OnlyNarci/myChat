@@ -60,6 +60,7 @@ async def get_self_info_service(
     return UserSelfParams(
         uid=user.uid,
         name=user.name,
+        title=user.title,
         avatar=user.avatar,
         signature=user.signature,
         level=user.level,
