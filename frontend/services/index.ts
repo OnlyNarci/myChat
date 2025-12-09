@@ -8,7 +8,8 @@ export {
   registerService,
   getCurrentUserService,
   updateUserService,
-  logoutService
+  logoutService,
+  uploadAvatarService
 } from './userService';
 
 // 导出卡牌服务
@@ -31,7 +32,9 @@ export {
   removeStoreCardService,
   buyCardService,
   confirmOrderService,
-  cancelOrderService
+  cancelOrderService,
+  getBuyRecordsService,
+  getSellRecordsService
 } from './storeService';
 
 // 导出好友服务

@@ -10,7 +10,9 @@ import {
   getMyStoreCards, 
   getOrders, 
   confirmOrder, 
-  cancelOrder 
+  cancelOrder,
+  getBuyRecords,
+  getSellRecords
 } from '../api';
 import { useStoreStore } from '../stores';
 import { LoadingState } from '../stores/types';
@@ -299,6 +301,64 @@ export const cancelOrderService = async (id: number): Promise<boolean> => {
     const errorMessage = error instanceof Error ? error.message : '取消订单失败';
     setError(errorMessage);
     setLoading(LoadingState.ERROR);
+    return false;
+  }
+};
+
+/**
+ * 获取购买记录服务
+ * @returns Promise<boolean> 获取是否成功
+ */
+export const getBuyRecordsService = async (): Promise<boolean> => {
+  const { setBuyRecordsLoading, setBuyRecordsError, setBuyRecordsData } = useStoreStore.getState();
+  
+  try {
+    setBuyRecordsLoading(LoadingState.LOADING);
+    
+    const response = await getBuyRecords();
+    
+    if (response.success && response.data) {
+      setBuyRecordsData(response.data.buy_record);
+      setBuyRecordsLoading(LoadingState.SUCCESS);
+      return true;
+    } else {
+      setBuyRecordsError(response.message || '获取购买记录失败');
+      setBuyRecordsLoading(LoadingState.ERROR);
+      return false;
+    }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : '获取购买记录失败';
+    setBuyRecordsError(errorMessage);
+    setBuyRecordsLoading(LoadingState.ERROR);
+    return false;
+  }
+};
+
+/**
+ * 获取出售记录服务
+ * @returns Promise<boolean> 获取是否成功
+ */
+export const getSellRecordsService = async (): Promise<boolean> => {
+  const { setSellRecordsLoading, setSellRecordsError, setSellRecordsData } = useStoreStore.getState();
+  
+  try {
+    setSellRecordsLoading(LoadingState.LOADING);
+    
+    const response = await getSellRecords();
+    
+    if (response.success && response.data) {
+      setSellRecordsData(response.data.sell_record);
+      setSellRecordsLoading(LoadingState.SUCCESS);
+      return true;
+    } else {
+      setSellRecordsError(response.message || '获取出售记录失败');
+      setSellRecordsLoading(LoadingState.ERROR);
+      return false;
+    }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : '获取出售记录失败';
+    setSellRecordsError(errorMessage);
+    setSellRecordsLoading(LoadingState.ERROR);
     return false;
   }
 };

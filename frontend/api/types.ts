@@ -123,6 +123,13 @@ export interface Order {
   updated_at: string;
 }
 
+export interface OrderParams {
+  card_id: number;
+  number: number;
+  price: number;
+  seller_uid: string;
+}
+
 // 抽卡相关类型
 export interface DrawResult {
   cards: UserCard[];
@@ -145,6 +152,16 @@ export interface DecomposeParams {
   number: number;
 }
 
+// 交易记录相关类型
+export interface StoreRecord {
+  buyer_name: string;
+  seller_name: string;
+  card_name: string;
+  number: number;
+  price: number;
+  trade_time: string; // ISO datetime string
+}
+
 // API响应类型
 export interface BaseResponse<T = any> {
   success: boolean;
@@ -158,4 +175,4 @@ export interface PaginatedResponse<T = any> extends BaseResponse<{
   page: number;
   size: number;
   pages: number;
-}> {}
+}> { }

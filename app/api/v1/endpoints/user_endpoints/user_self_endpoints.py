@@ -1,5 +1,5 @@
 from typing import Dict, TypeAlias
-from fastapi import Path, Depends
+from fastapi import Path, UploadFile, Depends, File
 from app.core.security import get_current_user_id
 from app.core.exceptions import ErrorCodes, ClientError, ServerError
 from app.schemas.base_schemas import UserParams, UserSelfParams
@@ -8,6 +8,7 @@ from app.services.user_services.user_self_services import (
     get_self_info_service,
     get_user_info_service,
     update_self_info_service,
+    update_self_avatars_service
 )
 from log.log_config.service_logger import err_logger
 
@@ -67,11 +68,11 @@ async def get_user_info_endpoint(
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法查看个人主页')
 
 
-@user_router.put('/info/me')
+@user_router.put('/info/me', response_model=Dict[str, bool | str])
 async def update_self_info_endpoint(
     user_info: UserSelfParams,
     user_id: int = Depends(get_current_user_id),
-):
+) -> Dict[str, bool | str]:
     """
     更新个人信息及设置
     
@@ -92,4 +93,34 @@ async def update_self_info_endpoint(
     except Exception as e:
         err_logger.error(f'failed to update self info: {e} | params: user_id={user_id}; user_info={user_info}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法修改个人信息')
-    
+
+
+@user_router.put('/info/me/avatars', response_model=Dict[str, bool | str])
+async def update_self_avatars_endpoint(
+    avatars_file: UploadFile = File(...),
+    user_id: int = Depends(get_current_user_id),
+) -> Dict[str, bool | str]:
+    """
+    将新的用户头像图片存入服务器指定路径，将url存入数据库
+    """
+    try:
+        response = await update_self_avatars_service(
+            user_id=user_id,
+            avatars_file=avatars_file
+        )
+        match response:
+            case 'file not image':
+                raise ClientError(error_code=ErrorCodes.InvalidParams, message='头像文件应当为png, jpg或jpeg格式。')
+            case 'unknown file':
+                raise ClientError(error_code=ErrorCodes.InvalidParams, message='头像文件应当为png, jpg或jpeg格式。')
+            case 'file too large':
+                raise ClientError(error_code=ErrorCodes.InvalidParams, message='图片大小不得超过2mb。')
+            case _:
+                return {
+                    'success': True,
+                    'message': 'success to update self avatars',
+                    "avatar_url": response
+                }
+    except Exception as e:
+        err_logger.error(f'failed to update self info: {e} | params: user_id={user_id}; avatars_file={avatars_file.filename}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能修改头像。')

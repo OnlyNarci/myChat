@@ -3,7 +3,7 @@
  */
 
 import { apiRequest } from '../utils';
-import type { StoreCard, StoreCardParams, BaseResponse, PaginatedResponse, Order } from './types';
+import type { StoreCard, StoreCardParams, BaseResponse, PaginatedResponse, Order, StoreRecord } from './types';
 
 /**
  * 获取商店卡牌列表
@@ -96,4 +96,20 @@ export const confirmOrder = (orderId: string): Promise<BaseResponse<Order>> => {
  */
 export const cancelOrder = (orderId: string): Promise<BaseResponse<Order>> => {
   return apiRequest.put(`/store/orders/${orderId}/cancel`);
+};
+
+/**
+ * 获取购买记录
+ * @returns Promise<BaseResponse<{ buy_record: StoreRecord[] }>>
+ */
+export const getBuyRecords = (): Promise<BaseResponse<{ buy_record: StoreRecord[] }>> => {
+  return apiRequest.get('/store/buy_record');
+};
+
+/**
+ * 获取出售记录
+ * @returns Promise<BaseResponse<{ sell_record: StoreRecord[] }>>
+ */
+export const getSellRecords = (): Promise<BaseResponse<{ sell_record: StoreRecord[] }>> => {
+  return apiRequest.get('/store/sell_record');
 };

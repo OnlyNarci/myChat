@@ -11,6 +11,8 @@ dependencies = [
     "passlib",
     "argon2_cffi",
     "cryptography==46.0.3",
+    "aiofiles==25.1.0",
+    "python-multipart==0.0.20"
 ]
 [tool.setuptools]
 packages = ["app", "log", "tests"]
