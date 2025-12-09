@@ -1,8 +1,8 @@
-# Narcissus TCG - 集换式卡牌游戏后端
+# Narcissus TCG - 集换式卡牌游戏
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.116.1-green)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.13+-blue)](https://python.org)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+[![License: GPL v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/Version-0.8.0-red)](https://github.com)
 
 一个基于FastAPI框架开发的现代化集换式卡牌游戏（TCG）后端系统，采用全异步架构设计，提供高性能的游戏服务支持。
