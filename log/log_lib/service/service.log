@@ -163,3 +163,7 @@
 2025-12-08 21:07:17,449 - INFO - Completed: GET http://localhost:8000/player/info/me?t=1765199237444 | Status: 200 | Duration: 0.00s
 2025-12-08 21:16:50,389 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765199810070 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x00000158C17CDEF0>>
 2025-12-08 21:16:50,392 - INFO - Completed: GET http://localhost:8000/player/info/me?t=1765199810070 | Status: 200 | Duration: 0.00s
+2025-12-09 10:23:59,317 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765247039007 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000024EE6CFDA90>>
+2025-12-09 10:23:59,445 - INFO - Completed: GET http://localhost:8000/player/info/me?t=1765247039007 | Status: 500 | Duration: 0.13s
+2025-12-09 10:24:04,765 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765247044761 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000024EE6D9F110>>
+2025-12-09 10:24:04,768 - INFO - Completed: GET http://localhost:8000/player/info/me?t=1765247044761 | Status: 500 | Duration: 0.00s

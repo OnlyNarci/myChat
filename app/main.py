@@ -1,9 +1,7 @@
 from tortoise.contrib.fastapi import register_tortoise
-
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
-
 from app.core.config import TORTOISE_ORM_CONFIG, settings
 from app.core.exceptions import RedirectionError, ServerError, ClientError, handle_http_exception
 from app.core.middleware import log_middleware

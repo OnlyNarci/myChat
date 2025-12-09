@@ -1,4 +1,6 @@
 [project]
+name = "narcissustcg"  
+version = "0.1.0"      
 dependencies = [
     "aiomysql==0.2.0",
     "uvicorn==0.35.0",
@@ -10,7 +12,8 @@ dependencies = [
     "argon2_cffi",
     "cryptography==46.0.3",
 ]
-
+[tool.setuptools]
+packages = ["app", "log", "tests"]
 [tool.aerich]
 tortoise_orm = "app.core.config.TORTOISE_ORM_CONFIG"
 location = "./migrations"
