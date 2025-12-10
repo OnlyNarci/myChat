@@ -5,11 +5,11 @@
 import { 
   getCardInfo, 
   getUserCards, 
-  craftCard, 
+  composeCard, 
   decomposeCard, 
   getCraftMaterials, 
   getDecomposeMaterials, 
-  drawCards 
+  pullCards 
 } from '../api';
 import { useCardsStore } from '../stores';
 import { LoadingState } from '../stores/types';
@@ -21,10 +21,9 @@ import type { CraftParams, DecomposeParams } from '../api/types';
  * @returns Promise<boolean> 获取是否成功
  */
 export const getUserCardsService = async (params?: {
-  page?: number;
-  size?: number;
-  package?: string;
+  name_in?: string;
   rarity?: number;
+  package?: string;
 }): Promise<boolean> => {
   const { 
     setUserCardsLoading, 
@@ -38,14 +37,14 @@ export const getUserCardsService = async (params?: {
     
     const response = await getUserCards(params);
     
-    if (response.code === 200 && response.data) {
-      const { items, total, page, size, pages } = response.data;
+    if (response.success) {
+      const { cards } = response.data;
       
-      setUserCardsData(items, {
-        page,
-        size,
-        total,
-        pages
+      setUserCardsData(cards, {
+        page: 1,
+        size: cards.length,
+        total: cards.length,
+        pages: 1
       });
       
       return true;

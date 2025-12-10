@@ -3,51 +3,39 @@
  */
 
 import { 
-  getFriends, 
-  searchUsers, 
+  getFriendRequests, 
   sendFriendRequest, 
-  acceptFriendRequest, 
-  rejectFriendRequest, 
-  deleteFriend, 
-  getFriendRequests 
+  handleFriendRequest, 
+  deleteFriend,
+  getUserInfo
 } from '../api';
 import { useFriendsStore } from '../stores';
 import { LoadingState } from '../stores/types';
 
 /**
- * 获取好友列表服务
- * @param params 查询参数
+ * 获取好友请求列表服务
  * @returns Promise<boolean> 获取是否成功
  */
-export const getFriendsService = async (params?: {
-  page?: number;
-  size?: number;
-}): Promise<boolean> => {
+export const getFriendRequestsService = async (): Promise<boolean> => {
   const { 
     setFriendsLoading, 
     setFriendsError, 
-    setFriendsData,
-    setFriendsPagination 
+    setFriendRequests,
+    clearFriendRequests
   } = useFriendsStore.getState();
   
   try {
     setFriendsLoading(LoadingState.LOADING);
+    clearFriendRequests();
     
-    const response = await getFriends(params);
+    const response = await getFriendRequests();
     
-    if (response.code === 200 && response.data) {
-      const { items, total, page, size, pages } = response.data;
-      
-      setFriendsData(items, {
-        page,
-        size,
-        total,
-        pages
-      });
-      
+    if (response.success) {
+      const { waiting_accept } = response.data;
+      setFriendRequests(waiting_accept.sent, waiting_accept.received);
       return true;
     } else {
-      setFriendsError(response.message || '获取好友列表失败');
+      setFriendsError(response.message || '获取好友请求失败');
       return false;
     }
   } catch (error) {
@@ -88,61 +76,21 @@ export const searchUsersService = async (keyword: string): Promise<boolean> => {
   }
 };
 
-/**
- * 获取好友请求列表服务
- * @param params 查询参数
- * @returns Promise<boolean> 获取是否成功
- */
-export const getFriendRequestsService = async (params?: {
-  page?: number;
-  size?: number;
-}): Promise<boolean> => {
-  const { 
-    setFriendRequestsLoading, 
-    setFriendRequestsError, 
-    setFriendRequestsData,
-    setFriendRequestsPagination 
-  } = useFriendsStore.getState();
-  
-  try {
-    setFriendRequestsLoading(LoadingState.LOADING);
-    
-    const response = await getFriendRequests(params);
-    
-    if (response.code === 200 && response.data) {
-      const { items, total, page, size, pages } = response.data;
-      
-      setFriendRequestsData(items, {
-        page,
-        size,
-        total,
-        pages
-      });
-      
-      return true;
-    } else {
-      setFriendRequestsError(response.message || '获取好友请求列表失败');
-      return false;
-    }
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : '获取好友请求列表失败';
-    setFriendRequestsError(errorMessage);
-    return false;
-  }
-};
+
 
 /**
  * 发送好友请求服务
  * @param userId 目标用户ID
+ * @param message 请求消息
  * @returns Promise<boolean> 发送是否成功
  */
-export const sendFriendRequestService = async (userId: number): Promise<boolean> => {
+export const sendFriendRequestService = async (userId: string, message: string): Promise<boolean> => {
   const { setLoading, setError } = useFriendsStore.getState();
   
   try {
     setLoading(LoadingState.LOADING);
     
-    const response = await sendFriendRequest(userId);
+    const response = await sendFriendRequest(userId, message);
     
     if (response.code === 200) {
       setLoading(LoadingState.SUCCESS);
@@ -163,64 +111,31 @@ export const sendFriendRequestService = async (userId: number): Promise<boolean>
 };
 
 /**
- * 接受好友请求服务
- * @param requestId 好友请求ID
- * @returns Promise<boolean> 接受是否成功
+ * 处理好友请求服务
+ * @param userId 请求者用户ID
+ * @param isAccepted 是否接受
+ * @returns Promise<boolean> 处理是否成功
  */
-export const acceptFriendRequestService = async (requestId: number): Promise<boolean> => {
+export const handleFriendRequestService = async (userId: string, isAccepted: boolean): Promise<boolean> => {
   const { setLoading, setError } = useFriendsStore.getState();
   
   try {
     setLoading(LoadingState.LOADING);
     
-    const response = await acceptFriendRequest(requestId);
+    const response = await handleFriendRequest(userId, isAccepted);
     
-    if (response.code === 200) {
+    if (response.success) {
       setLoading(LoadingState.SUCCESS);
-      // 接受成功后刷新好友列表和好友请求列表
-      await Promise.all([
-        getFriendsService(),
-        getFriendRequestsService()
-      ]);
-      return true;
-    } else {
-      setError(response.message || '接受好友请求失败');
-      setLoading(LoadingState.ERROR);
-      return false;
-    }
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : '接受好友请求失败';
-    setError(errorMessage);
-    setLoading(LoadingState.ERROR);
-    return false;
-  }
-};
-
-/**
- * 拒绝好友请求服务
- * @param requestId 好友请求ID
- * @returns Promise<boolean> 拒绝是否成功
- */
-export const rejectFriendRequestService = async (requestId: number): Promise<boolean> => {
-  const { setLoading, setError } = useFriendsStore.getState();
-  
-  try {
-    setLoading(LoadingState.LOADING);
-    
-    const response = await rejectFriendRequest(requestId);
-    
-    if (response.code === 200) {
-      setLoading(LoadingState.SUCCESS);
-      // 拒绝成功后刷新好友请求列表
+      // 处理成功后刷新好友请求列表
       await getFriendRequestsService();
       return true;
     } else {
-      setError(response.message || '拒绝好友请求失败');
+      setError(response.message || '处理好友请求失败');
       setLoading(LoadingState.ERROR);
       return false;
     }
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : '拒绝好友请求失败';
+    const errorMessage = error instanceof Error ? error.message : '处理好友请求失败';
     setError(errorMessage);
     setLoading(LoadingState.ERROR);
     return false;
@@ -232,7 +147,7 @@ export const rejectFriendRequestService = async (requestId: number): Promise<boo
  * @param userId 好友用户ID
  * @returns Promise<boolean> 删除是否成功
  */
-export const deleteFriendService = async (userId: number): Promise<boolean> => {
+export const deleteFriendService = async (userId: string): Promise<boolean> => {
   const { setLoading, setError } = useFriendsStore.getState();
   
   try {
@@ -240,10 +155,10 @@ export const deleteFriendService = async (userId: number): Promise<boolean> => {
     
     const response = await deleteFriend(userId);
     
-    if (response.code === 200) {
+    if (response.success) {
       setLoading(LoadingState.SUCCESS);
-      // 删除成功后刷新好友列表
-      await getFriendsService();
+      // 删除成功后刷新好友请求列表
+      await getFriendRequestsService();
       return true;
     } else {
       setError(response.message || '删除好友失败');

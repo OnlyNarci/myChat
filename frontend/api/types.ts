@@ -123,6 +123,39 @@ export interface Order {
   updated_at: string;
 }
 
+// 群组相关类型
+export interface Group {
+  uid: string;
+  name: string;
+  avatar?: string;
+  signature?: string;
+  tags: string[];
+  level: number;
+  allow_search: boolean;
+  join_free: boolean;
+}
+
+export interface GroupSelfParams {
+  name: string;
+  avatar?: string;
+  signature?: string;
+  tags?: string[];
+  allow_search?: boolean;
+  join_free?: boolean;
+}
+
+export interface GroupMessage {
+  group_uid: string;
+  user_name: string;
+  content: string;
+  message_type: number;
+  created_at: string;
+}
+
+export interface GroupNotice extends GroupMessage {
+  // 群公告就是特殊类型的群消息
+}
+
 export interface OrderParams {
   card_id: number;
   number: number;
@@ -166,7 +199,13 @@ export interface StoreRecord {
 export interface BaseResponse<T = any> {
   success: boolean;
   message: string;
-  data?: T;
+  data: T;
+}
+
+// 用于兼容没有data字段的响应
+export interface SimpleResponse {
+  success: boolean;
+  message: string;
 }
 
 export interface PaginatedResponse<T = any> extends BaseResponse<{
@@ -176,3 +215,77 @@ export interface PaginatedResponse<T = any> extends BaseResponse<{
   size: number;
   pages: number;
 }> { }
+
+// 用户信息响应类型
+export interface UserInfoResponse {
+  self_info: UserSelfParams;
+}
+
+// 好友请求响应类型
+export interface FriendRequestResponse {
+  waiting_accept: {
+    sent: (Friend & { message: string })[];
+    received: (Friend & { message: string })[];
+  };
+}
+
+// 卡牌列表响应类型
+export interface CardsResponse {
+  cards: UserCard[];
+}
+
+// 订单列表响应类型
+export interface OrdersResponse {
+  orders: Order[];
+}
+
+// 卡牌信息响应类型
+export interface CardInfoResponse {
+  card_info: Card;
+}
+
+// 合成材料响应类型
+export interface ComposeMaterialsResponse {
+  compose_materials: Material[];
+}
+
+// 分解材料响应类型
+export interface DecomposeMaterialsResponse {
+  decompose_materials: Material[];
+}
+
+// 商店卡牌列表响应类型
+export interface StoreCardsResponse {
+  cards: StoreCard[];
+}
+
+// 购买卡牌响应类型
+export interface BuyCardResponse {
+  cost_byte: number;
+}
+
+// 下架卡牌响应类型
+export interface DelistCardResponse {
+  card_to_delist: number;
+  require_num: number;
+}
+
+// 群组列表响应类型
+export interface GroupsResponse {
+  groups: Group[];
+}
+
+// 群公告响应类型
+export interface GroupNoticeResponse {
+  group_notice: GroupNotice[];
+}
+
+// 创建群组响应类型
+export interface CreateGroupResponse {
+  group: string;
+}
+
+// 群成员响应类型
+export interface GroupMembersResponse {
+  under_review_members: User[];
+}

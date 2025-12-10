@@ -33,8 +33,8 @@ export const loginService = async (params: LoginParams): Promise<boolean> => {
     console.log('获取用户信息响应:', userResponse);
 
     if (userResponse.success) {
-      setUser(userResponse.self_info);
-      console.log('登录成功并获取到用户信息:', userResponse.self_info);
+      setUser(userResponse.data.self_info);
+      console.log('登录成功并获取到用户信息:', userResponse.data.self_info);
     } else {
       console.warn('登录成功但获取用户信息失败:', userResponse.message);
     }
@@ -71,7 +71,7 @@ export const uploadAvatarService = async (file: File): Promise<boolean> => {
       if (currentUser) {
         setUser({
           ...currentUser,
-          avatar: response.avatar_url
+          avatar: response.data.avatar_url
         });
       }
       setLoading(LoadingState.SUCCESS);
@@ -168,8 +168,12 @@ export const updateUserService = async (params: UserParams): Promise<boolean> =>
 
     const response = await updateUser(params);
 
-    if (response.data) {
-      setUser(response.data);
+    if (response.success) {
+      // 更新成功，重新获取用户信息
+      const userResponse = await getCurrentUser();
+      if (userResponse.success) {
+        setUser(userResponse.data.self_info);
+      }
       setLoading(LoadingState.SUCCESS);
       return true;
     } else {

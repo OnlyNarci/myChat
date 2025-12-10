@@ -3,31 +3,56 @@
  */
 
 import { apiRequest } from '../utils';
-import type { Friend, BaseResponse, PaginatedResponse } from './types';
+import type { Friend, BaseResponse, PaginatedResponse, FriendRequestResponse } from './types';
 
 /**
- * 获取好友列表
- * @param params 查询参数
- * @returns Promise<PaginatedResponse<Friend>>
+ * 获取待处理好友请求
+ * @returns Promise<BaseResponse<FriendRequestResponse>>
  */
-export const getFriends = (params?: {
-  page?: number;
-  size?: number;
-}): Promise<PaginatedResponse<Friend>> => {
-  return apiRequest.get('/player/friendship', { params });
+export const getFriendRequests = (): Promise<BaseResponse<FriendRequestResponse>> => {
+  return apiRequest.get('/player/friendship/under_review');
 };
 
 /**
- * 搜索用户
- * @param params 搜索参数
- * @returns Promise<PaginatedResponse<Friend>>
+ * 发送好友请求
+ * @param uid 用户ID
+ * @param message 请求消息
+ * @returns Promise<SimpleResponse>
  */
-export const searchUsers = (params: {
-  keyword: string;
-  page?: number;
-  size?: number;
-}): Promise<PaginatedResponse<Friend>> => {
-  return apiRequest.get('/player/friendship/search', { params });
+export const sendFriendRequest = (uid: string, message: string): Promise<SimpleResponse> => {
+  return apiRequest.post(`/player/friendship/${uid}`, null, { 
+    params: { request_message: message } 
+  });
+};
+
+/**
+ * 处理好友请求
+ * @param uid 请求者用户ID
+ * @param isAccepted 是否接受
+ * @returns Promise<SimpleResponse>
+ */
+export const handleFriendRequest = (uid: string, isAccepted: boolean): Promise<SimpleResponse> => {
+  return apiRequest.put(`/player/friendship/${uid}`, null, { 
+    params: { is_accepted: isAccepted } 
+  });
+};
+
+/**
+ * 删除好友
+ * @param uid 好友用户ID
+ * @returns Promise<SimpleResponse>
+ */
+export const deleteFriend = (uid: string): Promise<SimpleResponse> => {
+  return apiRequest.delete(`/player/friendship/${uid}`);
+};
+
+/**
+ * 获取指定用户公开信息
+ * @param uid 用户ID
+ * @returns Promise<BaseResponse<{ user_info: Friend }>>
+ */
+export const getUserInfo = (uid: string): Promise<BaseResponse<{ user_info: Friend }>> => {
+  return apiRequest.get(`/player/info/${uid}`);
 };
 
 /**

@@ -3,7 +3,7 @@
  */
 
 import { apiRequest } from '../utils';
-import type { User, UserParams, UserSelfParams, LoginParams, RegisterParams, BaseResponse } from './types';
+import type { User, UserParams, UserSelfParams, LoginParams, RegisterParams, BaseResponse, SimpleResponse, UserInfoResponse } from './types';
 
 /**
  * 更新用户头像
@@ -26,41 +26,35 @@ export const updateAvatar = (file: File): Promise<{
 /**
  * 用户登录
  * @param params 登录参数
- * @returns Promise<User>
+ * @returns Promise<SimpleResponse>
  */
-export const login = (params: LoginParams): Promise<BaseResponse<User>> => {
+export const login = (params: LoginParams): Promise<SimpleResponse> => {
   return apiRequest.post('/player/login', params);
 };
 
 /**
  * 用户注册
  * @param params 注册参数
- * @returns Promise<User>
+ * @returns Promise<SimpleResponse>
  */
-export const register = (params: RegisterParams): Promise<BaseResponse<User>> => {
+export const register = (params: RegisterParams): Promise<SimpleResponse> => {
   return apiRequest.post('/player/signup', params);
 };
 
 /**
  * 获取当前登录用户的个人信息（无需传参，后端通过依赖自动获取用户ID）
- * @returns Promise<{ success: boolean; message: string; self_info: UserSelfParams }>
+ * @returns Promise<BaseResponse<UserInfoResponse>>
  */
-export const getCurrentUser = (): Promise<{
-  success: boolean;
-  message: string;
-  self_info: UserSelfParams; // 对应后端返回的 self_info 字段
-}> => {
-  // 路径说明：如果 apiRequest 配置了 baseURL = '/player'，则路径写 '/info/me' 即可；
-  // 如果没有配置 baseURL，需写完整路径 '/player/info/me'（保持和你原代码一致）
+export const getCurrentUser = (): Promise<BaseResponse<UserInfoResponse>> => {
   return apiRequest.get('/player/info/me');
 };
 
 /**
  * 更新用户信息
  * @param params 用户参数
- * @returns Promise<BaseResponse<null>>
+ * @returns Promise<SimpleResponse>
  */
-export const updateUser = (params: UserSelfParams): Promise<BaseResponse<null>> => {
+export const updateUser = (params: UserSelfParams): Promise<SimpleResponse> => {
   return apiRequest.put('/player/info/me', params);
 };
 

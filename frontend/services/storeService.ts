@@ -4,13 +4,13 @@
 
 import { 
   getStoreCards, 
-  addStoreCard, 
-  removeStoreCard, 
+  listCard, 
+  delistCard, 
   buyCard, 
-  getMyStoreCards, 
-  getOrders, 
-  confirmOrder, 
-  cancelOrder,
+  buyFriendCard,
+  getWaitingOrders, 
+  completeOrder, 
+  deleteOrder,
   getBuyRecords,
   getSellRecords
 } from '../api';
@@ -24,10 +24,10 @@ import { StoreCardParams, OrderParams } from '../api/types';
  * @returns Promise<boolean> 获取是否成功
  */
 export const getStoreCardsService = async (params?: {
-  page?: number;
-  size?: number;
   package?: string;
-  rarity?: number;
+  name_in?: string;
+  price_le?: number;
+  price_ge?: number;
 }): Promise<boolean> => {
   const { 
     setStoreCardsLoading, 
@@ -41,14 +41,14 @@ export const getStoreCardsService = async (params?: {
     
     const response = await getStoreCards(params);
     
-    if (response.code === 200 && response.data) {
-      const { items, total, page, size, pages } = response.data;
+    if (response.success) {
+      const { cards } = response.data;
       
-      setStoreCardsData(items, {
-        page,
-        size,
-        total,
-        pages
+      setStoreCardsData(cards, {
+        page: 1,
+        size: cards.length,
+        total: cards.length,
+        pages: 1
       });
       
       return true;

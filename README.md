@@ -3,7 +3,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.116.1-green)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.13+-blue)](https://python.org)
 [![License: GPL v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-0.8.0-red)](https://github.com)
+[![Version](https://img.shields.io/badge/Version-0.8.1-red)](https://github.com)
 
 一个基于FastAPI框架开发的现代化集换式卡牌游戏（TCG）后端系统，采用全异步架构设计，提供高性能的游戏服务支持。
 
@@ -19,8 +19,8 @@
 
 ## 📋 系统要求
 
-- Python 3.13+
-- MySQL 5.7+ 或 8.0+
+- Python 3.12+
+- MySQL 8.0+
 - 8GB+ RAM（推荐）
 - 2GB+ 磁盘空间
 
@@ -30,13 +30,13 @@
 
 ```bash
 # 克隆项目
-git clone <repository-url>
+git clone https://github.com/OnlyNarci/NarcissusTCG
 cd narcissus-tcg
 
 # 创建虚拟环境
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# 或 venv\Scripts\activate  # Windows
+
 
 # 安装依赖
 pip install -i https://mirrors.aliyun.com/pypi/simple/ .
@@ -141,15 +141,32 @@ workspace/
 - ✅ 需要登录认证
 - ❌ 无需认证
 
-#### 错误响应格式
-所有API错误响应都遵循统一的JSON格式：
+#### 响应格式规范
+
+**成功响应格式：**
+```json
+{
+  "success": true,
+  "message": "操作成功的描述信息",
+  "data": {  // 具体数据内容，根据接口不同而变化
+    // 示例：
+    "self_info": {},  // 个人信息
+    "cards": [],      // 卡牌列表
+    "orders": []      // 订单列表
+  }
+}
+```
+
+**错误响应格式：**
 ```json
 {
   "success": false,
   "message": "错误描述信息",
-  "extra": {}  // 可选的额外信息，仅在特定错误时提供
+  "data": {}  // 可选的额外信息，仅在特定错误时提供
 }
 ```
+
+**注意：** 在大部分接口中，`data` 字段包含了实际的业务数据。当 `success` 为 `true` 时，`data` 字段包含相应的业务数据；当 `success` 为 `false` 时，`data` 字段可能包含错误相关的额外信息。
 
 #### 常见HTTP状态码
 | 状态码 | 含义 | 描述 |
@@ -168,7 +185,7 @@ workspace/
 
 ---
 
-### 用户管理接口 (User Endpoints)
+### 用户管理接口 (User Endpoints) - 前缀：`/player`
 
 #### 认证相关 (Authentication)
 
@@ -197,7 +214,7 @@ Content-Type: application/json
 **成功响应 (200)：**
 ```json
 {
-  "status": 200,
+  "success": true,
   "message": "登录成功，页面将在5秒后跳转"
 }
 ```
@@ -231,7 +248,7 @@ Content-Type: application/json
 **成功响应 (200)：**
 ```json
 {
-  "status": 200,
+  "success": true,
   "message": "注册成功，即将跳转登录页面"
 }
 ```
@@ -239,7 +256,7 @@ Content-Type: application/json
 **错误响应：**
 - `400 BadRequest` - 用户名或邮箱已被使用
 - `422 InvalidParams` - 参数验证失败
-  - **extra参数说明：**
+  - **data参数说明：**
     ```json
     {
       "errors": "user_name: 用户名不能为空; password: 密码至少包含8个字符"
@@ -269,15 +286,17 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "success to get self info",
-  "self_info": {
-    "uid": "string",        // 用户UID
-    "name": "string",       // 用户名
-    "avatar": "string",     // 头像URL
-    "signature": "string",  // 个性签名
-    "level": 1,             // 等级
-    "email": "string",      // 邮箱
-    "exp": 0,               // 经验值
-    "byte": 0               // 比特（游戏货币）
+  "data": {
+    "self_info": {
+      "uid": "string",        // 用户UID
+      "name": "string",       // 用户名
+      "avatar": "string",     // 头像URL
+      "signature": "string",  // 个性签名
+      "level": 1,             // 等级
+      "email": "string",      // 邮箱
+      "exp": 0,               // 经验值
+      "byte": 0               // 比特（游戏货币）
+    }
   }
 }
 ```
@@ -299,12 +318,14 @@ GET /player/info/{user_uid}
 {
   "success": true,
   "message": "success to get user info",
-  "user_info": {
-    "uid": "string",
-    "name": "string",
-    "avatar": "string",
-    "signature": "string",
-    "level": 1
+  "data": {
+    "user_info": {
+      "uid": "string",
+      "name": "string",
+      "avatar": "string",
+      "signature": "string",
+      "level": 1
+    }
   }
 }
 ```
@@ -338,6 +359,41 @@ Cookie: session_id=<session_id>
 
 ---
 
+#### 头像管理 (Avatar Management)
+
+| 方法 | 路径 | 描述 | 认证要求 |
+|------|------|------|----------|
+| PUT | `/player/info/me/avatars` | 上传用户头像 | ✅ |
+
+**上传头像接口**
+
+```http
+PUT /player/info/me/avatars
+Content-Type: multipart/form-data
+Cookie: session_id=<session_id>
+```
+
+**请求参数：**
+- `avatars_file` (file, required) - 头像图片文件，支持PNG、JPG、JPEG格式，最大2MB
+
+**成功响应 (200)：**
+```json
+{
+  "success": true,
+  "message": "success to update self avatars",
+  "data": {
+    "avatar_url": "string"  // 头像URL
+  }
+}
+```
+
+**错误响应：**
+- `422 InvalidParams` - 文件格式不支持（非图片文件）
+- `422 InvalidParams` - 文件过大（超过2MB）
+- `500 InternalServerError` - 服务器错误
+
+---
+
 #### 好友关系管理 (Friendship Management)
 
 | 方法 | 路径 | 描述 | 认证要求 |
@@ -359,23 +415,25 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "success in getting waiting accept",
-  "waiting_accept": {
-    "sent": [           // 我发起的请求
-      {
-        "uid": "string",
-        "name": "string",
-        "avatar": "string",
-        "message": "string"
-      }
-    ],
-    "received": [        // 我收到的请求
-      {
-        "uid": "string",
-        "name": "string", 
-        "avatar": "string",
-        "message": "string"
-      }
-    ]
+  "data": {
+    "waiting_accept": {
+      "sent": [           // 我发起的请求
+        {
+          "uid": "string",
+          "name": "string",
+          "avatar": "string",
+          "message": "string"
+        }
+      ],
+      "received": [        // 我收到的请求
+        {
+          "uid": "string",
+          "name": "string", 
+          "avatar": "string",
+          "message": "string"
+        }
+      ]
+    }
   }
 }
 ```
@@ -397,7 +455,7 @@ Cookie: session_id=<session_id>
 ```json
 {
   "success": true,
-  "message": "成功发起好友请求，请等待对方同意。"
+  "message": "success in sending request, please wait for accept"
 }
 ```
 或
@@ -445,7 +503,7 @@ Cookie: session_id=<session_id>
 ```json
 {
   "success": true,
-  "message": "好友关系已解除"
+  "message": "success in deleting friendship"
 }
 ```
 
@@ -477,17 +535,19 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "get box success",
-  "cards": [
-    {
-      "card_id": 1,
-      "name": "string",
-      "image": "string",
-      "rarity": 1,
-      "package": "base",
-      "unlock_level": 1,
-      "description": "string"
-    }
-  ]
+  "data": {
+    "cards": [
+      {
+        "card_id": 1,
+        "name": "string",
+        "image": "string",
+        "rarity": 1,
+        "package": "base",
+        "unlock_level": 1,
+        "description": "string"
+      }
+    ]
+  }
 }
 ```
 
@@ -512,24 +572,26 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "pull card success",
-  "cards": [
-    {
-      "card_id": 1,
-      "name": "string",
-      "image": "string",
-      "rarity": 1,
-      "package": "base",
-      "unlock_level": 1,
-      "description": "string"
-    }
-  ]
+  "data": {
+    "cards": [
+      {
+        "card_id": 1,
+        "name": "string",
+        "image": "string",
+        "rarity": 1,
+        "package": "base",
+        "unlock_level": 1,
+        "description": "string"
+      }
+    ]
+  }
 }
 ```
 
 **错误响应：**
 - `422 InvalidParams` - 未知的扩展包
 - `409 Conflict` - 比特不足
-  - **extra参数说明：**
+  - **data参数说明：**
     ```json
     {
       "need_byte": 100
@@ -562,14 +624,14 @@ Cookie: session_id=<session_id>
 **错误响应：**
 - `422 InvalidParams` - 未知的卡牌
 - `403 Forbidden` - 等级不足或无法合成
-  - **extra参数说明（等级不足时）：**
+  - **data参数说明（等级不足时）：**
     ```json
     {
       "unlock_level": 10
     }
     ```
 - `409 Conflict` - 缺少合成材料
-  - **extra参数说明：**
+  - **data参数说明：**
     ```json
     {
       "lack_materials": ["卡牌A", "卡牌B"]
@@ -598,20 +660,22 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "get waiting orders successfully",
-  "orders": [
-    {
-      "order_id": 1,
-      "user_id": 1,
-      "require": [
-        {
-          "name": "string",
-          "number": 1
-        }
-      ],
-      "price": 100,
-      "exp": 50
-    }
-  ]
+  "data": {
+    "orders": [
+      {
+        "order_id": 1,
+        "user_id": 1,
+        "require": [
+          {
+            "name": "string",
+            "number": 1
+          }
+        ],
+        "price": 100,
+        "exp": 50
+      }
+    ]
+  }
 }
 ```
 
@@ -630,8 +694,10 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "complete order successfully",
-  "exp": 50,
-  "byte": 100
+  "data": {
+    "exp": 50,
+    "byte": 100
+  }
 }
 ```
 
@@ -647,7 +713,7 @@ Cookie: session_id=<session_id>
 
 ---
 
-### 卡牌信息接口 (Card Endpoints)
+### 卡牌信息接口 (Card Endpoints) - 前缀：`/card`
 
 | 方法 | 路径 | 描述 | 认证要求 |
 |------|------|------|----------|
@@ -669,14 +735,16 @@ GET /card/info?card_id=integer
 {
   "success": true,
   "message": "success in query card info",
-  "card_info": {
-    "card_id": 1,
-    "name": "string",
-    "image": "string",
-    "rarity": 1,
-    "package": "base",
-    "unlock_level": 1,
-    "description": "string"
+  "data": {
+    "card_info": {
+      "card_id": 1,
+      "name": "string",
+      "image": "string",
+      "rarity": 1,
+      "package": "base",
+      "unlock_level": 1,
+      "description": "string"
+    }
   }
 }
 ```
@@ -699,13 +767,15 @@ GET /card/materials/compose?card_id=integer
 {
   "success": true,
   "message": "success in query card compose materials",
-  "compose_materials": [
-    {
-      "card_id": 1,
-      "name": "string",
-      "number": 2
-    }
-  ]
+  "data": {
+    "compose_materials": [
+      {
+        "card_id": 1,
+        "name": "string",
+        "number": 2
+      }
+    ]
+  }
 }
 ```
 
@@ -727,13 +797,15 @@ GET /card/materials/decompose?card_id=integer
 {
   "success": true,
   "message": "success in query card decompose materials",
-  "decompose_materials": [
-    {
-      "card_id": 1,
-      "name": "string",
-      "number": 1
-    }
-  ]
+  "data": {
+    "decompose_materials": [
+      {
+        "card_id": 1,
+        "name": "string",
+        "number": 1
+      }
+    ]
+  }
 }
 ```
 
@@ -743,7 +815,7 @@ GET /card/materials/decompose?card_id=integer
 
 ---
 
-### 商店系统接口 (Store Endpoints)
+### 商店系统接口 (Store Endpoints) - 前缀：`/store`
 
 | 方法 | 路径 | 描述 | 认证要求 |
 |------|------|------|----------|
@@ -772,20 +844,22 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "query card success",
-  "cards": [
-    {
-      "store_id": 1,
-      "card_id": 1,
-      "name": "string",
-      "image": "string",
-      "rarity": 1,
-      "package": "base",
-      "number": 1,
-      "price": 100,
-      "owner_name": "string",
-      "is_publish": true
-    }
-  ]
+  "data": {
+    "cards": [
+      {
+        "store_id": 1,
+        "card_id": 1,
+        "name": "string",
+        "image": "string",
+        "rarity": 1,
+        "package": "base",
+        "number": 1,
+        "price": 100,
+        "owner_name": "string",
+        "is_publish": true
+      }
+    ]
+  }
 }
 ```
 
@@ -807,20 +881,22 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "query friend card success",
-  "cards": [
-    {
-      "store_id": 1,
-      "card_id": 1,
-      "name": "string",
-      "image": "string",
-      "rarity": 1,
-      "package": "base",
-      "number": 1,
-      "price": 100,
-      "owner_name": "string",
-      "is_publish": false
-    }
-  ]
+  "data": {
+    "cards": [
+      {
+        "store_id": 1,
+        "card_id": 1,
+        "name": "string",
+        "image": "string",
+        "rarity": 1,
+        "package": "base",
+        "number": 1,
+        "price": 100,
+        "owner_name": "string",
+        "is_publish": false
+      }
+    ]
+  }
 }
 ```
 
@@ -852,7 +928,7 @@ Cookie: session_id=<session_id>
 ```json
 {
   "success": true,
-  "message": "成功上架卡牌"
+  "message": "success in listing card"
 }
 ```
 
@@ -886,8 +962,10 @@ Cookie: session_id=<session_id>
 ```json
 {
   "success": true,
-  "message": "购买卡牌成功，消耗比特: 100",
-  "cost_byte": 100
+  "message": "success to buy card, cost byte: 100",
+  "data": {
+    "cost_byte": 100
+  }
 }
 ```
 
@@ -935,8 +1013,10 @@ Cookie: session_id=<session_id>
 ```json
 {
   "success": true,
-  "message": "购买卡牌成功，花费比特: 100。",
-  "cost_byte": 100
+  "message": "success to buy card, cost byte: 100。",
+  "data": {
+    "cost_byte": 100
+  }
 }
 ```
 
@@ -967,9 +1047,11 @@ Cookie: session_id=<session_id>
 ```json
 {
   "success": true,
-  "message": "成功下架1张卡牌。",
-  "card_to_delist": 1,
-  "require_num": 0
+  "message": "success to delist 1 cards。",
+  "data": {
+    "card_to_delist": 1,
+    "require_num": 0
+  }
 }
 ```
 
@@ -979,7 +1061,7 @@ Cookie: session_id=<session_id>
 
 ---
 
-### 群组系统接口 (Group Endpoints)
+### 群组系统接口 (Group Endpoints) - 前缀：`/groups`
 
 #### 基础群组管理 (Base Group Management)
 
@@ -1008,18 +1090,20 @@ GET /groups/others?group_uid=string&name_in=string&level_ge=integer
 {
   "success": true,
   "message": "success in getting groups",
-  "groups": [
-    {
-      "uid": "string",
-      "name": "string",
-      "avatar": "string",
-      "signature": "string",
-      "tags": ["tag1", "tag2"],
-      "level": 1,
-      "allow_search": true,
-      "join_free": true
-    }
-  ]
+  "data": {
+    "groups": [
+      {
+        "uid": "string",
+        "name": "string",
+        "avatar": "string",
+        "signature": "string",
+        "tags": ["tag1", "tag2"],
+        "level": 1,
+        "allow_search": true,
+        "join_free": true
+      }
+    ]
+  }
 }
 ```
 
@@ -1038,18 +1122,20 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "success in getting groups",
-  "groups": [
-    {
-      "uid": "string",
-      "name": "string",
-      "avatar": "string",
-      "signature": "string",
-      "tags": ["tag1", "tag2"],
-      "level": 1,
-      "allow_search": true,
-      "join_free": true
-    }
-  ]
+  "data": {
+    "groups": [
+      {
+        "uid": "string",
+        "name": "string",
+        "avatar": "string",
+        "signature": "string",
+        "tags": ["tag1", "tag2"],
+        "level": 1,
+        "allow_search": true,
+        "join_free": true
+      }
+    ]
+  }
 }
 ```
 
@@ -1071,15 +1157,17 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "success in getting group notice",
-  "group_notice": [
-    {
-      "group_uid": "string",
-      "user_name": "string",
-      "content": "string",
-      "message_type": 3,
-      "created_at": "2025-12-06T10:00:00"
-    }
-  ]
+  "data": {
+    "group_notice": [
+      {
+        "group_uid": "string",
+        "user_name": "string",
+        "content": "string",
+        "message_type": 3,
+        "created_at": "2025-12-06T10:00:00"
+      }
+    ]
+  }
 }
 ```
 
@@ -1112,7 +1200,9 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "success in creating group",
-  "group_uid": "group123"
+  "data": {
+    "group": "group123"
+  }
 }
 ```
 
@@ -1140,7 +1230,7 @@ Cookie: session_id=<session_id>
 ```json
 {
   "success": true,
-  "message": "加群请求已发起，等待管理员同意"
+  "message": "success in sending join request, please wait for accept"
 }
 ```
 
@@ -1193,15 +1283,17 @@ Cookie: session_id=<session_id>
 {
   "success": true,
   "message": "success in get join_request_service",
-  "under_review_members": [
-    {
-      "uid": "string",
-      "name": "string",
-      "avatar": "string",
-      "signature": "string",
-      "level": 1
-    }
-  ]
+  "data": {
+    "under_review_members": [
+      {
+        "uid": "string",
+        "name": "string",
+        "avatar": "string",
+        "signature": "string",
+        "level": 1
+      }
+    ]
+  }
 }
 ```
 
@@ -1443,6 +1535,7 @@ class Settings:
     PROJECT_VERSION: str = "0.8.0"
     SESSION_EXPIRE_HOURS = 120
     SERVER_PORT: int = 8000
+    ......
 ```
 
 ### 数据库配置
@@ -1495,8 +1588,7 @@ python -m pytest --cov=app tests/
 FROM python:3.13-slim
 
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ .
 
 COPY . .
 EXPOSE 8000
@@ -1523,6 +1615,12 @@ export DB_NAME=narcissus_tcg
 5. 打开 Pull Request
 
 ## 📝 更新日志
+
+### v0.8.1
+- **API响应格式标准化**：统一所有接口响应格式，新增`data`字段包装业务数据
+- **新增头像上传接口**：支持用户通过文件上传更新头像
+- **路由前缀完善**：明确各模块API前缀（用户`/player`、卡牌`/card`、商店`/store`、群组`/groups`）
+- **错误响应优化**：统一错误响应中的`data`字段命名（原`extra`字段）
 
 ### v0.8.0
 - 初始版本发布
