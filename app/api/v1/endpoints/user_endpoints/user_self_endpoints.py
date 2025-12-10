@@ -13,7 +13,7 @@ from app.services.user_services.user_self_services import (
 from log.log_config.service_logger import err_logger
 
 
-UserType: TypeAlias = Dict[str, bool | str | UserParams | UserSelfParams]
+UserType: TypeAlias = Dict[str, bool | str | Dict[str, UserParams | UserSelfParams]]
 
 
 @user_router.get('/info/me', response_model=UserType)
@@ -32,7 +32,7 @@ async def get_self_info_endpoint(
         return {
             'success': True,
             'message': 'success to get self info',
-            'self_info': self_info,
+            'data': {'self_info': self_info}
         }
     
     except Exception as e:
@@ -55,12 +55,12 @@ async def get_user_info_endpoint(
         user_info = await get_user_info_service(user_uid=user_uid)
         match user_info:
             case 'user not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未知玩家')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='unknown player')
             case _:
                 return {
                     'success': True,
                     'message': 'success to get user info',
-                    'user_info': user_info,
+                    'data': {'user_info': user_info}
                 }
     
     except Exception as e:
@@ -110,11 +110,11 @@ async def update_self_avatars_endpoint(
         )
         match response:
             case 'file not image':
-                raise ClientError(error_code=ErrorCodes.InvalidParams, message='头像文件应当为png, jpg或jpeg格式。')
+                raise ClientError(error_code=ErrorCodes.InvalidParams, message='avatar should be image file, format as png, jpg or jpeg')
             case 'unknown file':
-                raise ClientError(error_code=ErrorCodes.InvalidParams, message='头像文件应当为png, jpg或jpeg格式。')
+                raise ClientError(error_code=ErrorCodes.InvalidParams, message='avatar should be image file, format as png, jpg or jpeg')
             case 'file too large':
-                raise ClientError(error_code=ErrorCodes.InvalidParams, message='图片大小不得超过2mb。')
+                raise ClientError(error_code=ErrorCodes.InvalidParams, message='avatar image too large, it should less than 2 MB')
             case _:
                 return {
                     'success': True,

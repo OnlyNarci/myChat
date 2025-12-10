@@ -16,8 +16,8 @@ from app.api.v1.endpoints.group_endpoints import group_router
 from log.log_config.service_logger import err_logger
 
 
-GroupType: TypeAlias = Dict[str, bool | str | List[GroupParams]]
-GroupMessageType: TypeAlias = Dict[str, bool | str | List[GroupMessageParams]]
+GroupType: TypeAlias = Dict[str, bool | str | Dict[str, List[GroupParams]]]
+GroupMessageType: TypeAlias = Dict[str, bool | str | Dict[str, List[GroupMessageParams]]]
 
 
 @group_router.get('/others', response_model=GroupType)
@@ -44,7 +44,7 @@ async def query_groups_not_in_endpoint(
         return {
             'success': True,
             'message': 'success in getting groups',
-            'groups': groups,
+            'data': {'groups': groups,}
         }
     
     except Exception as e:
@@ -70,7 +70,7 @@ async def query_groups_in_endpoint(
         return {
             'success': True,
             'message': 'success in getting groups',
-            'groups': groups,
+            'data': {'groups': groups}
         }
     
     except Exception as e:
@@ -98,15 +98,15 @@ async def query_group_notice_endpoint(
         )
         match response:
             case 'user not in group':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您还不在群中，无法查看群公告')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message="user not in group, can't view notice")
             case _:
                 return {
                     'success': True,
                     'message': 'success in getting group notice',
-                    'group_notice': response,
+                    'data': {'group_notice': response}
                 }
     except Exception as e:
-        err_logger.error(f'failed to get group notice: {e} | params: user_id={user_id}')
+        err_logger.error(f'failed to get group notice: {e} | params: user_id={user_id}; group_uid={group_uid}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法查看群公告')
 
 
@@ -122,12 +122,12 @@ async def create_group_endpoint(
         )
         match response:
             case 'group too march':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message=f'每个人只能创建最多{extra_params}个群聊')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message=f'everyone can create {extra_params.MAX_GROUP_FOR_USER} groups only')
             case _:
                 return {
                     'success': True,
                     'message': 'success in creating group',
-                    'group_uid': response,
+                    'data': {'group': response}
                 }
     except Exception as e:
         err_logger.error(f'failed to create group: {e} | params: user_id={user_id}; group_params={group_params}')
@@ -157,15 +157,15 @@ async def join_group_endpoint(
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法加入群聊')
     match response:
         case 'group not found':
-            raise ClientError(error_code=ErrorCodes.NotFound, message='未找到您要加入的群聊')
+            raise ClientError(error_code=ErrorCodes.NotFound, message='group not found')
         case 'forbidden to join group':
-            raise ClientError(error_code=ErrorCodes.Forbidden, message='您被禁止加入该群聊')
+            raise ClientError(error_code=ErrorCodes.Forbidden, message='you are not allowed to join group')
         case 'group already joined':
-            raise ClientError(error_code=ErrorCodes.Conflict, message='您已在群中')
+            raise ClientError(error_code=ErrorCodes.Conflict, message='group already joined')
         case 'group joined':
             return {
                 'success': True,
-                'message': '加群请求已发起，等待管理员同意',
+                'message': 'success in sending join request, please wait for accept',
             }
 
 
@@ -189,7 +189,7 @@ async def leave_group_endpoint(
         )
         match response:
             case 'not in group':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='您已经不在群中了')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='you has left the group')
             case 'leave group':
                 return {
                     'success': True,

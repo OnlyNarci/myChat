@@ -129,7 +129,7 @@ async def handle_http_exception(request: Request, exc: Union[ClientError, Redire
                 content={
                     'success': False,
                     'message': exc.message,
-                    'extra': exc.extra
+                    'data': exc.extra
                 }
             )
         
@@ -140,7 +140,7 @@ async def handle_http_exception(request: Request, exc: Union[ClientError, Redire
                 content={
                     'success': False,
                     "message": exc.message,
-                    "extra": exc.extra
+                    "data": exc.extra
                 }
             )
         

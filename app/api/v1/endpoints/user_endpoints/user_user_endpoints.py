@@ -14,7 +14,7 @@ from app.services.user_services.user_user_services import (
 from log.log_config.service_logger import err_logger
 
 
-@user_router.get("/friendship/under_review", response_model=Dict[str, str | bool | Dict[str, List[Dict[str, str | UserParams]]]])
+@user_router.get("/friendship/under_review", response_model=Dict[str, str | bool | Dict[str, Dict[str, List[Dict[str, str | UserParams]]]]])
 async def get_waiting_accept(
     user_id: int = Depends(get_current_user_id),
 ) -> Dict[str, str | bool | Dict[str, List[Dict[str, str | UserParams]]]]:
@@ -23,7 +23,7 @@ async def get_waiting_accept(
         return {
             'success': True,
             'message': 'success in getting waiting accept',
-            'waiting_accept': waiting_accept
+            'data': {'waiting_accept': waiting_accept}
         }
     
     except Exception as e:
@@ -59,19 +59,19 @@ async def request_friendship(
     
     match result:
         case "User accept does not exist":
-            raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不存在。')
+            raise ClientError(error_code=ErrorCodes.NotFound, message='player not found')
         case "can not request self":
-            raise ClientError(error_code=ErrorCodes.Forbidden, message='不能对自己发起好友请求')
+            raise ClientError(error_code=ErrorCodes.Forbidden, message='could not request self')
         case 'waiting for accept':
-            raise ClientError(error_code=ErrorCodes.Conflict, message='您已经向该玩家发起过好友请求了，请等待对方同意。')
+            raise ClientError(error_code=ErrorCodes.Conflict, message='you have sending request before, please wait for accept')
         case 'friendship is confirm':
-            raise ClientError(error_code=ErrorCodes.Conflict, message='该玩家已经是您的好友了。')
+            raise ClientError(error_code=ErrorCodes.Conflict, message='friendship is confirm')
         case 'black list member can not request':
-            raise ClientError(error_code=ErrorCodes.Forbidden, message='您已将对方拉黑或对方已将您拉黑，无法发起好友请求。')
+            raise ClientError(error_code=ErrorCodes.Forbidden, message='black list member can not request')
         case 'success in sending request':
             return {
                 "success": True,
-                'message': '成功发起好友请求，请等待对方同意。'
+                'message': 'success in sending request, please wait for accept',
             }
         case 'got request before, now is accepted':
             return {
@@ -108,11 +108,11 @@ async def handle_friend_request(
     
     match result:
         case "User A does not exist":
-            raise ClientError(error_code=ErrorCodes.NotFound, message='发起请求的玩家不存在。')
+            raise ClientError(error_code=ErrorCodes.NotFound, message='player not found')
         case "got no friend request from user A":
-            raise ClientError(error_code=ErrorCodes.Conflict, message='对方还没有向您发起请求。')
+            raise ClientError(error_code=ErrorCodes.Conflict, message=f'got no friend request from user: {request_user_uid}')
         case 'friendship has confirm':
-            raise ClientError(error_code=ErrorCodes.Conflict, message='该玩家已经是您的好友了。')
+            raise ClientError(error_code=ErrorCodes.Conflict, message='friendship has confirm')
         case 'friend request rejected':
             raise {
                 "success": True,
@@ -152,10 +152,10 @@ async def delete_friendship(
         case 'friend does not exist':
             raise ClientError(error_code=ErrorCodes.NotFound, message='该账号已注销，如果你们的好友关系没有自动解除，请联系管理员解决。')
         case 'friendship does not exist':
-            raise ClientError(error_code=ErrorCodes.Conflict, message='你们还不是好友')
+            raise ClientError(error_code=ErrorCodes.Conflict, message='friendship does not exist')
         case 'friend deleted':
             return {
                 "success": True,
-                "message": '好友关系已解除'
+                "message": 'success in deleting friendship',
             }
         

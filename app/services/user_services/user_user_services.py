@@ -21,7 +21,7 @@ async def confirm_friendship_service(
     try:
         user_accept = await User.get(uid=user_accept_uid)
     except DoesNotExist:
-        raise ValueError("User B does not exist")
+        return False
     
     # 2.用Q对象合并双向查询，同时判断status=1
     try:

@@ -34,7 +34,7 @@ async def login(
 
         except Exception as e:
             err_logger.error(f"something went wrong during setting cookie: {e}")
-            raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器错误，请联系管理员')
+            raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法登录')
         return {
                 "success": True,
                 "message": "登录成功，页面将在5秒后跳转"
@@ -42,15 +42,15 @@ async def login(
 
     elif params.get('message') == 'unknown user agent or client ip':
         err_logger.error('got request for unknown user agent or client ip')
-        raise ClientError(error_code=ErrorCodes.Forbidden, message='禁止无头浏览器或通过代理ip访问')
+        raise ClientError(error_code=ErrorCodes.Forbidden, message='unknown user agent or client ip')
 
     elif params.get('message') == 'password incorrect':
         info_logger.error('login failed, password incorrect')
-        raise ClientError(error_code=ErrorCodes.Forbidden, message='用户名或密码错误')
+        raise ClientError(error_code=ErrorCodes.Forbidden, message='password incorrect')
 
     elif params.get('message') == 'user does not exist':
         info_logger.error('login failed, user does not exist')
-        raise ClientError(error_code=ErrorCodes.Unregistered, message='该用户名尚未注册')
+        raise ClientError(error_code=ErrorCodes.Unregistered, message='user does not exist')
 
 
 @user_router.post('/signup')
@@ -74,4 +74,4 @@ async def signup(signup_params: SignupParams):
         raise ClientError(error_code=ErrorCodes.BadRequest, message='用户名或邮箱已被使用，请重新输入')
     else:
         err_logger.error(f'signup failed course internal server error: {signup_result["message"]}')
-        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，请稍后重试')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能注册账号')

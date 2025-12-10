@@ -10,7 +10,7 @@ from app.services.card_services.card_info_services import (
 from log.log_config.service_logger import err_logger
 
 
-CardType: TypeAlias = Dict[str, bool | str | List[UserCardParams] | UserCardParams | CardParams]
+CardType: TypeAlias = Dict[str, bool | str | Dict[str, List[UserCardParams] | UserCardParams | CardParams]]
 
 
 @card_router.get('/info', response_model=CardType)
@@ -26,12 +26,12 @@ async def query_card_info_endpoint(card_id: int) -> CardType:
         card_info = await query_card_info_service(card_id)
         match card_info:
             case 'card not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未知卡牌。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='card not found')
             case _:
                 return {
                     'success': True,
                     'message': 'success in query card info',
-                    'card_info': card_info
+                    'data': {'card_info': card_info}
                 }
         
     except ErrorCodes as e:
@@ -52,12 +52,12 @@ async def query_card_compose_materials_endpoint(card_id: int) -> CardType:
         compose_materials = await query_card_compose_materials_service(card_id)
         match compose_materials:
             case 'card not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未知卡牌。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='card not found')
             case _:
                 return {
                     'success': True,
                     'message': 'success in query card compose materials',
-                    'compose_materials': compose_materials
+                    'data': {'compose_materials': compose_materials}
                 }
     except ErrorCodes as e:
         err_logger.error(f'failed to query card compose materials: {e} | params: card_id={card_id}')
@@ -77,12 +77,12 @@ async def query_card_decompose_materials_endpoint(card_id: int) -> CardType:
         decompose_materials = await query_card_decompose_materials_service(card_id)
         match decompose_materials:
             case 'card not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未知卡牌。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='card not found')
             case _:
                 return {
                     'success': True,
                     'message': 'success in query card decompose materials',
-                    'decompose_materials': decompose_materials
+                    'data': {'decompose_materials': decompose_materials}
                 }
         
     except ErrorCodes as e:

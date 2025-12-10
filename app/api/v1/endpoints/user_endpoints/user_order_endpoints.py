@@ -13,7 +13,7 @@ from app.services.user_services.user_order_services import (
 from log.log_config.service_logger import err_logger
 
 
-OrdersType: TypeAlias = Dict[str, bool | str | List[OrderParams]]
+OrdersType: TypeAlias = Dict[str, bool | str | Dict[str, List[OrderParams]]]
 
 
 @user_router.get('/orders/waiting', response_model=OrdersType)
@@ -36,7 +36,7 @@ async def get_waiting_orders(
     return {
         'success': True,
         'message': 'get waiting orders successfully',
-        'orders': orders,
+        'data': {'orders': orders}
     }
     
 
@@ -76,16 +76,19 @@ async def complete_order(
             return {
                 'success': True,
                 'message': 'complete order successfully',
-                'exp': result['exp'],
-                'byte': result['byte'],
+                'data': {
+                    'exp': result['exp'],
+                    'byte': result['byte']
+                }
             }
         
     except UnAtomicError as e:
         match e.message:
             case 'order not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='找不到要交付的订单，可能已经过期')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='order not found')
             case 'lack cards':
-                raise ClientError(error_code=ErrorCodes.Conflict, message='订单需要的卡牌不足，无法交付', extra=e.extra)
+                raise ClientError(error_code=ErrorCodes.Conflict, message='lack cards, could not confirm order', extra=e.extra)
+                # 这里会返回JsonResponse{'success': False, 'message': message, 'data': {'lack_cards': list[UserCardParams]}}
     except Exception as e:
         err_logger.error(f'failed to complete order: {e} | params: user_id={user_id}; order_id={order_id}')
 
@@ -117,7 +120,7 @@ async def delete_order(
     except UnAtomicError as e:
         match e.message:
             case 'order not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='找不到要删除的订单，可能已经过期')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='order not found')
     except Exception as e:
         err_logger.error(f'failed to delete order: {e} | params: user_id={user_id}; order_id={order_id}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法删除订单')

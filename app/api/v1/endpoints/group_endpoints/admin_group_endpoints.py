@@ -14,7 +14,7 @@ from app.services.group_services.admin_group_services import (
 )
 from log.log_config.service_logger import err_logger
 
-GroupUsersType: TypeAlias = Dict[str, bool | str | List[UserParams]]
+GroupUsersType: TypeAlias = Dict[str, bool | str | Dict[str, List[UserParams]]]
 
 
 @group_router.get('/{group_uid}/under_review_members', response_model=GroupUsersType)
@@ -36,14 +36,14 @@ async def get_join_request_members_endpoint(
         )
         match response:
             case 'user is not admin':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您不是该群管理员，不能处理入群请求。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not admin')
             case 'group not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未知的群聊。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='group not found')
             case 'success in post group notice':
                 return {
                     'success': True,
                     'message': 'success in get join_request_service',
-                    'under_review_members': response
+                    'data': {'under_review_members': response}
                 }
         
     except Exception as e:
@@ -73,9 +73,9 @@ async def post_group_notice_endpoint(
         )
         match response:
             case 'user is not admin':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您不是该群管理员，不能发布群公告。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not admin')
             case 'group not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未知的群聊。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='group not found')
             case 'success in post group notice':
                 return {
                     'success': True,
@@ -112,9 +112,9 @@ async def handle_join_request_members_endpoint(
         )
         match response:
             case 'user is not admin':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您不是该群管理员，不能处理入群请求。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not admin')
             case 'join request not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未找到该入群请求。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='join request not found')
             case 'success in agree':
                 return {
                     'success': True,
@@ -151,9 +151,9 @@ async def modify_group_info_endpoint(
         )
         match response:
             case 'user is not admin':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您不是该群管理员，不能修改群设置。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not admin')
             case 'group not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='未知的群聊。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='group not found')
             case 'success in modify group info':
                 return {
                     'success': True,
@@ -187,17 +187,17 @@ async def kick_out_member_endpoint(
         )
         match response:
             case 'user is not admin':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您不是该群管理员，不能将其他成员踢出群聊。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not admin')
             case 'member not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不是群成员，无法踢出。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='member not found')
             case 'can not kick out admin':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您没有权限将群管理踢出群聊。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='admin can not kick out admin')
             case 'can not kick out owner':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='您没有权限将群主踢出群聊。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='admin can not kick out owner')
             case 'success in kick out':
                 return {
                     'success': True,
-                    'message': f'玩家{member_uid}已被踢出群聊'
+                    'message': f'user {member_uid} has been kick out',
                 }
         
     except Exception as e:

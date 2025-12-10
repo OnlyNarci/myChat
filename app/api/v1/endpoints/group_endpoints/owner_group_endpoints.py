@@ -35,9 +35,9 @@ async def appoint_group_admin_endpoint(
         )
         match response:
             case 'user is not owner':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能任命管理员。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not owner')
             case 'user not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不是群成员，无法任命为管理员。')
+                raise ClientError(error_code=ErrorCodes.Conflict, message='can not appoint someone who is not member as group admin')
             case 'appoint group admin success':
                 return {
                     'success': True,
@@ -72,9 +72,9 @@ async def dismiss_group_admin_endpoint(
         )
         match response:
             case 'user is not owner':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能撤职管理员。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not owner')
             case 'user not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不是群管理，无法撤职。')
+                raise ClientError(error_code=ErrorCodes.Conflict, message='can not dismiss someone who is not admin')
             case 'dismiss group admin success':
                 return {
                     'success': True,
@@ -110,9 +110,9 @@ async def transfer_group_owner_endpoint(
         )
         match response:
             case 'user is not owner':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能转让群主。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not owner')
             case 'user not found':
-                raise ClientError(error_code=ErrorCodes.NotFound, message='该玩家不是群成员，无法任命为群主。')
+                raise ClientError(error_code=ErrorCodes.Conflict, message='can not transfer someone who is not member as group owner')
             case 'transfer group owner success':
                 return {
                     'success': True,
@@ -145,7 +145,7 @@ async def dissolve_group_endpoint(
         )
         match response:
             case 'user is not owner':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='只有群主才能解散群聊。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='user is not owner')
             case 'delete group success':
                 return {
                     'success': True,

@@ -19,11 +19,11 @@ from app.services.user_services.user_user_services import confirm_friendship_ser
 from log.log_config.service_logger import err_logger
 
 
-CardsType: TypeAlias = Dict[str, bool | str | List[StoreCardParams]]
+CardsType: TypeAlias = Dict[str, bool | str | Dict[str, List[StoreCardParams]]]
 
 
 @store_router.get("/cards", response_model=CardsType)
-async def query_card(
+async def query_card_endpoint(
     user_id: int = Depends(get_current_user_id),
     package: Optional[str] = Query(None, max_length=16),
     name_in: Optional[str] = Query(None, max_length=16),
@@ -52,7 +52,7 @@ async def query_card(
         return {
             'success': True,
             'message': 'query card success',
-            'cards': cards
+            'data': {'cards': cards}
         }
     except Exception as e:
         err_logger.error(f'failed to query card from store: {e} | params: package={package}; name_in={name_in}; price={price_le}; price={price_ge}')
@@ -60,7 +60,7 @@ async def query_card(
 
 
 @store_router.get("/{store_user_uid}/cards", response_model=CardsType)
-async def query_friends_card(
+async def query_friends_card_endpoint(
     store_user_uid: str = Path(max_length=6),
     user_id: int = Depends(get_current_user_id),
 ) -> CardsType:
@@ -79,10 +79,8 @@ async def query_friends_card(
             user_accept_uid=store_user_uid
         )
         if not friendship:
-            raise ClientError(error_code=ErrorCodes.Forbidden, message='对方还不是你的好友，无法查看对方未公开出售的卡牌。')
-    
-    except ValueError:
-        raise ClientError(error_code=ErrorCodes.NotFound, message='未查找到你要查看的玩家。')
+            raise ClientError(error_code=ErrorCodes.Forbidden, message="can't view others store without friendship")
+
     except Exception as e:
         err_logger.error(f'failed to buy card from store: {e} | params: user_id={user_id}; store_user_uid={store_user_uid}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能查看好友商店。')
@@ -99,12 +97,12 @@ async def query_friends_card(
     return {
         'success': True,
         'message': 'query friend card success',
-        'cards': friend_cards
+        'data': {'cards': friend_cards}
     }
     
 
 @store_router.post('/cards', response_model=Dict[str, str | bool])
-async def list_card(
+async def list_card_endpoint(
     card_to_list: StoreCardParams,
     user_id: int = Depends(get_current_user_id),
 ) -> Dict[str, str | bool]:
@@ -121,15 +119,15 @@ async def list_card(
         )
         return {
             'success': True,
-            'message': '成功上架卡牌',
+            'message': 'success in listing card',
         }
     
     except UnAtomicError as e:
         match e.message:
             case 'card not found':
-                raise ClientError(error_code=ErrorCodes.InvalidParams, message='您要上架卡牌不存在。')
+                raise ClientError(error_code=ErrorCodes.InvalidParams, message='card not found')
             case 'card not enough':
-                raise ClientError(error_code=ErrorCodes.Conflict, message='您要上架的卡牌数量不足。')
+                raise ClientError(error_code=ErrorCodes.Conflict, message='card not enough for listing')
         
     except Exception as e:
         err_logger.error(f'failed to list card to store: {e} | params: user_id={user_id}; card_to_list={card_to_list}')
@@ -160,24 +158,24 @@ async def buy_card(
         )
         return {
             'success': True,
-            'message': f'购买卡牌成功，消耗比特: {cost_byte}',
-            'cost_byte': cost_byte
+            'message': f'success to buy card, cost byte: {cost_byte}',
+            'data': {'cost_byte': cost_byte}
         }
     
     except UnAtomicError as e:
         match e.message:
             case 'card not found':
-                raise ClientError(error_code=ErrorCodes.Conflict, message='您要购买的卡牌已经下架或被其他玩家购买，请刷新商店后重试。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='the card you are trying to buy does not exist, please refresh the store and try again')
             case 'card not found with except_slippage':
-                raise ClientError(error_code=ErrorCodes.Conflict, message='您要购买的卡牌已经下架或被其他玩家购买，也没有其他您可以购买的卡牌，请刷新商店后重试。')
+                raise ClientError(error_code=ErrorCodes.NotFound, message='the card you are trying to buy does not exist, please refresh the store and try again')
             case 'can not buy self card':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='不能购买自己上架的卡牌。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='can not buy self card')
             case 'trade today too march':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message=f'交易过于频繁，24小时最多购买卡牌 {extra_params.MAX_TRADE_DAY} 次。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message=f'trading too frequently, you can only trade {extra_params.MAX_TRADE_DAY} times in 24 hour')
             case 'user byte not enough':
-                raise ClientError(error_code=ErrorCodes.Conflict, message=f'比特不足，需要 {e.extra["need_byte"]} 比特。', need_byte=e.extra['need_byte'])
+                raise ClientError(error_code=ErrorCodes.Conflict, message=f'byte not enough, need {e.extra["need_byte"]} byte at least。', need_byte=e.extra['need_byte'])
             case 'user level not enough':
-                raise ClientError(error_code=ErrorCodes.Conflict, message=f'等级不足，需要 {e.extra["unlock_level"]} 解锁', unlock_level=e.extra['unlock_level'])
+                raise ClientError(error_code=ErrorCodes.Conflict, message=f'level not enough, this card will unlock at {e.extra["unlock_level"]} level', unlock_level=e.extra['unlock_level'])
                 
     except Exception as e:
         err_logger.error(f'failed to buy card from store: {e} | params: user_id={user_id}; card_to_buy={card_to_buy}')
@@ -223,30 +221,37 @@ async def buy_friends_card(
         )
         return {
             'success': True,
-            'message': f'购买卡牌成功，花费比特: {cost_byte}。',
-            'cost_byte': cost_byte
+            'message': f'success to buy card, cost byte: {cost_byte}。',
+            'data': {'cost_byte': cost_byte}
         }
     
     except UnAtomicError as e:
         match e.message:
             case 'card not found':
-                raise ClientError(error_code=ErrorCodes.Conflict, message='您要购买的卡牌已经下架或被其他玩家购买，请刷新商店后重试。')
+                raise ClientError(error_code=ErrorCodes.NotFound,
+                                  message='the card you are trying to buy does not exist, please refresh the store and try again')
             case 'card not found with except_slippage':
-                raise ClientError(error_code=ErrorCodes.Conflict, message='您要购买的卡牌已经下架或被其他玩家购买，也没有其他您可以购买的卡牌，请刷新商店后重试。')
+                raise ClientError(error_code=ErrorCodes.NotFound,
+                                  message='the card you are trying to buy does not exist, please refresh the store and try again')
             case 'can not buy self card':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message='不能购买自己上架的卡牌。')
+                raise ClientError(error_code=ErrorCodes.Forbidden, message='can not buy self card')
             case 'trade today too march':
-                raise ClientError(error_code=ErrorCodes.Forbidden, message=f'交易过于频繁，24小时最多购买卡牌 {extra_params.MAX_TRADE_DAY} 次。')
+                raise ClientError(error_code=ErrorCodes.Forbidden,
+                                  message=f'trading too frequently, you can only trade {extra_params.MAX_TRADE_DAY} times in 24 hour')
             case 'user byte not enough':
-                raise ClientError(error_code=ErrorCodes.Conflict, message=f'比特不足，需要 {e.extra["need_byte"]} 比特。', need_byte=e.extra['need_byte'])
+                raise ClientError(error_code=ErrorCodes.Conflict,
+                                  message=f'byte not enough, need {e.extra["need_byte"]} byte at least。',
+                                  need_byte=e.extra['need_byte'])
             case 'user level not enough':
-                raise ClientError(error_code=ErrorCodes.Conflict, message=f'等级不足，需要 {e.extra["unlock_level"]} 解锁', unlock_level=e.extra['unlock_level'])
+                raise ClientError(error_code=ErrorCodes.Conflict,
+                                  message=f'level not enough, this card will unlock at {e.extra["unlock_level"]} level',
+                                  unlock_level=e.extra['unlock_level'])
     
     except Exception as e:
         err_logger.error(f'failed to buy card from store: {e} | params: user_id={user_id}; card_to_buy={card_to_buy}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能购买卡牌。')
-        
-        
+
+
 @store_router.delete('/cards', response_model=Dict[str, str | bool | int])
 async def delist_card(
     card_to_delist: StoreCardParams,
@@ -268,9 +273,11 @@ async def delist_card(
         success_delist = card_to_delist.number - require_num
         return {
             'success': True,
-            'message': f'成功下架{success_delist}张卡牌{f', 在下架的过程中有{require_num}张卡牌被其他玩家购买了' if require_num != 0 else ''}。',
-            'card_to_delist': success_delist,
-            'require_num': require_num
+            'message': f'success to delist {success_delist} cards{f', but {require_num} cards has been bought' if require_num != 0 else ''}。',
+            'data': {
+                'card_to_delist': success_delist,
+                'require_num': require_num
+            }
         }
     
     except UnAtomicError as e:

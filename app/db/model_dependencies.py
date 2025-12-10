@@ -2,12 +2,18 @@ from enum import IntEnum, StrEnum
 
 
 class FriendshipStatus(IntEnum):
+    """
+    好友状态
+    """
     WAITING = 0     # 等待同意
     CONFIRM = 1     # 已经是好友
     BLACK_LIST = 2  # 黑名单
 
 
 class CardRarity(IntEnum):
+    """
+    卡牌稀有度
+    """
     COMMON = 1       # 普通
     RARE = 2         # 稀有
     EPIC = 3         # 史诗
@@ -16,18 +22,24 @@ class CardRarity(IntEnum):
 
 
 class OrderStatus(IntEnum):
-    WAITING = 0
-    CONFIRM = 1
-    TIMEOUT = 2
-    REJECTED = 3
+    """
+    订单状态
+    """
+    WAITING = 0     # 待完成
+    CONFIRM = 1     # 已完成
+    TIMEOUT = 2     # 超时
+    REJECTED = 3    # 用户主动删除
     
 
 class GroupMemberStatus(IntEnum):
-    BLACK_LIST = 0
-    UNDER_REVIEW = 1
-    MEMBER = 2
-    ADMIN = 3
-    OWNER = 4
+    """
+    群成员状态
+    """
+    BLACK_LIST = 0      # 黑名单
+    UNDER_REVIEW = 1    # 申请中
+    MEMBER = 2          # 普通成员
+    ADMIN = 3           # 管理员
+    OWNER = 4           # 群主
 
 
 class MessageType(IntEnum):
