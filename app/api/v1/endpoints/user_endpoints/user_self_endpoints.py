@@ -106,7 +106,7 @@ async def update_self_avatars_endpoint(
     try:
         response = await update_self_avatars_service(
             user_id=user_id,
-            avatars_file=avatars_file
+            file=avatars_file
         )
         match response:
             case 'file not image':

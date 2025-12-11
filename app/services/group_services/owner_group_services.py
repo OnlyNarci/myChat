@@ -1,10 +1,11 @@
 """
 需要群主权限的群聊服务
 """
-from typing import Dict, List, Optional
+from typing import Optional
 from tortoise.transactions import atomic
 from tortoise.exceptions import DoesNotExist
-from app.db.models import Group, GroupUser, GroupMemberStatus
+from app.db.models import Group, GroupUser
+from app.db.model_dependencies import GroupMemberStatus
 
 
 async def confirm_user_is_owner(
@@ -53,21 +54,21 @@ async def delete_group_service(
     return 'delete group success'
 
 
-async def upgrade_group_service(
-    user_id: int,
-    group_uid: str,
-) -> str:
-    """
-    升级群聊
-    
-    :param user_id: 用户id
-    :param group_uid: 要升级的群聊uid
-    :return:
-    """
-    # 1.确认用户是群主
-    owner = await confirm_user_is_owner(user_id, group_uid)
-    if not owner:
-        return 'user is not owner'
+# async def upgrade_group_service(
+#     user_id: int,
+#     group_uid: str,
+# ) -> str:
+#     """
+#     升级群聊
+#
+#     :param user_id: 用户id
+#     :param group_uid: 要升级的群聊uid
+#     :return:
+#     """
+#     # 1.确认用户是群主
+#     owner = await confirm_user_is_owner(user_id, group_uid)
+#     if not owner:
+#         return 'user is not owner'
 
 
 async def appoint_group_admin_service(

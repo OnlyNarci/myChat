@@ -5,7 +5,8 @@ from tortoise.queryset import Q
 from tortoise.transactions import atomic
 from tortoise.exceptions import DoesNotExist
 from app.core.exceptions import UnAtomicError
-from app.db.models import User, Card, UserCard, Package
+from app.db.models import User, Card, UserCard
+from app.db.model_dependencies import Package
 from app.schemas.card_schemas import UserCardParams, PullCardParams
 
 

@@ -10,11 +10,11 @@ from app.services.user_services.user_self_services import create_user
 from log.log_config.service_logger import info_logger, err_logger
 
 
-@user_router.post("/login")
+@user_router.post("/login", response_model=Dict[str, bool | str])
 async def login(
         response: Response,
         params: Dict[str, Union[str, bool]] = Depends(validate_login_request),
-):
+) -> Dict[str, bool | str]:
     """
     发起登录请求
     """
@@ -53,8 +53,8 @@ async def login(
         raise ClientError(error_code=ErrorCodes.Unregistered, message='user does not exist')
 
 
-@user_router.post('/signup')
-async def signup(signup_params: SignupParams):
+@user_router.post('/signup', response_model=Dict[str, bool | str])
+async def signup(signup_params: SignupParams) -> Dict[str, bool | str]:
     """
     发起注册请求
     """

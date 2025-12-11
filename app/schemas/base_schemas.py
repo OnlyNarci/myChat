@@ -1,4 +1,5 @@
 from typing import List
+from datetime import datetime
 from pydantic import Field
 from app.schemas import BaseParams
 from app.schemas.card_schemas import UserCardParams
@@ -25,9 +26,10 @@ class OrderParams(BaseParams):
     """订单参数模型"""
     order_id: int = Field(ge=1, title='订单编号')
     user_id: int = Field(ge=1, title='用户编号')
-    require: List[UserCardParams] = Field(title='订单内容')
-    price: int = Field(ge=0, title='订单价格', description='完成订单可以获得的比特')
+    require_card: List[UserCardParams] = Field(title='订单内容')
+    byte: int = Field(ge=0, title='订单价格', description='完成订单可以获得的比特')
     exp: int = Field(ge=0, title='经验值', description='完成订单获得')
+    expires_at: datetime = Field(title='订单过期时间')
 
 
 class RestaurantParams(BaseParams):

@@ -40,25 +40,25 @@ async def get_waiting_orders(
     }
     
 
-@user_router.get('/orders/new', response_model=OrdersType)
-async def get_new_orders(
-    user_id: int = Depends(get_current_user_id),
-) -> OrdersType:
-    """
-    获取今日新订单（发起这个请求时订单才被创建）
-    
-    :param user_id: 用户id
-    
-    :return: 新的订单
-    """
-    pass
+# @user_router.get('/orders/new', response_model=OrdersType)
+# async def get_new_orders(
+#     user_id: int = Depends(get_current_user_id),
+# ) -> OrdersType:
+#     """
+#     获取今日新订单（发起这个请求时订单才被创建）
+#
+#     :param user_id: 用户id
+#
+#     :return: 新的订单
+#     """
+#     pass
 
 
-@user_router.post('/orders/{order_id}', response_model=Dict[str, bool | str])
+@user_router.post('/orders/{order_id}', response_model=Dict[str, bool | str | Dict[str, int]])
 async def complete_order(
-    order_id: int = Path(),
+    order_id: int = Path(...),
     user_id: int = Depends(get_current_user_id),
-) -> Dict[str, bool | str | int]:
+) -> Dict[str, bool | str | Dict[str, int]]:
     """
     提交物品并完成指定的订单
     
@@ -89,8 +89,11 @@ async def complete_order(
             case 'lack cards':
                 raise ClientError(error_code=ErrorCodes.Conflict, message='lack cards, could not confirm order', extra=e.extra)
                 # 这里会返回JsonResponse{'success': False, 'message': message, 'data': {'lack_cards': list[UserCardParams]}}
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法完成订单')
     except Exception as e:
         err_logger.error(f'failed to complete order: {e} | params: user_id={user_id}; order_id={order_id}')
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法完成订单')
 
 
 @user_router.delete('/orders/{order_id}', response_model=Dict[str, bool | str])
@@ -107,20 +110,21 @@ async def delete_order(
     :return: 删除结果
     """
     try:
-        result = await delete_order_service(
+        await delete_order_service(
             user_id=user_id,
             order_id=order_id,
         )
-        if result is None:
-            return {
-                'success': True,
-                'message': 'delete order successfully',
-            }
+        return {
+            'success': True,
+            'message': 'delete order successfully',
+        }
         
     except UnAtomicError as e:
         match e.message:
             case 'order not found':
                 raise ClientError(error_code=ErrorCodes.NotFound, message='order not found')
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法删除订单')
     except Exception as e:
         err_logger.error(f'failed to delete order: {e} | params: user_id={user_id}; order_id={order_id}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法删除订单')

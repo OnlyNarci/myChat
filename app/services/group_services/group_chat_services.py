@@ -2,7 +2,8 @@ import asyncio
 from datetime import datetime
 from fastapi import WebSocket, WebSocketDisconnect
 from typing import Set, List, Dict
-from app.db.models import User, GroupUser, GroupMessage, GroupMemberStatus, MessageType, Group
+from app.db.models import User, GroupUser, GroupMessage, Group
+from app.db.model_dependencies import GroupMemberStatus, MessageType
 from log.log_config.service_logger import info_logger, err_logger
 
 # 全局连接管理：用户ID -> WebSocket连接
@@ -48,7 +49,7 @@ async def check_group_member(
     return bool(member)
 
 
-async def clean_user_connection(user_id: int):
+async def clean_user_connection(user_id: int) -> None:
     """清理用户连接和群关联"""
     async with lock:
         if user_id in active_connections:
@@ -62,7 +63,7 @@ async def clean_user_connection(user_id: int):
                     del group_online_users[group_id]
                     
                     
-async def broadcast_group_message(group_id: int, message: dict):
+async def broadcast_group_message(group_id: int, message: dict[str, str]) -> None:
     """推送消息到群内所有在线用户"""
     async with lock:
         online_user_ids = group_online_users.get(group_id, set())
@@ -81,7 +82,7 @@ async def group_chat_service(
     user_id: int,
     group_uids: List[str],
     websocket: WebSocket
-):
+) -> None:
     """
     为指定用户创建长连接
     

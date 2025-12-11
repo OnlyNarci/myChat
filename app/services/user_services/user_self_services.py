@@ -100,20 +100,20 @@ async def get_user_info_service(
 @atomic()
 async def update_self_info_service(
     user_id: int,
-    update_params: UserSelfParams,
+    user_info: UserSelfParams,
 ) -> None:
     """
     修改个人信息
     
-    :param user_id:
-    :param update_params:
+    :param user_id: 玩家id
+    :param user_info: 更新后的玩家信息
     
     :return: 修改成功返回 None，否则raise暂时还不知道的错误
     """
     user = await User.filter(id=user_id).select_for_update().first()
-    user.name = update_params.name
-    user.avatar = update_params.avatar
-    user.signature = update_params.signature
+    user.name = user_info.name
+    user.avatar = user_info.avatar
+    user.signature = user_info.signature
     await user.save()
 
 

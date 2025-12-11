@@ -1,5 +1,5 @@
-from fastapi import Depends
-
+from typing import Dict
+from fastapi import Path, Depends
 from app.core.security import get_current_user_id
 from app.core.exceptions import ErrorCodes, ClientError, ServerError
 from app.api.v1.endpoints.group_endpoints import group_router
@@ -12,12 +12,12 @@ from app.services.group_services.owner_group_services import (
 from log.log_config.service_logger import err_logger
 
 
-@group_router.put('/{group_uid}/member/{member_uid}')
+@group_router.put('/{group_uid}/member/{member_uid}', response_model=Dict[str, bool | str])
 async def appoint_group_admin_endpoint(
-    group_uid,
-    member_uid,
+    group_uid: Path(...),
+    member_uid: Path(...),
     user_id: int = Depends(get_current_user_id)
-):
+) -> Dict[str, bool | str]:
     """
     任命群管理员
     
@@ -43,18 +43,20 @@ async def appoint_group_admin_endpoint(
                     'success': True,
                     'message': 'appoint group admin success'
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能任命管理员。')
         
     except Exception as e:
         err_logger.error(f'failed to appoint group admin: {e} | params: user_id={user_id}; group_uid={group_uid}; member_uid={member_uid}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能任命管理员。')
 
 
-@group_router.put('/{group_uid}/admin/{admin_uid}')
+@group_router.put('/{group_uid}/admin/{admin_uid}', response_model=Dict[str, bool | str])
 async def dismiss_group_admin_endpoint(
-    group_uid,
-    admin_uid,
+    group_uid: Path(...),
+    admin_uid: Path(...),
     user_id: int = Depends(get_current_user_id)
-):
+) -> Dict[str, bool | str]:
     """
     撤职群管理员
     
@@ -80,6 +82,8 @@ async def dismiss_group_admin_endpoint(
                     'success': True,
                     'message': 'dismiss group admin success'
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能撤职管理员。')
     
     except Exception as e:
         err_logger.error(
@@ -87,12 +91,12 @@ async def dismiss_group_admin_endpoint(
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能撤职管理员。')
 
 
-@group_router.put('/{group_uid}/owner/{member_uid}')
+@group_router.put('/{group_uid}/owner/{member_uid}', response_model=Dict[str, bool | str])
 async def transfer_group_owner_endpoint(
-    group_uid,
-    member_uid,
+    group_uid: Path(...),
+    member_uid: Path(...),
     user_id: int = Depends(get_current_user_id)
-):
+) -> Dict[str, bool | str]:
     """
     转让群主
 
@@ -118,6 +122,8 @@ async def transfer_group_owner_endpoint(
                     'success': True,
                     'message': 'transfer group owner success'
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能转让群主。')
     
     except Exception as e:
         err_logger.error(
@@ -125,11 +131,11 @@ async def transfer_group_owner_endpoint(
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能转让群主。')
     
     
-@group_router.delete('/{group_uid}')
+@group_router.delete('/{group_uid}', response_model=Dict[str, bool | str])
 async def dissolve_group_endpoint(
-    group_uid,
+    group_uid: Path(...),
     user_id: int = Depends(get_current_user_id)
-):
+) -> Dict[str, bool | str]:
     """
     解散群聊
     
@@ -151,6 +157,8 @@ async def dissolve_group_endpoint(
                     'success': True,
                     'message': 'delete group success'
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能解散群聊。')
     
     except Exception as e:
         err_logger.error(f'failed to dissolve group: {e} | params: user_id={user_id}; group_uid={group_uid}')

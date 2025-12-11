@@ -24,7 +24,7 @@ GroupMessageType: TypeAlias = Dict[str, bool | str | Dict[str, List[GroupMessage
 async def query_groups_not_in_endpoint(
     group_uid: Optional[str] = Query(default=None, max_length=6),
     name_in: Optional[str] = Query(default=None, max_length=16),
-    level_ge: Optional[str] = Query(default=None, ge=0),
+    level_ge: Optional[int] = Query(default=None, ge=0),
 ) -> GroupType:
     """
     查找符合条件的群聊
@@ -110,11 +110,11 @@ async def query_group_notice_endpoint(
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法查看群公告')
 
 
-@group_router.post('/members/owner', response_model=Dict[str, bool | str])
+@group_router.post('/members/owner', response_model=Dict[str, bool | str | Dict[str, str]])
 async def create_group_endpoint(
     group_params: GroupSelfParams,
     user_id: int = Depends(get_current_user_id),
-) -> Dict[str, bool | str]:
+) -> Dict[str, bool | str | Dict[str, str]]:
     try:
         response = await create_group_service(
             user_id=user_id,
@@ -167,6 +167,8 @@ async def join_group_endpoint(
                 'success': True,
                 'message': 'success in sending join request, please wait for accept',
             }
+        case _:
+            raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法加入群聊')
 
 
 @group_router.delete('/{group_uid}/members/me', response_model=Dict[str, bool | str])
@@ -195,6 +197,8 @@ async def leave_group_endpoint(
                     'success': True,
                     'message': 'leave group successfully',
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法退出群聊')
         
     except Exception as e:
         err_logger.error(f'failed to leave group: {e} | params: user_id={user_id}; group_id={group_uid}')

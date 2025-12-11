@@ -2,7 +2,8 @@ from datetime import datetime, UTC
 from typing import List, Dict
 from tortoise.transactions import atomic
 from app.core.exceptions import UnAtomicError
-from app.db.models import User, Card, UserCard, Order, OrderStatus
+from app.db.models import User, Card, UserCard, Order
+from app.db.model_dependencies import OrderStatus
 from app.schemas.base_schemas import OrderParams
 from app.schemas.card_schemas import UserCardParams
 
@@ -39,13 +40,11 @@ async def get_orders_service(
     valid_orders = [order for order in waiting_orders if order.status == OrderStatus.WAITING]
     return [
         OrderParams(
-            id=order.id,
+            order_id=order.id,
             user_id=user_id,
             require_card=order.require_card,
             byte=order.byte,
             exp=order.exp,
-            status=order.status.value,
-            created_at=order.created_at,
             expires_at=order.expires_at
         )
         for order in valid_orders

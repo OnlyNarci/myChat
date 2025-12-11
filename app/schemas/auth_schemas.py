@@ -26,7 +26,7 @@ class SignupParams(BaseParams):
     email: EmailStr
 
     @field_validator('user_name')
-    def validate_username(cls, user_name):
+    def validate_username(cls, user_name: str) -> str:
         if len(user_name) == 0:
             raise ClientError(
                 error_code=ErrorCodes.InvalidParams,
@@ -42,7 +42,7 @@ class SignupParams(BaseParams):
         return user_name
 
     @field_validator('password')
-    def validate_password(cls, password):
+    def validate_password(cls, password: str) -> str:
         if len(password) < 8 or len(password) > 32:
             raise ClientError(
                 error_code=ErrorCodes.InvalidParams,

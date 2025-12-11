@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Union
+from typing import Any, Union
 from pydantic import ValidationError
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi import Request
@@ -57,7 +57,7 @@ class RedirectionError(Exception):
 
 class ClientError(Exception):
     """客户端错误，4头错误码"""
-    def __init__(self, error_code: ErrorCodes, message: str = "", **kwargs):
+    def __init__(self, error_code: ErrorCodes, message: str = "", **kwargs: Any):
         self.error_code: int = error_code.value
         self.status_code: int = error_code.value
         self.message = message
@@ -67,7 +67,7 @@ class ClientError(Exception):
 
 class ServerError(Exception):
     """服务端错误，5头错误码"""
-    def __init__(self, error_code: ErrorCodes, message: str = "", **kwargs):
+    def __init__(self, error_code: ErrorCodes, message: str = "", **kwargs: Any):
         self.error_code: int = error_code.value
         self.status_code: int = error_code.value
         self.message = message
@@ -77,7 +77,7 @@ class ServerError(Exception):
 
 class UnExceptError(Exception):
     """未知错误，错误码1000"""
-    def __init__(self, message: str = "", **kwargs):
+    def __init__(self, message: str = "", **kwargs: Any):
         self.error_code = 1000
         self.status_code = 1000
         self.message = message
@@ -87,7 +87,7 @@ class UnExceptError(Exception):
 
 class UnAtomicError(Exception):
     """用于在一个原子事务内部中断，使事务回滚"""
-    def __init__(self, message: str = "", **kwargs):
+    def __init__(self, message: str = "", **kwargs: Any):
         super().__init__(message)
         self.message = message
         self.extra = kwargs

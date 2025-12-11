@@ -10,7 +10,7 @@ from app.services.card_services.card_info_services import (
 from log.log_config.service_logger import err_logger
 
 
-CardType: TypeAlias = Dict[str, bool | str | Dict[str, List[UserCardParams] | UserCardParams | CardParams]]
+CardType: TypeAlias = Dict[str, bool | str | Dict[str, List[UserCardParams] | UserCardParams | CardParams | str]]
 
 
 @card_router.get('/info', response_model=CardType)
@@ -34,7 +34,7 @@ async def query_card_info_endpoint(card_id: int) -> CardType:
                     'data': {'card_info': card_info}
                 }
         
-    except ErrorCodes as e:
+    except Exception as e:
         err_logger.error(f'failed to query card info: {e} | params: card_id={card_id}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能查看卡牌详情。')
 
@@ -59,7 +59,7 @@ async def query_card_compose_materials_endpoint(card_id: int) -> CardType:
                     'message': 'success in query card compose materials',
                     'data': {'compose_materials': compose_materials}
                 }
-    except ErrorCodes as e:
+    except Exception as e:
         err_logger.error(f'failed to query card compose materials: {e} | params: card_id={card_id}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能查看卡牌详情。')
 
@@ -85,6 +85,6 @@ async def query_card_decompose_materials_endpoint(card_id: int) -> CardType:
                     'data': {'decompose_materials': decompose_materials}
                 }
         
-    except ErrorCodes as e:
+    except Exception as e:
         err_logger.error(f'failed to query card decompose materials: {e} | params: card_id={card_id}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能查看卡牌详情。')

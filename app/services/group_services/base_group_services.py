@@ -7,7 +7,8 @@ from tortoise.transactions import atomic
 from tortoise.exceptions import DoesNotExist
 from app.core.security import generate_unique_uid
 from app.core.extra_params import extra_params
-from app.db.models import Group, GroupUser, GroupMessage, GroupMemberStatus, MessageType
+from app.db.models import Group, GroupUser, GroupMessage
+from app.db.model_dependencies import GroupMemberStatus, MessageType
 from app.schemas.group_schemas import GroupParams, GroupSelfParams, GroupMessageParams
 
 

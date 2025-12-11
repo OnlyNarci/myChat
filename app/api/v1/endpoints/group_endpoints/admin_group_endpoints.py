@@ -45,6 +45,8 @@ async def get_join_request_members_endpoint(
                     'message': 'success in get join_request_service',
                     'data': {'under_review_members': response}
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法查看入群请求。')
         
     except Exception as e:
         err_logger.error(f'failed to get join_request_service: {e} | params: group_uid={group_uid}; user_id={user_id}')
@@ -81,6 +83,9 @@ async def post_group_notice_endpoint(
                     'success': True,
                     'message': 'success in post group notice',
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能发布群公告。')
+        
     except Exception as e:
         err_logger.error(f'failed to post group notice: {e} | params: group_uid={group_uid}; user_id={user_id}; notice={notice}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能发布群公告。')
@@ -125,6 +130,8 @@ async def handle_join_request_members_endpoint(
                     'success': True,
                     'message': 'success in reject member request',
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法处理入群请求。')
                 
     except Exception as e:
         err_logger.error(f'failed to handle join_request_service: {e} | params: is_agree={is_agree}; group_uid={group_uid}; request_user_uid={request_user_uid} user_id={user_id}')
@@ -159,6 +166,9 @@ async def modify_group_info_endpoint(
                     'success': True,
                     'message': 'success in modify group info',
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法修改群设置。')
+        
     except Exception as e:
         err_logger.error(f'failed to modify group_info service: {e} | params: user_id={user_id}; group_params={group_params}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法修改群设置。')
@@ -199,6 +209,8 @@ async def kick_out_member_endpoint(
                     'success': True,
                     'message': f'user {member_uid} has been kick out',
                 }
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法踢出成员。')
         
     except Exception as e:
         err_logger.error(f'failed to kick_out_member_service: {e} | params: group_uid={group_uid}; member_uid={member_uid}; user_id={user_id}')

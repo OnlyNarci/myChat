@@ -128,6 +128,8 @@ async def list_card_endpoint(
                 raise ClientError(error_code=ErrorCodes.InvalidParams, message='card not found')
             case 'card not enough':
                 raise ClientError(error_code=ErrorCodes.Conflict, message='card not enough for listing')
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能上架卡牌。')
         
     except Exception as e:
         err_logger.error(f'failed to list card to store: {e} | params: user_id={user_id}; card_to_list={card_to_list}')
@@ -139,7 +141,7 @@ async def buy_card(
     card_to_buy: StoreCardParams,
     user_id: int = Depends(get_current_user_id),
     except_slippage: Optional[int] = None,
-) -> Dict[str, str | bool | int]:
+) -> Dict[str, str | bool | Dict[str, str | int]]:
     """
     购买商店中的卡牌
 
@@ -176,7 +178,8 @@ async def buy_card(
                 raise ClientError(error_code=ErrorCodes.Conflict, message=f'byte not enough, need {e.extra["need_byte"]} byte at least。', need_byte=e.extra['need_byte'])
             case 'user level not enough':
                 raise ClientError(error_code=ErrorCodes.Conflict, message=f'level not enough, this card will unlock at {e.extra["unlock_level"]} level', unlock_level=e.extra['unlock_level'])
-                
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能购买卡牌。')
     except Exception as e:
         err_logger.error(f'failed to buy card from store: {e} | params: user_id={user_id}; card_to_buy={card_to_buy}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能购买卡牌。')
@@ -187,7 +190,7 @@ async def buy_friends_card(
     card_to_buy: StoreCardParams,
     store_user_uid: str = Path(max_length=6),
     user_id: int = Depends(get_current_user_id),
-) -> Dict[str, str | bool | int]:
+) -> Dict[str, str | bool | Dict[str, str | int]]:
     """
     购买指定uid的玩家商店中指定在售卡牌，目标玩家和当前用户必须是好友
 
@@ -246,6 +249,8 @@ async def buy_friends_card(
                 raise ClientError(error_code=ErrorCodes.Conflict,
                                   message=f'level not enough, this card will unlock at {e.extra["unlock_level"]} level',
                                   unlock_level=e.extra['unlock_level'])
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能购买卡牌。')
     
     except Exception as e:
         err_logger.error(f'failed to buy card from store: {e} | params: user_id={user_id}; card_to_buy={card_to_buy}')
@@ -256,7 +261,7 @@ async def buy_friends_card(
 async def delist_card(
     card_to_delist: StoreCardParams,
     user_id: int = Depends(get_current_user_id),
-) -> Dict[str, str | bool | int]:
+) -> Dict[str, str | bool | Dict[str, str | int]]:
     """
     下架商店中的卡牌
 
@@ -284,6 +289,8 @@ async def delist_card(
         match e.message:
             case 'card not found':
                 raise ClientError(error_code=ErrorCodes.Conflict, message="您上架的卡牌已被购买。")
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能下架卡牌。')
     except Exception as e:
         err_logger.error(f'failed to delist card from store: {e} | params: user_id={user_id}; card_to_delist={card_to_delist}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能下架卡牌。')

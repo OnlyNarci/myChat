@@ -83,6 +83,9 @@ async def pull_card(
                 raise ClientError(error_code=ErrorCodes.InvalidParams, message=f'unknown package: {card_to_pull.package}')
             case 'byte not enough':
                 raise ClientError(error_code=ErrorCodes.Conflict, message=f'byte not enough, need: {card_to_pull.times * 10} byte at least')
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message="服务器维护中，暂时不能抽卡")
+    
     except Exception as e:
         err_logger.error(f'fail to pull card for user: {e} | params: user_id={user_id}; package={card_to_pull.package}; times={card_to_pull.times}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message="服务器维护中，暂时不能抽卡")
@@ -120,6 +123,9 @@ async def compose_card(
                 raise ClientError(error_code=ErrorCodes.Forbidden, message=f'level not enough, this card will unlock at {e.extra['unlock_level']}level。', unlock_level=e.extra['unlock_level'])
             case 'materials not enough':
                 raise ClientError(error_code=ErrorCodes.Conflict, message='lack materials to compose', lack_materials=e.extra['lack_materials'])
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message="服务器维护中，暂时不能合成卡牌")
+   
     except Exception as e:
         err_logger.error(
             f'fail to compose card for user: {e} | params: user_id={user_id}; card_to_compose={card_to_compose}')
@@ -156,6 +162,8 @@ async def decompose_card(
                 raise ClientError(error_code=ErrorCodes.Conflict, message='card not enough for decompose')
             case 'not allow decompose':
                 raise ClientError(error_code=ErrorCodes.Forbidden, message='this card could not decompose')
+            case _:
+                raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法分解卡牌')
     except Exception as e:
         err_logger.error(f'fail to decompose card for user: {e} | params: user_id={user_id}; card_to_decompose={card_to_decompose}')
         raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法分解卡牌')

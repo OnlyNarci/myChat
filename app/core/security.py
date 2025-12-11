@@ -5,7 +5,7 @@ from datetime import datetime, UTC
 from typing import Dict, Optional, Union
 from tortoise.exceptions import DoesNotExist
 from fastapi import Request, Depends
-from app.db import User, UserSession, Group
+from app.db.models import User, UserSession, Group
 from app.core.config import settings
 from app.core.exceptions import ErrorCodes, RedirectionError, ClientError
 

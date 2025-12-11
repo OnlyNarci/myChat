@@ -20,3 +20,15 @@ packages = ["app", "log", "tests"]
 tortoise_orm = "app.core.config.TORTOISE_ORM_CONFIG"
 location = "./migrations"
 src_folder = "./."
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["app/"]
+exclude = [".venv/", "__pycache__/", "tests/", "log/"]
+
+check_untyped_defs = true 
+warn_return_any = true  
+allow_redefinition = true
+strict_optional = true
+
+disallow_incomplete_defs = false 

@@ -19,12 +19,12 @@ class CardParams(BaseParams):
     def __repr__(self):
         return f'<UserCardParams (card_id={self.card_id}; name={self.name}; image={self.image}; rarity={self.rarity}; package={self.package})>'
     
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if not isinstance(other, CardParams):
             return False
         return self.card_id == other.card_id
     
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(self.card_id)
     
     def __getitem__(self, key):

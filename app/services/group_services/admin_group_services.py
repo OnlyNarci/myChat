@@ -3,7 +3,8 @@
 """
 from typing import List
 from tortoise.exceptions import DoesNotExist
-from app.db.models import Group, GroupUser, GroupMessage, GroupMemberStatus, MessageType
+from app.db.models import Group, GroupMessage, GroupUser
+from app.db.model_dependencies import GroupMemberStatus, MessageType
 from app.schemas.group_schemas import GroupUserParams, GroupSelfParams
 from app.schemas.base_schemas import UserParams
 
@@ -58,6 +59,7 @@ async def get_join_request_service(
             UserParams(
                 uid=under_review_member.user.uid,
                 name=under_review_member.user.name,
+                title=under_review_member.user.title,
                 avatar=under_review_member.user.avatar,
                 signature=under_review_member.user.signature,
                 level=under_review_member.user.level,
@@ -231,6 +233,6 @@ async def modify_group_info_service(
     return 'success in modify group info'
 
 
-async def modify_group_setting_service():
-    """修改群设置"""
-    pass
+# async def modify_group_setting_service():
+#     """修改群设置"""
+#     pass

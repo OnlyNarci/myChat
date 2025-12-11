@@ -1,7 +1,8 @@
 from typing import Dict, List
 from tortoise.expressions import Q
 from tortoise.exceptions import DoesNotExist
-from app.db.models import User, UserUser, UserMessage, FriendshipStatus, MessageType
+from app.db.models import User, UserUser, UserMessage
+from app.db.model_dependencies import FriendshipStatus, MessageType
 from app.schemas.auth_schemas import UserParams
 
 
