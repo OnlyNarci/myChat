@@ -51,27 +51,27 @@ async def get_orders_service(
     ]
 
 
-async def generate_order_service(
-    user_id: int,
-) -> List[OrderParams]:
-    """
-    如果今天没有生成过订单，生成24个新订单
-
-    :param user_id: 用户id
-
-    :return: 生成的新订单
-    """
-    # 1.查询今日是否创建过订单，如果已经创建过则返回空列表
-    current_date = datetime.now(UTC).date()
-    current_datetime = datetime(current_date.year, current_date.month, current_date.day)
-    today_orders = await Order.filter(
-        user_id=user_id,
-        created_at__gte=current_datetime
-    )
-    if today_orders:
-        return []
-    
-    # 2.随机生成新的订单并写入数据库和返回
+# async def generate_order_service(
+#     user_id: int,
+# ) -> List[OrderParams]:
+#     """
+#     如果今天没有生成过订单，生成24个新订单
+#
+#     :param user_id: 用户id
+#
+#     :return: 生成的新订单
+#     """
+#     # 1.查询今日是否创建过订单，如果已经创建过则返回空列表
+#     current_date = datetime.now(UTC).date()
+#     current_datetime = datetime(current_date.year, current_date.month, current_date.day)
+#     today_orders = await Order.filter(
+#         user_id=user_id,
+#         created_at__gte=current_datetime
+#     )
+#     if today_orders:
+#         return []
+#
+#     # 2.随机生成新的订单并写入数据库和返回
 
 
 @atomic()

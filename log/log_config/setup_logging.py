@@ -4,9 +4,9 @@ from pathlib import Path
 
 def setup_logging(
         log_path: Path,
-        info_log_name=None,
-        err_log_name=None,
-        logger_name=None,
+        info_log_name: str = None,
+        err_log_name: str = None,
+        logger_name: str = None,
 ) -> list[logging.Logger]:
     """
     配置日志系统，创建正常和异常日志记录器

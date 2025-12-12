@@ -9,7 +9,7 @@ async def group_chat_endpoint(
     websocket: WebSocket,
     group_uids: list[str],
     user_id: int = Depends(get_current_user_id)
-):
+) -> None:
     await websocket.accept()
     await group_chat_service(
         user_id=user_id,

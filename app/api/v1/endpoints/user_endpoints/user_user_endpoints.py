@@ -78,7 +78,8 @@ async def request_friendship(
                 "success": True,
                 'message': f'对方也向你发起了好友请求，{date.today().strftime('%Y年%m月%d日')}，你们成为了好友。'
             }
-        
+        case _:
+            raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能发起好友请求。')
 
 @user_router.put("/friendship/{request_user_uid}", response_model=Dict[str, bool | str])
 async def handle_friend_request(
@@ -114,7 +115,7 @@ async def handle_friend_request(
         case 'friendship has confirm':
             raise ClientError(error_code=ErrorCodes.Conflict, message='friendship has confirm')
         case 'friend request rejected':
-            raise {
+            return {
                 "success": True,
                 "message": f'你拒绝了对方的好友请求。'
             }
@@ -158,4 +159,6 @@ async def delete_friendship(
                 "success": True,
                 "message": 'success in deleting friendship',
             }
+        case _:
+            raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法删除好友。')
         

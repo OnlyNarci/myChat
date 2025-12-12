@@ -51,7 +51,9 @@ async def login(
     elif params.get('message') == 'user does not exist':
         info_logger.error('login failed, user does not exist')
         raise ClientError(error_code=ErrorCodes.Unregistered, message='user does not exist')
-
+    
+    else:
+        raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时无法登录')
 
 @user_router.post('/signup', response_model=Dict[str, bool | str])
 async def signup(signup_params: SignupParams) -> Dict[str, bool | str]:

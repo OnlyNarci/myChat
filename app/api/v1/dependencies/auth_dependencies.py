@@ -8,7 +8,7 @@ from app.core.security import (
 )
 from app.core.config import settings
 from app.schemas.auth_schemas import LoginParams
-from app.db import UserSession
+from app.db.models import UserSession
 
 
 async def create_session(

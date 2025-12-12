@@ -6,14 +6,13 @@ from app.core.config import TORTOISE_ORM_CONFIG, settings
 from app.core.exceptions import RedirectionError, ServerError, ClientError, handle_http_exception
 from app.core.middleware import log_middleware
 from app.core.security import validate_session_request
-from app.api.v1.endpoints import index_router, card_router, user_router, store_router, group_router
+from app.api.v1.endpoints import card_router, user_router, store_router, group_router
 
 
 app = FastAPI(
     dependencies=[Depends(validate_session_request)]
 )
 # 路由分发
-app.include_router(index_router)
 app.include_router(card_router, prefix='/card')
 app.include_router(store_router, prefix='/store')
 app.include_router(user_router, prefix='/player')

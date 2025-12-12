@@ -128,13 +128,13 @@ class Card(Model):
     description = fields.CharField(max_length=255)
     
     # 合成所需材料：格式为 {卡牌ID: 数量}
-    compose_materials = fields.JSONField(
+    compose_materials: Dict[int, int] = fields.JSONField(
         default=dict,
         description='合成所需的卡牌及数量'
     )
     
     # 分解所得产物：格式同上
-    decompose_materials = fields.JSONField(
+    decompose_materials: Dict[int, int] = fields.JSONField(
         default=dict,
         description='分解可获得的卡牌及数量'
     )
@@ -208,7 +208,7 @@ class Group(Model):
     )
     avatar = fields.CharField(default='', max_length=1024, description='群头像在文件服务器中的url')
     signature = fields.CharField(default='', max_length=255, description='群描述')
-    tags = fields.JSONField(default=list, description='群标签字符串列表')
+    tags: List[str] = fields.JSONField(default=list, description='群标签字符串列表')
     level = fields.IntField(default=1, description='群等级，后续可能扩展群权益相应功能，也有可能上工会板块')
     allow_search = fields.BooleanField(default=True, description='是否允许公开搜索')
     join_free = fields.BooleanField(default=True, description='是否允许自由加入(否则需要管理员同意)')
@@ -349,7 +349,7 @@ class Order(Model):
         model_name='models.User',
         related_name='order',
     )
-    require_card = fields.JSONField(default=dict, description='订单需要的卡牌，键为卡牌id，值为数量')
+    require_card: Dict[int, int] = fields.JSONField(default=dict, description='订单需要的卡牌，键为卡牌id，值为数量')
     byte = fields.IntField(description='完成订单可以获得的比特')
     exp = fields.IntField(description='完成订单可以获得的经验')
     status = fields.IntEnumField(

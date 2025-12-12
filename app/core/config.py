@@ -1,5 +1,5 @@
 from pathlib import Path
-from app.utils import find_project_root
+from app.utils.find_project_root import find_project_root
 
 
 class Settings:

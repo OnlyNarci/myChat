@@ -72,15 +72,15 @@ async def complete_order(
             user_id=user_id,
             order_id=order_id,
         )
-        if result:
-            return {
-                'success': True,
-                'message': 'complete order successfully',
-                'data': {
-                    'exp': result['exp'],
-                    'byte': result['byte']
-                }
+
+        return {
+            'success': True,
+            'message': 'complete order successfully',
+            'data': {
+                'exp': result['exp'],
+                'byte': result['byte']
             }
+        }
         
     except UnAtomicError as e:
         match e.message:

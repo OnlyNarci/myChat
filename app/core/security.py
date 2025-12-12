@@ -57,6 +57,7 @@ async def varify_skip_session(request: Request) -> bool:
     for path in skip_paths:
         if path in url:
             return True
+    return False
 
 
 async def verify_session_id(request: Request) -> Optional[str]:
@@ -74,7 +75,7 @@ async def verify_session_id(request: Request) -> Optional[str]:
             ip_address=request.client.host
         ).values('user_id')
 
-        user_id = session_item['user_id']
+        user_id: str = session_item['user_id']
         return user_id
 
     except DoesNotExist:
