@@ -14,8 +14,8 @@ from log.log_config.service_logger import err_logger
 
 @group_router.put('/{group_uid}/member/{member_uid}', response_model=Dict[str, bool | str])
 async def appoint_group_admin_endpoint(
-    group_uid: Path(...),
-    member_uid: Path(...),
+    group_uid: str = Path(...),
+    member_uid: str = Path(...),
     user_id: int = Depends(get_current_user_id)
 ) -> Dict[str, bool | str]:
     """
@@ -53,8 +53,8 @@ async def appoint_group_admin_endpoint(
 
 @group_router.put('/{group_uid}/admin/{admin_uid}', response_model=Dict[str, bool | str])
 async def dismiss_group_admin_endpoint(
-    group_uid: Path(...),
-    admin_uid: Path(...),
+    group_uid: str = Path(...),
+    admin_uid: str = Path(...),
     user_id: int = Depends(get_current_user_id)
 ) -> Dict[str, bool | str]:
     """
@@ -93,8 +93,8 @@ async def dismiss_group_admin_endpoint(
 
 @group_router.put('/{group_uid}/owner/{member_uid}', response_model=Dict[str, bool | str])
 async def transfer_group_owner_endpoint(
-    group_uid: Path(...),
-    member_uid: Path(...),
+    group_uid: str = Path(...),
+    member_uid: str = Path(...),
     user_id: int = Depends(get_current_user_id)
 ) -> Dict[str, bool | str]:
     """
@@ -133,7 +133,7 @@ async def transfer_group_owner_endpoint(
     
 @group_router.delete('/{group_uid}', response_model=Dict[str, bool | str])
 async def dissolve_group_endpoint(
-    group_uid: Path(...),
+    group_uid: str = Path(...),
     user_id: int = Depends(get_current_user_id)
 ) -> Dict[str, bool | str]:
     """

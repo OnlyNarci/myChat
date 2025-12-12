@@ -1,6 +1,6 @@
 from datetime import date
 from typing import List, Dict
-from fastapi import Path, Depends
+from fastapi import Path, Body, Depends
 from app.core.security import get_current_user_id
 from app.core.exceptions import ErrorCodes, ClientError, ServerError
 from app.schemas.auth_schemas import UserParams
@@ -33,7 +33,7 @@ async def get_waiting_accept(
 
 @user_router.post("/friendship/{request_user_uid}", response_model=Dict[str, bool | str])
 async def request_friendship(
-    request_message: str,
+    request_message: str = Body(...),
     request_user_uid: str = Path(max_length=6),
     user_id: int = Depends(get_current_user_id),
 ) -> Dict[str, bool | str]:
@@ -80,6 +80,7 @@ async def request_friendship(
             }
         case _:
             raise ServerError(error_code=ErrorCodes.InternalServerError, message='服务器维护中，暂时不能发起好友请求。')
+
 
 @user_router.put("/friendship/{request_user_uid}", response_model=Dict[str, bool | str])
 async def handle_friend_request(

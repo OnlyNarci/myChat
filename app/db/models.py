@@ -1,3 +1,4 @@
+from typing import Dict, List
 from datetime import date
 from tortoise.models import Model
 from tortoise import fields

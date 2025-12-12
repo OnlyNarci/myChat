@@ -1,4 +1,3 @@
-from .index_endpoints import index_router
 from .card_endpoints import card_router, card_info_endpoints
 from .user_endpoints import user_router, user_self_endpoints, auth_endpoints, user_user_endpoints, user_card_endpoints, user_order_endpoints
 from .store_endpoints import store_router, store_card_endpoints

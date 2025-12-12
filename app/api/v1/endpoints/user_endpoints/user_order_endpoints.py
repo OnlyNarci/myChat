@@ -6,7 +6,7 @@ from app.schemas.base_schemas import OrderParams
 from app.api.v1.endpoints.user_endpoints import user_router
 from app.services.user_services.user_order_services import (
     get_orders_service,
-    generate_order_service,
+    # generate_order_service,
     complete_order_service,
     delete_order_service,
 )

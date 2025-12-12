@@ -200,3 +200,10 @@
 2025-12-09 21:39:53,056 - INFO - Completed: GET http://localhost:8000/player/info/me?t=1765287592742 | Status: 200 | Duration: 0.00s
 2025-12-09 21:39:55,114 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765287595112 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001F6AB5AD710>>
 2025-12-09 21:39:55,119 - INFO - Completed: GET http://localhost:8000/player/info/me?t=1765287595112 | Status: 200 | Duration: 0.00s
+2025-12-12 19:38:49,376 - INFO - Received: GET http://localhost:8000/docs | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001928526A3C0>>
+2025-12-12 19:38:49,378 - INFO - Completed: GET http://localhost:8000/docs | Status: 200 | Duration: 0.00s
+2025-12-12 19:41:37,739 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765539697420 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x00000192853902D0>>
+2025-12-12 19:41:41,512 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765539701499 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x0000019285391450>>
+2025-12-12 19:41:43,123 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765539702805 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001928539AD70>>
+2025-12-12 19:41:44,407 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765539704406 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x000001928539BE10>>
+2025-12-12 19:41:46,808 - INFO - Received: GET http://localhost:8000/player/info/me?t=1765539706489 | ip_address: 127.0.0.1 | payload: <bound method Request.body of <starlette.middleware.base._CachedRequest object at 0x00000192853970B0>>
